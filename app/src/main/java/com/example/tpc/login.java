@@ -17,12 +17,21 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class login extends AppCompatActivity implements View.OnClickListener {
 
     private TextView linkreg;
     private Button loginbutton;
     private EditText logemail,logpassword;
+
+    private String userID;
+    private FirebaseUser user;
+    private DatabaseReference reference;
 
     private FirebaseAuth mauth;
 
@@ -36,6 +45,8 @@ public class login extends AppCompatActivity implements View.OnClickListener {
         logpassword = (EditText)findViewById(R.id.logpassword);
         loginbutton = (Button)findViewById(R.id.loginbutton);
         mauth = FirebaseAuth.getInstance();
+
+
 
         linkreg.setOnClickListener(this);
         loginbutton.setOnClickListener(this);
@@ -81,13 +92,34 @@ public class login extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    user = FirebaseAuth.getInstance().getCurrentUser();
+
+                    reference = FirebaseDatabase.getInstance().getReference("Users");
+                    userID = user.getUid();
 
                     if(user.isEmailVerified()){
-                        startActivity(new Intent(login.this,index.class));
+                        reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                User userProfile = snapshot.getValue(User.class);
+                                if(userProfile != null){
+                                    String check = userProfile.isAdmin;
+                                    if(check.equals("YES")){
+                                        startActivity(new Intent(login.this,adminindex.class));
+                                    }else{
+                                        startActivity(new Intent(login.this,index.class));
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
                     }else{
-                        user.sendEmailVerification();
-                        Toast.makeText(login.this,"Verification Mail Sent",Toast.LENGTH_LONG).show();
+                        Toast.makeText(login.this,"Verify Email before login",Toast.LENGTH_LONG).show();
                     }
                 }else{
                     Toast.makeText(login.this,"Invalid Credentials",Toast.LENGTH_LONG).show();

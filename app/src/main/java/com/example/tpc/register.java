@@ -60,7 +60,8 @@ public class register extends AppCompatActivity implements View.OnClickListener 
         String roll = regroll.getText().toString().trim();
         String email = regemail.getText().toString().trim();
         String pass = regpass.getText().toString().trim();
-        String isAdmin = "NO";
+        String isAdmin;
+        isAdmin = "NO";
 
         if(name.isEmpty()){
             regname.setError("Name is required");

@@ -7,7 +7,7 @@
     tools:context=".index">
 
     <TextView
-        android:id="@+id/username"
+        android:id="@+id/indexusertext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="172dp"
