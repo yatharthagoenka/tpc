@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "47287427030",
+    "project_id": "tpc-app-95331",
+    "storage_bucket": "tpc-app-95331.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:47287427030:android:cd7c7ecc1f3b2041eb8e77",
+        "android_client_info": {
+          "package_name": "com.example.tpc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "47287427030-4d7bbu030v3shkag7gelelih6t9ik3mv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADpGGplwoe2NyFpQGlsmMNuuHJlDy9vBw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "47287427030-4d7bbu030v3shkag7gelelih6t9ik3mv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
