@@ -9,6 +9,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +21,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class register extends AppCompatActivity implements View.OnClickListener {
-    private TextView linklogin,regbutton;
+    private TextView linklogin;
+    private LinearLayout regbutton;
     private EditText regname,regroll,regemail,regpass;
 
     private FirebaseAuth mAuth;
@@ -38,7 +40,7 @@ public class register extends AppCompatActivity implements View.OnClickListener 
         regemail = (EditText)findViewById(R.id.regemail);
         regpass = (EditText)findViewById(R.id.regpassword);
 
-        regbutton = (Button)findViewById(R.id.regbutton);
+        regbutton = (LinearLayout) findViewById(R.id.regbutton);
         regbutton.setOnClickListener(this);
 
         linklogin.setOnClickListener(this);
