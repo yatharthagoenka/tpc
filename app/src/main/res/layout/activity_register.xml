@@ -118,6 +118,23 @@ tools:context=".login">
         app:layout_constraintTop_toBottomOf="@+id/regroll" />
 
     <EditText
+        android:id="@+id/regplink"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:hint="LinkedIn Profile"
+        android:inputType="text"
+        android:letterSpacing="0.20"
+        android:textColor="@color/white"
+        android:textColorHint="#b8b8b8"
+        android:textSize="16sp"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/regemail" />
+
+    <EditText
         android:id="@+id/regpassword"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
@@ -132,16 +149,17 @@ tools:context=".login">
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/regemail" />
+        app:layout_constraintTop_toBottomOf="@id/regplink" />
 
     <LinearLayout
         android:id="@+id/regbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="44dp"
         android:background="@drawable/border"
         android:clickable="true"
         android:padding="10dp"
+        app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/regpassword">
@@ -174,7 +192,7 @@ tools:context=".login">
         android:id="@+id/linklogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="52dp"
         android:text="Login"
         android:textColor="@color/white"

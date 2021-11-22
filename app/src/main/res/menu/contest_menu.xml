@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <item
+            android:id="@+id/contestmenu_all"
+            android:title="All"
+            app:cnb_backgroundColor="#ff7038"
+            app:cnb_textColor="@color/white"
+            />
+
+        <item
+            android:id="@+id/contestmenu_cc"
+            android:title="Codechef"
+            android:icon="@drawable/cc_icon"
+            app:cnb_backgroundColor="#ff7038"
+            app:cnb_textColor="@color/white"
+            />
+
+        <item
+            android:id="@+id/contestmenu_cf"
+            android:title="Codeforces"
+            app:cnb_backgroundColor="#ff7038"
+            app:cnb_textColor="@color/white"
+            />
+
+        <item
+            android:id="@+id/contestmenu_ac"
+            android:title="AtCoder"
+            app:cnb_backgroundColor="#ff7038"
+            app:cnb_textColor="@color/white"
+            />
+
+</menu>

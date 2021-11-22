@@ -1,29 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".index">
+    tools:context=".index"
+    android:id="@+id/u_fragment_container">
 
-    <TextView
-        android:id="@+id/indexusertext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="172dp"
-        android:layout_marginTop="152dp"
-        android:text="Username"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <com.ismaeldivita.chipnavigation.ChipNavigationBar
+        android:id="@+id/user_bn_bar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bottonmav_corner"
+        app:cnb_unselectedColor="@color/black"
+        app:cnb_radius="6dp"
+        app:cnb_orientationMode="horizontal"
+        android:layout_margin="30dp"
+        android:elevation="8dp"
+        app:cnb_menuResource="@menu/bottom_nav_menu" />
 
-    <Button
-        android:id="@+id/logoutbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Logout"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.644" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
+

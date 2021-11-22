@@ -111,7 +111,7 @@ public class login extends AppCompatActivity implements View.OnClickListener {
                 firebaseAuthWithGoogle(account.getIdToken());
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
-                Toast.makeText(this, "TEST", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Connection Error. Try again", Toast.LENGTH_SHORT).show();
             }
         }
     }

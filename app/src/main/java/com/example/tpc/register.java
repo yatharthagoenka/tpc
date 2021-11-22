@@ -23,7 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class register extends AppCompatActivity implements View.OnClickListener {
     private TextView linklogin;
     private LinearLayout regbutton;
-    private EditText regname,regroll,regemail,regpass;
+    private EditText regname,regroll,regemail,regpass,regplink;
 
     private FirebaseAuth mAuth;
 
@@ -38,6 +38,7 @@ public class register extends AppCompatActivity implements View.OnClickListener 
         regname = (EditText)findViewById(R.id.regname);
         regroll = (EditText)findViewById(R.id.regroll);
         regemail = (EditText)findViewById(R.id.regemail);
+        regplink = (EditText)findViewById(R.id.regplink);
         regpass = (EditText)findViewById(R.id.regpassword);
 
         regbutton = (LinearLayout) findViewById(R.id.regbutton);
@@ -62,6 +63,7 @@ public class register extends AppCompatActivity implements View.OnClickListener 
         String roll = regroll.getText().toString().trim();
         String email = regemail.getText().toString().trim();
         String pass = regpass.getText().toString().trim();
+        String plink = regplink.getText().toString().trim();
         String isAdmin;
         isAdmin = "NO";
 
@@ -101,7 +103,7 @@ public class register extends AppCompatActivity implements View.OnClickListener 
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            User user = new User(name,roll,email,isAdmin);
+                            User user = new User(name,roll,email,isAdmin,plink);
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -110,7 +112,7 @@ public class register extends AppCompatActivity implements View.OnClickListener 
                                     if(task.isSuccessful()){
                                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                         user.sendEmailVerification();
-                                        Toast.makeText(register.this,"Registration Successful",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(register.this,"Verification Mail Sent",Toast.LENGTH_LONG).show();
                                     }
                                     else{
                                         Toast.makeText(register.this,"Failed to register",Toast.LENGTH_LONG).show();
