@@ -20,14 +20,21 @@
         app:cnb_menuResource="@menu/contest_menu" />
 
 
-    <TextView
-        android:id="@+id/contestlisttest"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Choose Platform"
-        android:layout_marginTop="120dp"
-        android:gravity="center_horizontal"
+<!--    <TextView-->
+<!--        android:id="@+id/contestlisttest"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Choose Platform"-->
+<!--        android:layout_marginTop="120dp"-->
+<!--        android:gravity="center_horizontal"-->
 
+<!--        />-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/contestRV"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp"
         />
 
 

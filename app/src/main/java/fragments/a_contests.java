@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Html;
@@ -22,7 +23,9 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.example.tpc.ContestAdapter;
 import com.example.tpc.R;
+import com.example.tpc.contestModel;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 import org.json.JSONArray;
@@ -39,7 +42,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Vector;
@@ -50,15 +56,19 @@ import static java.lang.StrictMath.abs;
 public class a_contests extends Fragment {
 
     View view;
-    private TextView contestlisttest;
+//    private TextView contestlisttest;
     private Vector<Vector<String>> resultdata;
     ChipNavigationBar chipNavigationBar;
+
+    private RecyclerView contestRV;
+    private ArrayList<contestModel> contestModelArrayList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_a_contests, container, false);
-        contestlisttest = view.findViewById(R.id.contestlisttest);
+//        contestlisttest = view.findViewById(R.id.contestlisttest);
         chipNavigationBar = view.findViewById(R.id.contest_menubar);
+        contestRV = view.findViewById(R.id.contestRV);
         resultdata = new Vector<Vector<String>>();
 
         chipNavigationBar.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
@@ -141,8 +151,25 @@ public class a_contests extends Fragment {
                     String id = c.getString("contest_code");
                     String platform = "Codechef";
                     String name = c.getString("contest_name");
-                    String start = c.getString("contest_start_date");
-                    String duration = c.getString("contest_duration");
+
+                    String tmp_start = c.getString("contest_start_date");
+                    String[] ts = tmp_start.split(" ");
+                    String ts_v;
+                    if(ts[1]=="Jan") ts_v="01";
+                    else if(ts[1]=="Feb") ts_v="02";
+                    else if(ts[1]=="Mar") ts_v="03";
+                    else if(ts[1]=="Apr") ts_v="04";
+                    else if(ts[1]=="May") ts_v="05";
+                    else if(ts[1]=="Jun") ts_v="06";
+                    else if(ts[1]=="Jul") ts_v="07";
+                    else if(ts[1]=="Aug") ts_v="08";
+                    else if(ts[1]=="Sep") ts_v="09";
+                    else if(ts[1]=="Oct") ts_v="10";
+                    else if(ts[1]=="Nov") ts_v="11";
+                    else ts_v="12";
+                    String start = ts[0]+"-"+ts_v+"-"+ts[2];
+
+                    String duration = String.valueOf(Integer.parseInt(c.getString("contest_duration"))/60)+" H";
                     String link = "https://www.codechef.com/"+id+"?itm_campaign=contest_listing";
                     Vector<String> tmp = new Vector<String>();
                     tmp.add(platform);
@@ -152,7 +179,8 @@ public class a_contests extends Fragment {
                     tmp.add(link);
                     resultdata.add(tmp);
                 }
-                contestlisttest.setText(String.valueOf(resultdata));
+//                contestlisttest.setText(String.valueOf(resultdata));
+                setToAdapter();
 //                Log.d("cc future", String.valueOf(result));
             }catch(Exception e){
                 e.printStackTrace();
@@ -204,14 +232,17 @@ public class a_contests extends Fragment {
                     String platform = "Codeforces";
                     String id = c.getString("id");
                     String name = c.getString("name");
-                    String duration = String.valueOf(Integer.parseInt(c.getString("durationSeconds"))/60);
+                    String duration = String.valueOf(Integer.parseInt(c.getString("durationSeconds"))/3600)+" H";
 
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                     Calendar cal = Calendar.getInstance();
                     cal.setTime(new Date());
                     int t = (abs(Integer.parseInt(c.getString("relativeTimeSeconds"))))/86400;
                     cal.add(Calendar.DATE, t);
-                    String start = sdf.format(cal.getTime());
+                    String tmp_start = sdf.format(cal.getTime());
+
+                    String[] ts = tmp_start.split("/");
+                    String start = ts[0]+"-"+ts[1]+"-"+ts[2];
 
                     String link = "https://codeforces.com/contestRegistration/"+id;
                     Vector<String> tmp = new Vector<String>();
@@ -222,7 +253,8 @@ public class a_contests extends Fragment {
                     tmp.add(link);
                     resultdata.add(tmp);
                 }
-                contestlisttest.setText(String.valueOf(resultdata));
+//                contestlisttest.setText(String.valueOf(resultdata));
+                setToAdapter();
 //                Log.d("cf future", String.valueOf(result));
             }catch(Exception e){
                 e.printStackTrace();
@@ -257,21 +289,49 @@ public class a_contests extends Fragment {
                 String link = "https://atcoder.jp"+e.select("td+td a").attr("href");
 //                    Log.i("testlinksac",link);
                 String name = e.select("td+td a").text();
-                String start = e.select("td a time").text();
-                String duration = e.select("td+td+td").text();
+                String tmp_start = (e.select("td a time").text()).split(" ")[0];
+
+                String[] ts = tmp_start.split("-");
+                String start = ts[2]+"-"+ts[1]+"-"+ts[0];
+
+                String td = e.select("td+td+td").text();
+                String[] arrDuration = td.split("-");
+                String tmp_dur = arrDuration[0];
+                arrDuration = tmp_dur.split(":");
+                tmp_dur = arrDuration[0].split("0")[1]+" H "+arrDuration[1]+"M";
 
                 Vector<String> tmp = new Vector<String>();
                 tmp.add(platform);
                 tmp.add(name);
                 tmp.add(start);
-                tmp.add(duration);
+                tmp.add(tmp_dur);
                 tmp.add(link);
 
 //                Log.i("tmptest",String.valueOf(tmp));
                 resultdata.add(tmp);
             }
-            contestlisttest.setText(String.valueOf(resultdata));
+//            contestlisttest.setText(String.valueOf(resultdata));
+            setToAdapter();
         }
+    }
+
+    void setToAdapter(){
+        Collections.sort(resultdata, new Comparator<Vector<String>>(){
+            @Override  public int compare(Vector<String> v1, Vector<String> v2) {
+                return v1.get(3).compareTo(v2.get(3)); //If you order by 2nd element in row
+            }});
+
+
+        contestModelArrayList = new ArrayList<>();
+
+        for(int i=0;i<resultdata.size();i++){
+            contestModelArrayList.add(new contestModel(resultdata.get(i).get(1), resultdata.get(i).get(2), resultdata.get(i).get(3),resultdata.get(i).get(4),resultdata.get(i).get(0)));
+        }
+
+        ContestAdapter contestAdapter = new ContestAdapter(getActivity(), contestModelArrayList);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        contestRV.setLayoutManager(linearLayoutManager);
+        contestRV.setAdapter(contestAdapter);
     }
 
 
