@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.PopupMenu;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.tpc.ContestAdapter;
@@ -59,6 +60,7 @@ public class a_contests extends Fragment {
 //    private TextView contestlisttest;
     private Vector<Vector<String>> resultdata;
     ChipNavigationBar chipNavigationBar;
+    private ProgressBar progressBar;
 
     private RecyclerView contestRV;
     private ArrayList<contestModel> contestModelArrayList;
@@ -68,7 +70,14 @@ public class a_contests extends Fragment {
         view = inflater.inflate(R.layout.fragment_a_contests, container, false);
 //        contestlisttest = view.findViewById(R.id.contestlisttest);
         chipNavigationBar = view.findViewById(R.id.contest_menubar);
+        chipNavigationBar.setItemSelected(R.id.contestmenu_all,true);
         contestRV = view.findViewById(R.id.contestRV);
+
+        progressBar = view.findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
+
+        all_contest_fetch();
+
         resultdata = new Vector<Vector<String>>();
 
         chipNavigationBar.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
@@ -78,25 +87,24 @@ public class a_contests extends Fragment {
                 switch (i) {
                     case R.id.contestmenu_all:
                         resultdata.clear();
-                        CC_list cclist2 = new CC_list();
-                        cclist2.execute("https://www.codechef.com/api/list/contests/all?sort_by=START&sorting_order=asc&offset=0&mode=premium");
-                        CF_list cflist2 = new CF_list();
-                        cflist2.execute("https://codeforces.com/api/contest.list?gym=false");
-                        AC_list aclist2 = new AC_list();
-                        aclist2.execute();
+                        progressBar.setVisibility(View.VISIBLE);
+                        all_contest_fetch();
                         break;
                     case R.id.contestmenu_cc:
                         resultdata.clear();
+                        progressBar.setVisibility(View.VISIBLE);
                         CC_list cclist = new CC_list();
                         cclist.execute("https://www.codechef.com/api/list/contests/all?sort_by=START&sorting_order=asc&offset=0&mode=premium");
                         break;
                     case R.id.contestmenu_cf:
                         resultdata.clear();
+                        progressBar.setVisibility(View.VISIBLE);
                         CF_list cflist = new CF_list();
                         cflist.execute("https://codeforces.com/api/contest.list?gym=false");
                         break;
                     case R.id.contestmenu_ac:
                         resultdata.clear();
+                        progressBar.setVisibility(View.VISIBLE);
                         AC_list aclist = new AC_list();
                         aclist.execute();
                         break;
@@ -105,6 +113,15 @@ public class a_contests extends Fragment {
         });
 
         return view;
+    }
+
+    public void all_contest_fetch(){
+        CC_list cclist2 = new CC_list();
+        cclist2.execute("https://www.codechef.com/api/list/contests/all?sort_by=START&sorting_order=asc&offset=0&mode=premium");
+        CF_list cflist2 = new CF_list();
+        cflist2.execute("https://codeforces.com/api/contest.list?gym=false");
+        AC_list aclist2 = new AC_list();
+        aclist2.execute();
     }
 
 
@@ -168,10 +185,12 @@ public class a_contests extends Fragment {
                     else if(ts[1]=="Nov") ts_v="11";
                     else ts_v="12";
                     String start = ts[0]+"-"+ts_v+"-"+ts[2];
+                    String date_compare = ts[2]+ts_v+ts[0];
 
                     String duration = String.valueOf(Integer.parseInt(c.getString("contest_duration"))/60)+" H";
                     String link = "https://www.codechef.com/"+id+"?itm_campaign=contest_listing";
                     Vector<String> tmp = new Vector<String>();
+                    tmp.add(date_compare);
                     tmp.add(platform);
                     tmp.add(name);
                     tmp.add(start);
@@ -243,9 +262,11 @@ public class a_contests extends Fragment {
 
                     String[] ts = tmp_start.split("/");
                     String start = ts[0]+"-"+ts[1]+"-"+ts[2];
+                    String date_compare = ts[2]+ts[1]+ts[0];
 
                     String link = "https://codeforces.com/contestRegistration/"+id;
                     Vector<String> tmp = new Vector<String>();
+                    tmp.add(date_compare);
                     tmp.add(platform);
                     tmp.add(name);
                     tmp.add(start);
@@ -293,6 +314,7 @@ public class a_contests extends Fragment {
 
                 String[] ts = tmp_start.split("-");
                 String start = ts[2]+"-"+ts[1]+"-"+ts[0];
+                String date_compare = ts[0]+ts[1]+ts[2];
 
                 String td = e.select("td+td+td").text();
                 String[] arrDuration = td.split("-");
@@ -301,6 +323,7 @@ public class a_contests extends Fragment {
                 tmp_dur = arrDuration[0].split("0")[1]+" H "+arrDuration[1]+"M";
 
                 Vector<String> tmp = new Vector<String>();
+                tmp.add(date_compare);
                 tmp.add(platform);
                 tmp.add(name);
                 tmp.add(start);
@@ -318,16 +341,16 @@ public class a_contests extends Fragment {
     void setToAdapter(){
         Collections.sort(resultdata, new Comparator<Vector<String>>(){
             @Override  public int compare(Vector<String> v1, Vector<String> v2) {
-                return v1.get(3).compareTo(v2.get(3)); //If you order by 2nd element in row
+                return v1.get(0).compareTo(v2.get(0)); //If you order by 2nd element in row
             }});
 
 
         contestModelArrayList = new ArrayList<>();
 
         for(int i=0;i<resultdata.size();i++){
-            contestModelArrayList.add(new contestModel(resultdata.get(i).get(1), resultdata.get(i).get(2), resultdata.get(i).get(3),resultdata.get(i).get(4),resultdata.get(i).get(0)));
+            contestModelArrayList.add(new contestModel(resultdata.get(i).get(2), resultdata.get(i).get(3), resultdata.get(i).get(4),resultdata.get(i).get(5),resultdata.get(i).get(1)));
         }
-
+        progressBar.setVisibility(View.GONE);
         ContestAdapter contestAdapter = new ContestAdapter(getActivity(), contestModelArrayList);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         contestRV.setLayoutManager(linearLayoutManager);

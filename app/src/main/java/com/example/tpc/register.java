@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +24,8 @@ import com.google.firebase.database.FirebaseDatabase;
 public class register extends AppCompatActivity implements View.OnClickListener {
     private TextView linklogin;
     private LinearLayout regbutton;
-    private EditText regname,regroll,regemail,regpass,regplink;
+    private EditText regname,regroll,regemail,regpass;
+    private ProgressBar progressBar;
 
     private FirebaseAuth mAuth;
 
@@ -38,8 +40,10 @@ public class register extends AppCompatActivity implements View.OnClickListener 
         regname = (EditText)findViewById(R.id.regname);
         regroll = (EditText)findViewById(R.id.regroll);
         regemail = (EditText)findViewById(R.id.regemail);
-        regplink = (EditText)findViewById(R.id.regplink);
         regpass = (EditText)findViewById(R.id.regpassword);
+
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.GONE);
 
         regbutton = (LinearLayout) findViewById(R.id.regbutton);
         regbutton.setOnClickListener(this);
@@ -63,7 +67,6 @@ public class register extends AppCompatActivity implements View.OnClickListener 
         String roll = regroll.getText().toString().trim();
         String email = regemail.getText().toString().trim();
         String pass = regpass.getText().toString().trim();
-        String plink = regplink.getText().toString().trim();
         String isAdmin;
         isAdmin = "NO";
 
@@ -98,12 +101,14 @@ public class register extends AppCompatActivity implements View.OnClickListener 
             return;
         }
 
+        progressBar.setVisibility(View.VISIBLE);
+
         mAuth.createUserWithEmailAndPassword(email,pass)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            User user = new User(name,roll,email,isAdmin,plink);
+                            User user = new User(name,roll,email,isAdmin);
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -112,15 +117,18 @@ public class register extends AppCompatActivity implements View.OnClickListener 
                                     if(task.isSuccessful()){
                                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                         user.sendEmailVerification();
+                                        progressBar.setVisibility(View.GONE);
                                         Toast.makeText(register.this,"Verification Mail Sent",Toast.LENGTH_LONG).show();
                                     }
                                     else{
+                                        progressBar.setVisibility(View.GONE);
                                         Toast.makeText(register.this,"Failed to register",Toast.LENGTH_LONG).show();
                                     }
                                 }
                             });
                         }
                         else{
+                            progressBar.setVisibility(View.GONE);
                             Toast.makeText(register.this,"Failed to register",Toast.LENGTH_LONG).show();
                         }
                     }

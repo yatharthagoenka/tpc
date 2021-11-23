@@ -5,6 +5,7 @@
         <item
             android:id="@+id/contestmenu_all"
             android:title="All"
+            android:icon="@drawable/all_c"
             app:cnb_backgroundColor="#ff7038"
             app:cnb_textColor="@color/white"
             />
@@ -12,7 +13,7 @@
         <item
             android:id="@+id/contestmenu_cc"
             android:title="Codechef"
-            android:icon="@drawable/cc_icon"
+            android:icon="@drawable/ic_icon"
             app:cnb_backgroundColor="#ff7038"
             app:cnb_textColor="@color/white"
             />
@@ -20,6 +21,7 @@
         <item
             android:id="@+id/contestmenu_cf"
             android:title="Codeforces"
+            android:icon="@drawable/cf_icon"
             app:cnb_backgroundColor="#ff7038"
             app:cnb_textColor="@color/white"
             />
@@ -28,6 +30,7 @@
             android:id="@+id/contestmenu_ac"
             android:title="AtCoder"
             app:cnb_backgroundColor="#ff7038"
+            android:icon="@drawable/ac_icon"
             app:cnb_textColor="@color/white"
             />
 

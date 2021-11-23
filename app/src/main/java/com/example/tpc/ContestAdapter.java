@@ -1,7 +1,10 @@
 package com.example.tpc;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
+import android.telecom.Call;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +53,16 @@ public class ContestAdapter extends RecyclerView.Adapter<ContestAdapter.Viewhold
             holder.contestCardTopBar.setBackgroundColor(Color.parseColor("#e785ff"));
         }
 
+        holder.cardlayout.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                final String website = model.getContestLink();
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(website));
+                context.startActivity(browserIntent);
+            }
+        });
+
 
     }
 
@@ -64,7 +77,7 @@ public class ContestAdapter extends RecyclerView.Adapter<ContestAdapter.Viewhold
     // your views such as TextView and Imageview.
     public class Viewholder extends RecyclerView.ViewHolder {
         private TextView contestName, contestStart,contestDuration;
-        private RelativeLayout contestCardTopBar;
+        private RelativeLayout contestCardTopBar,cardlayout;
 
         public Viewholder(@NonNull View itemView) {
             super(itemView);
@@ -72,6 +85,7 @@ public class ContestAdapter extends RecyclerView.Adapter<ContestAdapter.Viewhold
             contestStart = itemView.findViewById(R.id.contestStart);
             contestDuration = itemView.findViewById(R.id.contestDuration);
             contestCardTopBar = itemView.findViewById(R.id.contestCardTopBar);
+            cardlayout = itemView.findViewById(R.id.cardlayout);
         }
     }
 }

@@ -118,23 +118,6 @@ tools:context=".login">
         app:layout_constraintTop_toBottomOf="@+id/regroll" />
 
     <EditText
-        android:id="@+id/regplink"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:hint="LinkedIn Profile"
-        android:inputType="text"
-        android:letterSpacing="0.20"
-        android:textColor="@color/white"
-        android:textColorHint="#b8b8b8"
-        android:textSize="16sp"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/regemail" />
-
-    <EditText
         android:id="@+id/regpassword"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
@@ -149,7 +132,7 @@ tools:context=".login">
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/regplink" />
+        app:layout_constraintTop_toBottomOf="@id/regemail" />
 
     <LinearLayout
         android:id="@+id/regbutton"
@@ -199,6 +182,17 @@ tools:context=".login">
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/regbutton" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
