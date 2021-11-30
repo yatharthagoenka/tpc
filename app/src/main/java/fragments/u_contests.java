@@ -1,8 +1,10 @@
 package fragments;
 
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +18,7 @@ import android.widget.ProgressBar;
 import com.example.tpc.ContestAdapter;
 import com.example.tpc.R;
 import com.example.tpc.contestModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 import org.json.JSONArray;
@@ -30,11 +33,16 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Vector;
 
 import static java.lang.StrictMath.abs;
@@ -42,8 +50,10 @@ import static java.lang.StrictMath.abs;
 public class u_contests extends Fragment {
 
     View view;
-    private Vector<Vector<String>> resultdata;
+    private int tab;
+    private Vector<Vector<String>> resultdata_All,resultdata_AC,resultdata_CF,resultdata_CC;
     ChipNavigationBar chipNavigationBar;
+    private FloatingActionButton floatingActionButton;
 
     private RecyclerView contestRV;
     private ArrayList<contestModel> contestModelArrayList;
@@ -55,13 +65,19 @@ public class u_contests extends Fragment {
         chipNavigationBar = view.findViewById(R.id.contest_menubar);
         chipNavigationBar.setItemSelected(R.id.contestmenu_all,true);
         contestRV = view.findViewById(R.id.contestRV);
+        floatingActionButton = view.findViewById(R.id.refreshContestButton);
 
         progressBar = view.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
 
         all_contest_fetch();
 
-        resultdata = new Vector<Vector<String>>();
+        resultdata_All = new Vector<Vector<String>>();
+        resultdata_CF = new Vector<Vector<String>>();
+        resultdata_CC = new Vector<Vector<String>>();
+        resultdata_AC = new Vector<Vector<String>>();
+
+        tab = 1;
 
         chipNavigationBar.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
             @Override
@@ -69,24 +85,48 @@ public class u_contests extends Fragment {
                 Fragment fragment = null;
                 switch (i) {
                     case R.id.contestmenu_all:
-                        resultdata.clear();
+                        tab = 1;
+                        setToAdapter();
+                        break;
+                    case R.id.contestmenu_cc:
+                        tab = 2;
+                        setToAdapter();
+                        break;
+                    case R.id.contestmenu_cf:
+                        tab = 3;
+                        setToAdapter();
+                        break;
+                    case R.id.contestmenu_ac:
+                        tab = 4;
+                        setToAdapter();
+                        break;
+                }
+            }
+        });
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch(tab){
+                    case 1:
+                        resultdata_All.clear();
                         progressBar.setVisibility(View.VISIBLE);
                         all_contest_fetch();
                         break;
-                    case R.id.contestmenu_cc:
-                        resultdata.clear();
+                    case 2:
+                        resultdata_CC.clear();
                         progressBar.setVisibility(View.VISIBLE);
                         CC_list cclist = new CC_list();
                         cclist.execute("https://www.codechef.com/api/list/contests/all?sort_by=START&sorting_order=asc&offset=0&mode=premium");
                         break;
-                    case R.id.contestmenu_cf:
-                        resultdata.clear();
+                    case 3:
+                        resultdata_CF.clear();
                         progressBar.setVisibility(View.VISIBLE);
                         CF_list cflist = new CF_list();
                         cflist.execute("https://codeforces.com/api/contest.list?gym=false");
                         break;
-                    case R.id.contestmenu_ac:
-                        resultdata.clear();
+                    case 4:
+                        resultdata_AC.clear();
                         progressBar.setVisibility(View.VISIBLE);
                         AC_list aclist = new AC_list();
                         aclist.execute();
@@ -167,8 +207,8 @@ public class u_contests extends Fragment {
                     else if(ts[1]=="Oct") ts_v="10";
                     else if(ts[1]=="Nov") ts_v="11";
                     else ts_v="12";
-                    String start = ts[0]+"-"+ts_v+"-"+ts[2];
-                    String date_compare = ts[2]+ts_v+ts[0];
+                    String start = ts[0]+"-"+ts_v+"-"+ts[2]+" | "+ts[4];
+                    String date_compare = ts[2]+ts_v+ts[0]+ts[4];
 
                     String duration = String.valueOf(Integer.parseInt(c.getString("contest_duration"))/60)+" H";
                     String link = "https://www.codechef.com/"+id+"?itm_campaign=contest_listing";
@@ -179,7 +219,10 @@ public class u_contests extends Fragment {
                     tmp.add(start);
                     tmp.add(duration);
                     tmp.add(link);
-                    resultdata.add(tmp);
+
+                    resultdata_All.add(tmp);
+                    resultdata_CC.add(tmp);
+
                 }
 //                contestlisttest.setText(String.valueOf(resultdata));
                 setToAdapter();
@@ -220,6 +263,7 @@ public class u_contests extends Fragment {
                 return null;
             }
         }
+        @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
@@ -236,16 +280,25 @@ public class u_contests extends Fragment {
                     String name = c.getString("name");
                     String duration = String.valueOf(Integer.parseInt(c.getString("durationSeconds"))/3600)+" H";
 
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                    Calendar cal = Calendar.getInstance();
-                    cal.setTime(new Date());
-                    int t = (abs(Integer.parseInt(c.getString("relativeTimeSeconds"))))/86400;
-                    cal.add(Calendar.DATE, t);
-                    String tmp_start = sdf.format(cal.getTime());
+                    Instant instant = Instant.ofEpochSecond(Integer.parseInt(c.getString("startTimeSeconds")));
 
-                    String[] ts = tmp_start.split("/");
-                    String start = ts[0]+"-"+ts[1]+"-"+ts[2];
-                    String date_compare = ts[2]+ts[1]+ts[0];
+                    DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime( FormatStyle.SHORT )
+                            .withLocale( Locale.US )
+                            .withZone( ZoneId.systemDefault() );
+                    String tmp_start = formatter.format( instant );
+                    String[] ts1 = (tmp_start.split(",")[0]).split("/");
+                    if(Integer.parseInt(ts1[1])<10){
+                        ts1[1]="0"+ts1[1];
+                    }
+                    String[] startTime = tmp_start.split(",")[1].split(" ");
+                    if(startTime[2].equals("PM")){
+                        startTime[1]=String.valueOf(Integer.parseInt(startTime[1].split(":")[0])+12)+":"+startTime[1].split(":")[1];
+                    }else{
+                        startTime[1]="0"+startTime[1];
+                    }
+
+                    String start = ts1[1]+"-"+ts1[0]+"-20"+ts1[2]+" | "+startTime[1];
+                    String date_compare = "20"+ts1[2]+ts1[0]+ts1[1]+startTime[1];
 
                     String link = "https://codeforces.com/contestRegistration/"+id;
                     Vector<String> tmp = new Vector<String>();
@@ -255,7 +308,8 @@ public class u_contests extends Fragment {
                     tmp.add(start);
                     tmp.add(duration);
                     tmp.add(link);
-                    resultdata.add(tmp);
+                    resultdata_All.add(tmp);
+                    resultdata_CF.add(tmp);
                 }
 //                contestlisttest.setText(String.valueOf(resultdata));
                 setToAdapter();
@@ -293,11 +347,19 @@ public class u_contests extends Fragment {
                 String link = "https://atcoder.jp"+e.select("td+td a").attr("href");
 //                    Log.i("testlinksac",link);
                 String name = e.select("td+td a").text();
+
                 String tmp_start = (e.select("td a time").text()).split(" ")[0];
+                String tmp_startTime = (e.select("td a time").text()).split(" ")[1];
+                int startHour = Integer.parseInt(tmp_startTime.split(":")[0])-5;
+                int startMin = Integer.parseInt(tmp_startTime.split(":")[1])+30;
+                if(startMin/60<1){
+                    startHour+=1;
+                }
+                startMin=startMin%60;
 
                 String[] ts = tmp_start.split("-");
-                String start = ts[2]+"-"+ts[1]+"-"+ts[0];
-                String date_compare = ts[0]+ts[1]+ts[2];
+                String start = ts[2]+"-"+ts[1]+"-"+ts[0]+" | "+Integer.toString(startHour)+":"+Integer.toString(startMin);
+                String date_compare = ts[0]+ts[1]+ts[2]+Integer.toString(startHour)+":"+Integer.toString(startMin);
 
                 String td = e.select("td+td+td").text();
                 String[] arrDuration = td.split("-");
@@ -314,7 +376,8 @@ public class u_contests extends Fragment {
                 tmp.add(link);
 
 //                Log.i("tmptest",String.valueOf(tmp));
-                resultdata.add(tmp);
+                resultdata_All.add(tmp);
+                resultdata_AC.add(tmp);
             }
 //            contestlisttest.setText(String.valueOf(resultdata));
             setToAdapter();
@@ -322,6 +385,21 @@ public class u_contests extends Fragment {
     }
 
     void setToAdapter(){
+        Vector<Vector<String>> resultdata = new Vector<Vector<String>>();
+        switch(tab){
+            case 1:
+                resultdata = (Vector<Vector<String>>) resultdata_All.clone();
+                break;
+            case 2:
+                resultdata = (Vector<Vector<String>>) resultdata_CC.clone();
+                break;
+            case 3:
+                resultdata = (Vector<Vector<String>>) resultdata_CF.clone();
+                break;
+            case 4:
+                resultdata = (Vector<Vector<String>>) resultdata_AC.clone();
+                break;
+        }
         Collections.sort(resultdata, new Comparator<Vector<String>>(){
             @Override  public int compare(Vector<String> v1, Vector<String> v2) {
                 return v1.get(0).compareTo(v2.get(0)); //If you order by 2nd element in row
@@ -333,11 +411,11 @@ public class u_contests extends Fragment {
         for(int i=0;i<resultdata.size();i++){
             contestModelArrayList.add(new contestModel(resultdata.get(i).get(2), resultdata.get(i).get(3), resultdata.get(i).get(4),resultdata.get(i).get(5),resultdata.get(i).get(1)));
         }
-        progressBar.setVisibility(View.GONE);
         ContestAdapter contestAdapter = new ContestAdapter(getActivity(), contestModelArrayList);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         contestRV.setLayoutManager(linearLayoutManager);
         contestRV.setAdapter(contestAdapter);
+        progressBar.setVisibility(View.GONE);
     }
 
 }

@@ -37,5 +37,15 @@
         android:layout_gravity="center"
         />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="40dp"
+        android:id="@+id/refreshContestButton"
+        android:layout_gravity="right"
+        app:fabCustomSize="40dp"
+        android:src="@drawable/refresh_icon"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="80dp"
+        android:layout_height="40dp"/>
+
 
 </FrameLayout>

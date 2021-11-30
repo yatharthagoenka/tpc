@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <EditText
+        android:id="@+id/eventName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="40dp"
+        android:hint="Name"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+    />
+    <EditText
+        android:id="@+id/eventDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="20dp"
+        android:hint="Description"
+        app:layout_constraintTop_toBottomOf="@id/eventName"
+        app:layout_constraintLeft_toLeftOf="parent"
+    />
+    <EditText
+        android:id="@+id/eventStart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="20dp"
+        android:hint="Start Date"
+        app:layout_constraintTop_toBottomOf="@id/eventDesc"
+        app:layout_constraintLeft_toLeftOf="parent"
+    />
+    <EditText
+        android:id="@+id/eventEnd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="20dp"
+        android:hint="End Date"
+        app:layout_constraintTop_toBottomOf="@id/eventStart"
+        app:layout_constraintLeft_toLeftOf="parent"
+    />
+    <EditText
+        android:id="@+id/eventField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="20dp"
+        android:hint="Field"
+        app:layout_constraintTop_toBottomOf="@id/eventEnd"
+        app:layout_constraintLeft_toLeftOf="parent"
+    />
+
+    <Button
+        android:id="@+id/eventSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create"
+        app:layout_constraintTop_toBottomOf="@id/eventField"
+        android:layout_marginTop="50dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
