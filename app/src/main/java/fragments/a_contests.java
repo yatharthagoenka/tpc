@@ -1,5 +1,9 @@
 package fragments;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -7,6 +11,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,12 +29,14 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.tpc.ContestAdapter;
 import com.example.tpc.R;
 import com.example.tpc.contestModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
+import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -76,6 +84,13 @@ public class a_contests extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_a_contests, container, false);
+//        Toolbar toolbar = view.findViewById(R.id.toolbar);
+//        new SlidingRootNavBuilder(getActivity())
+//                .withToolbarMenuToggle(toolbar)
+//                .withMenuOpened(false)
+//                .withSavedState(savedInstanceState)
+//                .withMenuLayout(R.layout.nav_drawer)
+//                .inject();
 //        contestlisttest = view.findViewById(R.id.contestlisttest);
         chipNavigationBar = view.findViewById(R.id.contest_menubar);
         chipNavigationBar.setItemSelected(R.id.contestmenu_all,true);
@@ -95,6 +110,7 @@ public class a_contests extends Fragment {
         tab = 1;
 
         chipNavigationBar.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onItemSelected(int i) {
                 Fragment fragment = null;
@@ -193,6 +209,7 @@ public class a_contests extends Fragment {
                 return null;
             }
         }
+        @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
@@ -352,6 +369,7 @@ public class a_contests extends Fragment {
             }
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
@@ -397,6 +415,7 @@ public class a_contests extends Fragment {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     void setToAdapter(){
         Vector<Vector<String>> resultdata = new Vector<Vector<String>>();
         switch(tab){
@@ -423,6 +442,12 @@ public class a_contests extends Fragment {
 
         for(int i=0;i<resultdata.size();i++){
             contestModelArrayList.add(new contestModel(resultdata.get(i).get(2), resultdata.get(i).get(3), resultdata.get(i).get(4),resultdata.get(i).get(5),resultdata.get(i).get(1)));
+//            String[] tmp = String.valueOf(java.time.LocalDate.now()).split("-");
+//            Log.d("testdate",tmp[2]+"-"+tmp[1]+"-"+tmp[0]+" | "+resultdata.get(i).get(3).split(" ")[0]);
+//            if((tmp[2] + "-" + tmp[1] + "-" + tmp[0]).equals(resultdata.get(i).get(3).split(" ")[0])){
+//                Log.d("testdate","accepted");
+//                postNotif(resultdata.get(i).get(1),resultdata.get(i).get(3));
+//            }
         }
         ContestAdapter contestAdapter = new ContestAdapter(getActivity(), contestModelArrayList);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
@@ -430,5 +455,30 @@ public class a_contests extends Fragment {
         contestRV.setAdapter(contestAdapter);
         progressBar.setVisibility(View.GONE);
     }
+
+    void postNotif(String platform,String time){
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(getActivity())
+                        .setSmallIcon(R.drawable.app_icon) //set icon for notification
+                        .setContentTitle(platform+" Contest") //set title of notification
+                        .setContentText(time)//this is notification message
+                        .setAutoCancel(true) // makes auto cancel of notification
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT); //set priority of notification
+
+
+        Intent notificationIntent = new Intent(getActivity(), a_contests.class);
+        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //notification message will get at NotificationView
+        notificationIntent.putExtra("notification", "Upcoming contest notification");
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(getActivity(), 0, notificationIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(pendingIntent);
+
+        // Add as notification
+        NotificationManager manager = (NotificationManager)getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(0, builder.build());
+    }
+
 
 }

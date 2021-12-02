@@ -6,6 +6,7 @@
     android:background="@color/white"
     tools:context="fragments.a_contests">
 
+
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
         android:id="@+id/contest_menubar"
         android:layout_width="match_parent"
@@ -15,7 +16,7 @@
         app:cnb_unselectedColor="@color/white"
         android:layout_marginLeft="23dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         app:cnb_orientationMode="horizontal"
         android:elevation="8dp"
         app:cnb_menuResource="@menu/contest_menu" />
@@ -46,6 +47,7 @@
         android:layout_marginRight="30dp"
         android:layout_marginTop="80dp"
         android:layout_height="40dp"/>
+
 
 
 </FrameLayout>

@@ -2,12 +2,14 @@ package com.example.tpc;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -23,6 +25,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
+import com.yarolegovich.slidingrootnav.SlidingRootNav;
+import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
 import fragments.a_contests;
 import fragments.a_dashboard;
@@ -33,9 +37,10 @@ import fragments.u_profile;
 
 public class index extends AppCompatActivity {
 
-    private Button logoutbutton;
+    private LinearLayout bn_dashboard,bn_contests,bn_profile,bn_logout;
+    private SlidingRootNav slidingRootNav;
 
-    ChipNavigationBar chipNavigationBar;
+//    ChipNavigationBar chipNavigationBar;
     private GoogleSignInClient mGoogleSignInClient;
 
 
@@ -44,8 +49,14 @@ public class index extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_index);
 
-        chipNavigationBar = findViewById(R.id.user_bn_bar);
-        chipNavigationBar.setItemSelected(R.id.bn_dashboard,true);
+        Toolbar toolbar = findViewById(R.id.u_toolbar);
+        slidingRootNav = new SlidingRootNavBuilder(this)
+                .withToolbarMenuToggle(toolbar)
+                .withMenuOpened(false)
+                .withSavedState(savedInstanceState)
+                .withMenuLayout(R.layout.nav_drawer)
+                .inject();
+
         getSupportFragmentManager().beginTransaction().replace(R.id.u_fragment_container,new u_dashboard()).commit();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -54,22 +65,43 @@ public class index extends AppCompatActivity {
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this,gso);
 
-        chipNavigationBar.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
+        bn_dashboard = findViewById(R.id.bn_dashboard);
+        bn_dashboard.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(int i) {
-                Fragment fragment = null;
-                switch (i){
-                    case R.id.bn_dashboard:
-                        fragment = new u_dashboard();
-                        break;
-                    case R.id.bn_contests:
-                        fragment = new u_contests();
-                        break;
-                    case R.id.bn_profile:
-                        fragment = new u_profile();
-                        break;
-                }
-                getSupportFragmentManager().beginTransaction().replace(R.id.u_fragment_container,fragment).commit();
+            public void onClick(View view) {
+                slidingRootNav.closeMenu();
+                getSupportFragmentManager().beginTransaction().replace(R.id.u_fragment_container,new u_dashboard()).commit();
+            }
+        });
+        bn_contests = findViewById(R.id.bn_contests);
+        bn_contests.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                slidingRootNav.closeMenu();
+                getSupportFragmentManager().beginTransaction().replace(R.id.u_fragment_container,new u_contests()).commit();
+            }
+        });
+        bn_profile = findViewById(R.id.bn_profile);
+        bn_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                slidingRootNav.closeMenu();
+                getSupportFragmentManager().beginTransaction().replace(R.id.u_fragment_container,new u_profile()).commit();
+            }
+        });
+        bn_logout = findViewById(R.id.bn_logout);
+        bn_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                mGoogleSignInClient.signOut().addOnCompleteListener(index.this,
+                        new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+
+                            }
+                        });
+                startActivity(new Intent(index.this, login.class));
             }
         });
     }

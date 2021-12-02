@@ -5,6 +5,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="fragments.u_contests">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"/>
+
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
         android:id="@+id/contest_menubar"
         android:layout_width="match_parent"
@@ -14,7 +19,7 @@
         app:cnb_unselectedColor="@color/white"
         android:layout_marginLeft="23dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="60dp"
         app:cnb_orientationMode="horizontal"
         android:elevation="8dp"
         app:cnb_menuResource="@menu/contest_menu" />
@@ -25,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layoutAnimation="@anim/layout_animation"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="170dp"
         />
 
     <ProgressBar
@@ -43,7 +48,7 @@
         app:fabCustomSize="40dp"
         android:src="@drawable/refresh_icon"
         android:layout_marginRight="30dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="120dp"
         android:layout_height="40dp"/>
 
 

@@ -4,20 +4,17 @@
     android:layout_height="match_parent"
     tools:context="fragments.a_profile">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"/>
+
     <TextView
         android:id="@+id/a_profile_username"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="ADMIN PROFILE"
         android:gravity="center" />
-
-    <Button
-        android:id="@+id/a_profile_logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="LOGOUT"
-        android:layout_marginTop="450dp"
-        android:layout_marginLeft="160dp"/>
 
 
 </FrameLayout>

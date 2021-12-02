@@ -4,10 +4,15 @@
     android:layout_height="match_parent"
     tools:context="fragments.u_dashboard">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="USER DASHBOARD"
-        android:gravity="center" />
+        android:gravity="center_horizontal"
+        android:layout_marginTop="70dp"/>
 
 </FrameLayout>

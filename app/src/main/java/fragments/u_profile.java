@@ -28,7 +28,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class u_profile extends Fragment implements View.OnClickListener {
+public class u_profile extends Fragment{
 
     View view;
     private Button logoutbutton;
@@ -48,9 +48,6 @@ public class u_profile extends Fragment implements View.OnClickListener {
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(getActivity(),gso);
-
-        logoutbutton = (Button) view.findViewById(R.id.u_profile_logout);
-        logoutbutton.setOnClickListener(this);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users");
@@ -76,22 +73,5 @@ public class u_profile extends Fragment implements View.OnClickListener {
         });
 
         return view;
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.u_profile_logout:
-                FirebaseAuth.getInstance().signOut();
-                mGoogleSignInClient.signOut().addOnCompleteListener(getActivity(),
-                        new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-
-                            }
-                        });
-                startActivity(new Intent(getActivity(), login.class));
-                break;
-        }
     }
 }

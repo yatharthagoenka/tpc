@@ -7,17 +7,19 @@
     tools:context=".adminindex"
     android:id="@+id/fragment_container">
 
-    <com.ismaeldivita.chipnavigation.ChipNavigationBar
-        android:id="@+id/bottom_nav_bar"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/bottonmav_corner"
-        app:cnb_unselectedColor="@color/black"
-        app:cnb_radius="6dp"
-        app:cnb_orientationMode="horizontal"
-        android:layout_margin="30dp"
-        android:elevation="8dp"
-        app:cnb_menuResource="@menu/bottom_nav_menu" />
+        android:layout_height="wrap_content"
+        android:elevation="0dp"
+        android:background="@color/white">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+
 
 </RelativeLayout>

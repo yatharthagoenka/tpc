@@ -3,21 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/bn_dashboard"
+        android:id="@+id/b_dashboard"
         android:title="Dashboard"
         android:icon="@drawable/bottom_nav_manage_icon"
         app:cnb_backgroundColor="#87caff"
         />
 
     <item
-        android:id="@+id/bn_contests"
+        android:id="@+id/b_contests"
         android:title="Contests"
         android:icon="@drawable/bottom_nav_dashboard_icon"
         app:cnb_backgroundColor="#f7665c"
         />
 
     <item
-        android:id="@+id/bn_profile"
+        android:id="@+id/b_profile"
         android:title="Profile"
         android:icon="@drawable/bottom_nav_profile_icon"
         app:cnb_backgroundColor="#79ed7e"
