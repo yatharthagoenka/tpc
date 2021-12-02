@@ -7,18 +7,23 @@
     tools:context=".adminindex"
     android:id="@+id/fragment_container">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="0dp"
-        android:background="@color/white">
+        android:elevation="1dp"
+        android:layout_marginLeft="10dp"
+        android:padding="10dp"
+        android:background="@null" />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null" />
-    </com.google.android.material.appbar.AppBarLayout>
+<!--    <com.google.android.material.appbar.AppBarLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:elevation="0dp"-->
+<!--        android:background="@color/white">-->
+
+<!--        -->
+<!--    </com.google.android.material.appbar.AppBarLayout>-->
 
 
 

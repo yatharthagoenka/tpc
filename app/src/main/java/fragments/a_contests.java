@@ -30,6 +30,7 @@ import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.tpc.ContestAdapter;
 import com.example.tpc.R;
@@ -84,18 +85,9 @@ public class a_contests extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_a_contests, container, false);
-//        Toolbar toolbar = view.findViewById(R.id.toolbar);
-//        new SlidingRootNavBuilder(getActivity())
-//                .withToolbarMenuToggle(toolbar)
-//                .withMenuOpened(false)
-//                .withSavedState(savedInstanceState)
-//                .withMenuLayout(R.layout.nav_drawer)
-//                .inject();
-//        contestlisttest = view.findViewById(R.id.contestlisttest);
         chipNavigationBar = view.findViewById(R.id.contest_menubar);
         chipNavigationBar.setItemSelected(R.id.contestmenu_all,true);
         contestRV = view.findViewById(R.id.contestRV);
-        floatingActionButton = view.findViewById(R.id.refreshContestButton);
 
         progressBar = view.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
@@ -135,36 +127,40 @@ public class a_contests extends Fragment {
             }
         });
 
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                switch(tab){
-                    case 1:
-                        resultdata_All.clear();
-                        progressBar.setVisibility(View.VISIBLE);
-                        all_contest_fetch();
-                        break;
-                    case 2:
-                        resultdata_CC.clear();
-                        progressBar.setVisibility(View.VISIBLE);
-                        CC_list cclist = new CC_list();
-                        cclist.execute("https://www.codechef.com/api/list/contests/all?sort_by=START&sorting_order=asc&offset=0&mode=premium");
-                        break;
-                    case 3:
-                        resultdata_CF.clear();
-                        progressBar.setVisibility(View.VISIBLE);
-                        CF_list cflist = new CF_list();
-                        cflist.execute("https://codeforces.com/api/contest.list?gym=false");
-                        break;
-                    case 4:
-                        resultdata_AC.clear();
-                        progressBar.setVisibility(View.VISIBLE);
-                        AC_list aclist = new AC_list();
-                        aclist.execute();
-                        break;
+        SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.a_refreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        switch(tab){
+                            case 1:
+                                resultdata_All.clear();
+                                progressBar.setVisibility(View.VISIBLE);
+                                all_contest_fetch();
+                                break;
+                            case 2:
+                                resultdata_CC.clear();
+                                progressBar.setVisibility(View.VISIBLE);
+                                CC_list cclist = new CC_list();
+                                cclist.execute("https://www.codechef.com/api/list/contests/all?sort_by=START&sorting_order=asc&offset=0&mode=premium");
+                                break;
+                            case 3:
+                                resultdata_CF.clear();
+                                progressBar.setVisibility(View.VISIBLE);
+                                CF_list cflist = new CF_list();
+                                cflist.execute("https://codeforces.com/api/contest.list?gym=false");
+                                break;
+                            case 4:
+                                resultdata_AC.clear();
+                                progressBar.setVisibility(View.VISIBLE);
+                                AC_list aclist = new AC_list();
+                                aclist.execute();
+                                break;
+                        }
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
                 }
-            }
-        });
+        );
 
         return view;
     }
@@ -251,8 +247,8 @@ public class a_contests extends Fragment {
                     tmp.add(start);
                     tmp.add(duration);
                     tmp.add(link);
-                        resultdata_All.add(tmp);
-                        resultdata_CC.add(tmp);
+                    if(tab==1){resultdata_All.add(tmp);}
+                    resultdata_CC.add(tmp);
                 }
 //                contestlisttest.setText(String.valueOf(resultdata));
                 setToAdapter();
@@ -339,7 +335,7 @@ public class a_contests extends Fragment {
                     tmp.add(start);
                     tmp.add(duration);
                     tmp.add(link);
-                        resultdata_All.add(tmp);
+                    if(tab==1){resultdata_All.add(tmp);}
                         resultdata_CF.add(tmp);
                 }
 //                contestlisttest.setText(String.valueOf(resultdata));
@@ -407,7 +403,7 @@ public class a_contests extends Fragment {
                 tmp.add(link);
 
 //                Log.i("tmptest",String.valueOf(tmp));
-                    resultdata_All.add(tmp);
+                if(tab==1){resultdata_All.add(tmp);}
                     resultdata_AC.add(tmp);
             }
 //            contestlisttest.setText(String.valueOf(resultdata));
@@ -415,7 +411,6 @@ public class a_contests extends Fragment {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     void setToAdapter(){
         Vector<Vector<String>> resultdata = new Vector<Vector<String>>();
         switch(tab){

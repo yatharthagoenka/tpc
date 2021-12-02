@@ -6,6 +6,34 @@
     android:background="@color/white"
     tools:context="fragments.a_contests">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/yantramanav_bold"
+        android:textSize="35dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:textColor="@color/black"
+        android:text="Contests" />
+
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:gravity="center_horizontal"-->
+<!--        android:layout_marginTop="65dp"-->
+<!--        android:fontFamily="@font/poppins_light"-->
+<!--        android:text="Next contest starts in HH:MM:SS" />-->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="75dp"
+        android:fontFamily="@font/poppins_light"
+        android:textSize="13dp"
+        android:text="Swipe down to refresh" />
+
+
 
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
         android:id="@+id/contest_menubar"
@@ -15,20 +43,84 @@
         app:cnb_radius="6dp"
         app:cnb_unselectedColor="@color/white"
         android:layout_marginLeft="23dp"
+        android:layout_gravity="bottom"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginBottom="40dp"
         app:cnb_orientationMode="horizontal"
         android:elevation="8dp"
         app:cnb_menuResource="@menu/contest_menu" />
 
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="110dp"-->
+<!--        android:padding="20dp"-->
+<!--        android:gravity="center_horizontal"-->
+<!--        android:orientation="horizontal">-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginRight="50dp">-->
+
+<!--            <ImageView-->
+<!--                android:layout_width="40dp"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:src="@drawable/all_c"/>-->
+
+<!--        </LinearLayout>-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginRight="50dp">-->
+
+<!--            <ImageView-->
+<!--                android:layout_width="40dp"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:src="@drawable/ic_icon"/>-->
+
+<!--        </LinearLayout>-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginRight="50dp">-->
+
+<!--            <ImageView-->
+<!--                android:layout_width="40dp"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:src="@drawable/cf_icon"/>-->
+
+<!--        </LinearLayout>-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content">-->
+
+<!--            <ImageView-->
+<!--                android:layout_width="40dp"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:src="@drawable/ac_icon"/>-->
+
+<!--        </LinearLayout>-->
+
+<!--    </LinearLayout>-->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/a_refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp"
+        >
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/contestRV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layoutAnimation="@anim/layout_animation"
-        android:layout_marginTop="100dp"
         />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -37,17 +129,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="40dp"
-        android:id="@+id/refreshContestButton"
-        android:layout_gravity="right"
-        app:fabCustomSize="40dp"
-        android:src="@drawable/refresh_icon"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="80dp"
-        android:layout_height="40dp"/>
-
 
 
 </FrameLayout>

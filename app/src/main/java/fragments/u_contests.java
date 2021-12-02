@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -53,7 +54,6 @@ public class u_contests extends Fragment {
     private int tab;
     private Vector<Vector<String>> resultdata_All,resultdata_AC,resultdata_CF,resultdata_CC;
     ChipNavigationBar chipNavigationBar;
-    private FloatingActionButton floatingActionButton;
 
     private RecyclerView contestRV;
     private ArrayList<contestModel> contestModelArrayList;
@@ -65,7 +65,6 @@ public class u_contests extends Fragment {
         chipNavigationBar = view.findViewById(R.id.contest_menubar);
         chipNavigationBar.setItemSelected(R.id.contestmenu_all,true);
         contestRV = view.findViewById(R.id.contestRV);
-        floatingActionButton = view.findViewById(R.id.refreshContestButton);
 
         progressBar = view.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
@@ -104,36 +103,40 @@ public class u_contests extends Fragment {
             }
         });
 
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                switch(tab){
-                    case 1:
-                        resultdata_All.clear();
-                        progressBar.setVisibility(View.VISIBLE);
-                        all_contest_fetch();
-                        break;
-                    case 2:
-                        resultdata_CC.clear();
-                        progressBar.setVisibility(View.VISIBLE);
-                        CC_list cclist = new CC_list();
-                        cclist.execute("https://www.codechef.com/api/list/contests/all?sort_by=START&sorting_order=asc&offset=0&mode=premium");
-                        break;
-                    case 3:
-                        resultdata_CF.clear();
-                        progressBar.setVisibility(View.VISIBLE);
-                        CF_list cflist = new CF_list();
-                        cflist.execute("https://codeforces.com/api/contest.list?gym=false");
-                        break;
-                    case 4:
-                        resultdata_AC.clear();
-                        progressBar.setVisibility(View.VISIBLE);
-                        AC_list aclist = new AC_list();
-                        aclist.execute();
-                        break;
+        SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.u_refreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        switch(tab){
+                            case 1:
+                                resultdata_All.clear();
+                                progressBar.setVisibility(View.VISIBLE);
+                                all_contest_fetch();
+                                break;
+                            case 2:
+                                resultdata_CC.clear();
+                                progressBar.setVisibility(View.VISIBLE);
+                                CC_list cclist = new CC_list();
+                                cclist.execute("https://www.codechef.com/api/list/contests/all?sort_by=START&sorting_order=asc&offset=0&mode=premium");
+                                break;
+                            case 3:
+                                resultdata_CF.clear();
+                                progressBar.setVisibility(View.VISIBLE);
+                                CF_list cflist = new CF_list();
+                                cflist.execute("https://codeforces.com/api/contest.list?gym=false");
+                                break;
+                            case 4:
+                                resultdata_AC.clear();
+                                progressBar.setVisibility(View.VISIBLE);
+                                AC_list aclist = new AC_list();
+                                aclist.execute();
+                                break;
+                        }
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
                 }
-            }
-        });
+        );
 
         return view;
     }

@@ -7,18 +7,14 @@
     tools:context=".index"
     android:id="@+id/u_fragment_container">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/u_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="0dp"
-        android:background="@color/white">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/u_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null" />
-    </com.google.android.material.appbar.AppBarLayout>
+        android:elevation="1dp"
+        android:layout_marginLeft="10dp"
+        android:padding="10dp"
+        android:background="@null" />
 
 </RelativeLayout>
 

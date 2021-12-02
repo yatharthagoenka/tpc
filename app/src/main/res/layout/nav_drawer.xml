@@ -124,8 +124,9 @@
             android:paddingRight="24dp"
             android:text="Logout"
             android:textSize="21sp"
+            android:textColor="@color/black"
             android:textFontWeight="500"
-            android:fontFamily="@font/poppins_medium"/>
+            android:fontFamily="@font/poppins_light"/>
 
 
     </LinearLayout>

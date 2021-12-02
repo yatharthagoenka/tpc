@@ -15,20 +15,11 @@ import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
 public class a_dashboard extends Fragment {
 
-    FloatingActionButton dash_newButton;
     View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_a_dashboard, container, false);
-        dash_newButton = view.findViewById(R.id.dash_newButton);
-        dash_newButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                newEventDialog();
-            }
-        });
-
 
         return view;
     }
