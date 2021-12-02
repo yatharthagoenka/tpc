@@ -96,7 +96,7 @@ public class a_contests extends Fragment {
 
         resultdata_All = new Vector<Vector<String>>();
         resultdata_CF = new Vector<Vector<String>>();
-        resultdata_CC = new Vector<Vector<String>>();
+        resultdata_CC = new Vector<Vector<String>>( );
         resultdata_AC = new Vector<Vector<String>>();
 
         tab = 1;

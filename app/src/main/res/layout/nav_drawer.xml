@@ -23,7 +23,7 @@
 
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/bn_dashboard"
         android:baselineAligned="false"
@@ -49,7 +49,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/bn_contests"
         android:layout_marginBottom="30dp"
@@ -70,13 +70,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:fontFamily="@font/poppins_medium"
-            android:text="Contest" />
+            android:text="Competitive Prog" />
 
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/bn_profile"
         android:baselineAligned="false"
@@ -103,7 +103,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/bn_logout"
         android:baselineAligned="false"
