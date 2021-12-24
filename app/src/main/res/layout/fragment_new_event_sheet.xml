@@ -1,0 +1,181 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="fragments.newEventSheet">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="60dp">
+
+        <com.kofigyan.stateprogressbar.StateProgressBar
+            android:id="@+id/newEventProgressBar"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="190dp"
+            android:layout_marginLeft="-130dp"
+            android:rotation="90"
+            app:spb_currentStateNumber="one"
+            app:spb_maxStateNumber="five"
+            app:spb_stateBackgroundColor="#BDBDBD"
+            app:spb_stateForegroundColor="#7fadb0"
+            app:spb_stateNumberBackgroundColor="#808080"
+            app:spb_stateNumberForegroundColor="#eeeeee"
+            app:spb_currentStateDescriptionColor="#009688"
+            app:spb_stateDescriptionColor="#808080"
+            app:spb_animateToCurrentProgressState="true"
+            app:spb_checkStateCompleted="true"/>
+
+        <EditText
+            android:id="@+id/eventDesc"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/eventSheetHead"
+            android:layout_marginLeft="400dp"
+            android:layout_marginTop="22dp"
+            android:alpha="0"
+            android:hint="Tell us more..."/>
+
+        <EditText
+            android:id="@+id/eventDur"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/eventSheetHead"
+            android:layout_marginLeft="400dp"
+            android:layout_marginTop="22dp"
+            android:alpha="0"
+            android:hint="Duration"/>
+
+
+
+        <EditText
+            android:id="@+id/eventStart"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/eventSheetHead"
+            android:layout_marginLeft="400dp"
+            android:layout_marginTop="22dp"
+            android:alpha="0"
+            android:hint="Start Date" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/eventNextButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="124dp"
+            android:backgroundTint="#92e0ab"
+            android:src="@drawable/ic_baseline_arrow_forward_24"
+            app:fabCustomSize="60dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/eventSheetHead" />
+
+        <EditText
+            android:id="@+id/eventName"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="32dp"
+            android:hint="Time to get creative"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/eventSheetHead" />
+
+        <TextView
+            android:id="@+id/eventSheetHead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="76dp"
+            android:alpha="1"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Name"
+            android:textColor="@color/black"
+            android:textSize="27dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/eventTag"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="400dp"
+            android:layout_marginTop="-5dp"
+            android:alpha="0"
+            android:padding="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/eventSheetHead"
+            app:singleSelection="false">
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Web Dev" />
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Android Dev" />
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CP" />
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DSA" />
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Frontend" />
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Backend" />
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Beginner" />
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Intermediate" />
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Advanced" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <Space
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/eventNextButton"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_height="70dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
+
+<!--    android:background="#00"-->
+<!--    android:textColorHint="#00"-->

@@ -10,13 +10,15 @@
         android:icon="@drawable/app_icon"
         android:label="TPC"
         android:roundIcon="@drawable/app_icon"
+        tools:replace="android:label"
         android:supportsRtl="true"
         android:theme="@style/Theme.Tpc">
         <activity android:name=".adminindex"></activity>
         <activity android:name=".index" />
         <activity android:name=".register" />
         <activity android:name=".login" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
