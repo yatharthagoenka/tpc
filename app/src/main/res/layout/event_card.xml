@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="30dp"
+    app:cardElevation="5dp"
+    app:cardMaxElevation="10dp"
+    android:layout_marginBottom="2dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/eventcard_layout"
+        android:layout_width="320dp"
+        android:layout_height="300dp"
+        >
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/eventcard_poster"
+            android:layout_width="match_parent"
+            android:layout_height="227dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="14dp"
+            app:cardCornerRadius="25dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/eventcard_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:foreground="@drawable/eventcard_overlay"
+                android:scaleType="centerCrop"
+                android:src="@drawable/web_cardview" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/rsvpbutton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:fabCustomSize="50dp"
+                android:layout_gravity="right"
+                android:layout_margin="20dp"
+                android:backgroundTint="#f7fffe"
+                android:src="@drawable/ic_baseline_post_add_24"
+                />
+
+            <TextView
+                android:id="@+id/eventcard_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="26dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/source_sans_pro_semibold"
+                android:text="08"
+                android:textColor="@color/white"
+                android:textSize="29dp" />
+
+            <TextView
+                android:id="@+id/eventcard_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="26dp"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/poppins_light"
+                android:text="Nov"
+                android:textColor="@color/white"
+                android:textSize="22dp" />
+
+            <TextView
+                android:id="@+id/eventcard_name"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="26dp"
+                android:layout_marginTop="100dp"
+                android:fontFamily="@font/poppins_medium"
+                android:lineSpacingExtra="-12dp"
+                android:text="Hackathon TPC"
+                android:textColor="@color/white"
+                android:textSize="24dp" />
+
+            <TextView
+                android:id="@+id/eventcard_domain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="200dp"
+                android:fontFamily="@font/poppins_light"
+                android:text="Web Development"
+                android:textColor="@color/white"
+                android:textSize="12dp" />
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/eventcard_reg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="17dp"
+            android:text="17 Joined"
+            android:textSize="16dp"
+            android:fontFamily="@font/source_sans_pro_semibold"
+            android:textColor="#525252"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/eventcard_poster" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/eventcard_platform"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:layout_marginRight="54dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/eventcard_poster"
+            app:cardCornerRadius="100dp">
+
+            <!-- add a Image image.png in your Drawable folder -->
+            <ImageView
+                android:id="@+id/dash_profilepic"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/app_icon" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/eventcard_platform2"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/eventcard_poster"
+            app:cardCornerRadius="100dp">
+
+            <!-- add a Image image.png in your Drawable folder -->
+            <ImageView
+                android:id="@+id/dash_profilepic2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/gdsc_icon" />
+
+        </androidx.cardview.widget.CardView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

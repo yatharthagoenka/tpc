@@ -3,12 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/border.xml" value="0.187109375" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/capsule_shape.xml" value="0.199609375" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/chipicon_all.xml" value="0.199609375" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/circular.xml" value="0.199609375" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/contest_menubar.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/down_arrow.xml" value="0.199609375" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/edittext_border.xml" value="0.199609375" />
+        <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/eventcard_overlay.xml" value="0.199609375" />
+        <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/eventdomain_bg.xml" value="0.199609375" />
+        <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/eventdomain_spinner.xml" value="0.199609375" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/ic_baseline_arrow_forward_24.xml" value="0.21837606837606838" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.199609375" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/ic_launcher.xml" value="0.187109375" />
@@ -16,9 +20,12 @@
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/newevent_sheetbg.xml" value="0.14322916666666666" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/profilebg.xml" value="0.199609375" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/profilepic_bg.xml" value="0.199609375" />
+        <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/roundcorner_button.xml" value="0.187109375" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/contest_card.xml" value="0.25" />
+        <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/event_card.xml" value="0.264" />
+        <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/event_card_user.xml" value="0.264" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/fragment_a_contests.xml" value="0.264" />
-        <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/fragment_a_dashboard.xml" value="0.25" />
+        <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/fragment_a_dashboard.xml" value="0.2" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/fragment_new_event_sheet.xml" value="0.2" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/fragment_u_contests.xml" value="0.11236338797814208" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/fragment_u_dashboard.xml" value="0.1875" />
@@ -34,5 +41,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.264" />
+      </ProjectState>
+    </option>
   </component>
 </project>

@@ -201,19 +201,19 @@ public class a_contests extends Fragment {
 
                     String tmp_start = c.getString("contest_start_date");
                     String[] ts = tmp_start.split(" ");
-                    String ts_v;
-                    if(ts[1]=="Jan") ts_v="01";
-                    else if(ts[1]=="Feb") ts_v="02";
-                    else if(ts[1]=="Mar") ts_v="03";
-                    else if(ts[1]=="Apr") ts_v="04";
-                    else if(ts[1]=="May") ts_v="05";
-                    else if(ts[1]=="Jun") ts_v="06";
-                    else if(ts[1]=="Jul") ts_v="07";
-                    else if(ts[1]=="Aug") ts_v="08";
-                    else if(ts[1]=="Sep") ts_v="09";
-                    else if(ts[1]=="Oct") ts_v="10";
-                    else if(ts[1]=="Nov") ts_v="11";
-                    else ts_v="12";
+                    String ts_v="";
+                    if(ts[1].equals("Jan")) ts_v="01";
+                    else if(ts[1].equals("Feb")) ts_v="02";
+                    else if(ts[1].equals("Mar")) ts_v="03";
+                    else if(ts[1].equals("Apr")) ts_v="04";
+                    else if(ts[1].equals("May")) ts_v="05";
+                    else if(ts[1].equals("Jun")) ts_v="06";
+                    else if(ts[1].equals("Jul")) ts_v="07";
+                    else if(ts[1].equals("Aug")) ts_v="08";
+                    else if(ts[1].equals("Sep")) ts_v="09";
+                    else if(ts[1].equals("Oct")) ts_v="10";
+                    else if(ts[1].equals("Nov")) ts_v="11";
+                    else if(ts[1].equals("Dec")) ts_v="12";
                     String start = ts[0]+"-"+ts_v+"-"+ts[2]+" | "+ts[4];
                     String date_compare = ts[2]+ts_v+ts[0]+ts[4];
 
@@ -294,6 +294,9 @@ public class a_contests extends Fragment {
                     String[] ts1 = (tmp_start.split(",")[0]).split("/");
                     if(Integer.parseInt(ts1[1])<10){
                         ts1[1]="0"+ts1[1];
+                    }
+                    if(Integer.parseInt(ts1[0])<10){
+                        ts1[0]="0"+ts1[0];
                     }
                     String[] startTime = tmp_start.split(",")[1].split(" ");
                     if(startTime[2].equals("PM")){

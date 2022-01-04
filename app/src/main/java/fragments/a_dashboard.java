@@ -2,6 +2,7 @@ package fragments;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,6 +10,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,10 +19,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.tpc.EventAdapter;
 import com.example.tpc.R;
 import com.example.tpc.User;
+import com.example.tpc.contestModel;
+import com.example.tpc.eventModel;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -43,18 +50,26 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Vector;
 
 public class a_dashboard extends Fragment {
 
     View view;
-    private TextView dash_username, newEventButton;
+    private TextView dash_username, newEventButton,eventtexts;
     private Button filterbutton;
     private ImageView dash_profilepic;
+    private LinearLayout all_chipdash,cp_chipdash,web_chipdash,app_chipdash,ai_chipdash;
 
-    private String userID;
+    private String userID,isAdmin,rollno;
     private FirebaseUser user;
     private DatabaseReference reference;
     private GoogleSignInClient mGoogleSignInClient;
+
+    private RecyclerView eventRV;
+    private ArrayList<eventModel> eventModelArrayList;
+    private Vector<Vector<String>> eventData;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
@@ -62,6 +77,17 @@ public class a_dashboard extends Fragment {
         dash_username = view.findViewById(R.id.dash_username);
         filterbutton = view.findViewById(R.id.filterbutton);
         dash_profilepic = view.findViewById(R.id.dash_profilepic);
+
+        eventRV = view.findViewById(R.id.eventRV);
+        eventData = new Vector<Vector<String>>();
+        readEventData();
+
+        all_chipdash = view.findViewById(R.id.all_chipdash);
+        cp_chipdash = view.findViewById(R.id.cp_chipdash);
+        web_chipdash = view.findViewById(R.id.web_chipdash);
+        app_chipdash = view.findViewById(R.id.app_chipdash);
+        ai_chipdash = view.findViewById(R.id.ai_chipdash);
+
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -80,6 +106,8 @@ public class a_dashboard extends Fragment {
                 if(userProfile != null){
                     String username = userProfile.name;
                     dash_username.setText(username);
+                    isAdmin = userProfile.isAdmin;
+                    rollno = userProfile.roll;
                 }
             }
 
@@ -103,8 +131,6 @@ public class a_dashboard extends Fragment {
                 neweventsheet.show(getActivity().getSupportFragmentManager(), neweventsheet.getTag());
             }
         });
-
-//        readEventData();
 
         return view;
     }
@@ -153,13 +179,53 @@ public class a_dashboard extends Fragment {
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            Log.d("event", document.getId() + " => " + document.getData());
+//                            Log.d("event", document.getId() + " => " + document.getData());
+                              Map<String,Object> data = document.getData();
+//                            Log.d("eventtest2",data.get("name").toString());
+
+                            String[] full_date = data.get("eventDate").toString().split(" ");
+                            String day = full_date[0];
+                            String month = full_date[1];
+                            String name = data.get("name").toString();
+                            String domain = data.get("domain").toString();
+                            String regCount = data.get("regCount").toString()+" Joined";
+
+                            Vector<String> tmp = new Vector<String>();
+                            tmp.add(day);
+                            tmp.add(month);
+                            tmp.add(name);
+                            tmp.add(domain);
+                            tmp.add(regCount);
+                            tmp.add(document.getId());
+
+                            eventData.add(tmp);
+
                         }
                     } else {
                         Log.w("event", "Error getting documents.", task.getException());
                     }
+//                    Log.d("eventadapter",eventData.toString());
+                    setToEventAdapter();
                 }
             });
+    }
+
+    private void setToEventAdapter() {
+
+        eventModelArrayList = new ArrayList<>();
+//        Log.d("eventadapter",eventData.toString());
+
+        for(int i=0;i<eventData.size();i++){
+            eventModelArrayList.add(new eventModel(eventData.get(i).get(0), eventData.get(i).get(1), eventData.get(i).get(2),eventData.get(i).get(3),eventData.get(i).get(4),rollno,eventData.get(i).get(5),isAdmin));
+        }
+
+//        Log.d("eventadapter",eventData.toString());
+
+        EventAdapter EventAdapter = new EventAdapter(getActivity(), eventModelArrayList);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        eventRV.setLayoutManager(linearLayoutManager);
+        eventRV.setAdapter(EventAdapter);
+        
     }
 }
 

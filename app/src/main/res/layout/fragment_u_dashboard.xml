@@ -85,74 +85,176 @@
         <HorizontalScrollView
             android:id="@+id/horview_chips"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/searchbox"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="8dp"
+            android:layout_height="140dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="20dp"
             android:scrollbars="none"
-            >
+            android:orientation="horizontal"
+            android:paddingLeft="15dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchbox">
 
-        <com.google.android.material.chip.ChipGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:singleLine="true"
-            app:chipSpacingHorizontal="-9dp"
-            >
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
+                <LinearLayout
+                    android:id="@+id/all_chipdash"
+                    android:layout_width="95dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/capsule_shape"
+                    android:backgroundTint="#ffd4d4"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:paddingTop="14dp"
+                    >
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/tag1"
-            android:layout_width="110dp"
-            android:layout_height="130dp"
-            android:backgroundTint="#f2f2f2"
-             />
+                    <ImageView
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:src="@drawable/all_dashboardicon"
+                        />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/tag2"
-            android:layout_width="110dp"
-            android:layout_height="130dp"
-            android:layout_marginLeft="2dp"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="#f2f2f2"
-            app:layout_constraintLeft_toRightOf="@id/tag1"
-            app:layout_constraintTop_toBottomOf="@id/searchbox" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="All"
+                        android:textColor="#878787"
+                        android:gravity="center_horizontal"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/poppins_medium"
+                        />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/tag3"
-            android:layout_width="110dp"
-            android:layout_height="130dp"
-            android:layout_marginLeft="2dp"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="#f2f2f2"
-            app:layout_constraintLeft_toRightOf="@id/tag2"
-            app:layout_constraintTop_toBottomOf="@id/searchbox" />
+                </LinearLayout>
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/tag4"
-            android:layout_width="110dp"
-            android:layout_height="130dp"
-            android:layout_marginLeft="2dp"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="#f2f2f2"
-            app:layout_constraintLeft_toRightOf="@id/tag3"
-            app:layout_constraintTop_toBottomOf="@id/searchbox" />
+                <LinearLayout
+                    android:id="@+id/cp_chipdash"
+                    android:layout_width="95dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/capsule_shape"
+                    android:backgroundTint="#f7fafa"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:paddingTop="14dp"
+                    android:layout_marginLeft="30dp"
+                    >
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/tag5"
-            android:layout_width="110dp"
-            android:layout_height="130dp"
-            android:layout_marginLeft="2dp"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="#f2f2f2"
-            app:layout_constraintLeft_toRightOf="@id/tag4"
-            app:layout_constraintTop_toBottomOf="@id/searchbox" />
+                    <ImageView
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:src="@drawable/cp_dashboardicon"
+                        />
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="CP"
+                        android:textColor="#878787"
+                        android:gravity="center_horizontal"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/poppins_medium"
+                        />
 
-        </com.google.android.material.chip.ChipGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/web_chipdash"
+                    android:layout_width="95dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/capsule_shape"
+                    android:backgroundTint="#f7fafa"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:paddingTop="14dp"
+                    android:layout_marginLeft="30dp"
+                    >
+
+                    <ImageView
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:src="@drawable/web_dashboardicon"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Web Dev"
+                        android:textColor="#878787"
+                        android:textSize="13dp"
+                        android:gravity="center_horizontal"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/poppins_medium"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/app_chipdash"
+                    android:layout_width="95dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/capsule_shape"
+                    android:backgroundTint="#f7fafa"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:paddingTop="14dp"
+                    android:layout_marginLeft="30dp"
+                    >
+
+                    <ImageView
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:src="@drawable/app_dashboardicon"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="App Dev"
+                        android:textColor="#878787"
+                        android:textSize="13dp"
+                        android:gravity="center_horizontal"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/poppins_medium"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ai_chipdash"
+                    android:layout_width="95dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/capsule_shape"
+                    android:backgroundTint="#f7fafa"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:paddingTop="14dp"
+                    android:layout_marginLeft="30dp"
+                    >
+
+                    <ImageView
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:src="@drawable/ai_dashboardicon"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="AI/ML"
+                        android:textColor="#878787"
+                        android:gravity="center_horizontal"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/poppins_medium"
+                        />
+
+                </LinearLayout>
+            </GridLayout>
+
         </HorizontalScrollView>
 
         <TextView
+            android:id="@+id/eventhead_dash"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Events for you"
@@ -163,6 +265,17 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="25dp"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/eventRV_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:overScrollMode="never"
+            app:layout_constraintTop_toBottomOf="@id/eventhead_dash"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:paddingLeft="10dp"
             />
 
 
