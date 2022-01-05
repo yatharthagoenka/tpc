@@ -114,24 +114,30 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.Viewholder>{
         holder.rsvpbutton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-//                Toast.makeText(v.getContext(),model.getEventName(),Toast.LENGTH_SHORT).show();
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                DocumentReference docref = db.collection("events").document(model.getDocID());
-                docref.update("rsvp", FieldValue.arrayUnion(model.getCurrRollno()));
 
-                docref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            Map<String,Object> data = document.getData();
-                            docref.update("regCount", ((ArrayList<?>) data.get("rsvp")).size());
-                            Toast.makeText(v.getContext(), "RSVP Confirmed", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Log.d("Event Data", "got failed with ", task.getException());
+                if(!(model.getCurrRollno()==null)){
+
+//                  Toast.makeText(v.getContext(),model.getEventName(),Toast.LENGTH_SHORT).show();
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    DocumentReference docref = db.collection("events").document(model.getDocID());
+                    docref.update("rsvp", FieldValue.arrayUnion(model.getCurrRollno()));
+
+                    docref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                Map<String,Object> data = document.getData();
+                                docref.update("regCount", ((ArrayList<?>) data.get("rsvp")).size());
+                                Toast.makeText(v.getContext(), "RSVP Confirmed", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Log.d("Event Data", "got failed with ", task.getException());
+                            }
                         }
-                    }
-                });
+                    });
+                }else{
+                    Toast.makeText(v.getContext(), "Auth failed. Try restarting the app.", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });

@@ -1,14 +1,13 @@
 package fragments;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,7 +24,7 @@ import android.widget.TextView;
 import com.example.tpc.EventAdapter;
 import com.example.tpc.R;
 import com.example.tpc.User;
-import com.example.tpc.contestModel;
+import com.example.tpc.eventChange;
 import com.example.tpc.eventModel;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -33,7 +32,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -44,9 +42,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -78,15 +74,16 @@ public class a_dashboard extends Fragment {
         filterbutton = view.findViewById(R.id.filterbutton);
         dash_profilepic = view.findViewById(R.id.dash_profilepic);
 
-        eventRV = view.findViewById(R.id.eventRV);
-        eventData = new Vector<Vector<String>>();
-        readEventData();
+        Intent startIntent = new Intent(getActivity(), eventChange.class);
+        startIntent.setAction("te");
+        getActivity().startService(startIntent);
 
         all_chipdash = view.findViewById(R.id.all_chipdash);
         cp_chipdash = view.findViewById(R.id.cp_chipdash);
         web_chipdash = view.findViewById(R.id.web_chipdash);
         app_chipdash = view.findViewById(R.id.app_chipdash);
         ai_chipdash = view.findViewById(R.id.ai_chipdash);
+//        getActivity().startService(new Intent(getActivity(), EventListener.class));
 
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -116,6 +113,10 @@ public class a_dashboard extends Fragment {
 
             }
         });
+
+        eventRV = view.findViewById(R.id.eventRV);
+        eventData = new Vector<Vector<String>>();
+        readEventData();
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getActivity());
         if (acct != null) {
@@ -171,6 +172,7 @@ public class a_dashboard extends Fragment {
     }
 
     private void readEventData() {
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("events")
             .get()

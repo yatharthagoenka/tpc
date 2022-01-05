@@ -1,5 +1,7 @@
 package fragments;
 
+import android.app.ActivityManager;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -16,10 +18,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.tpc.EventAdapter;
+import com.example.tpc.eventChange;
 import com.example.tpc.R;
 import com.example.tpc.User;
 import com.example.tpc.eventModel;
@@ -52,15 +57,21 @@ public class u_dashboard extends Fragment {
     private TextView dash_username;
     private Button filterbutton;
     private ImageView dash_profilepic;
+    private EditText searchbox;
 
     private String userID,isAdmin,rollno;
     private FirebaseUser user;
     private DatabaseReference reference;
     private GoogleSignInClient mGoogleSignInClient;
 
+    private LinearLayout all_chipdash,cp_chipdash,web_chipdash,app_chipdash,ai_chipdash;
+
+
     private RecyclerView eventRV;
     private ArrayList<eventModel> eventModelArrayList;
     private Vector<Vector<String>> eventData;
+    int f;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
@@ -69,10 +80,14 @@ public class u_dashboard extends Fragment {
         dash_profilepic = view.findViewById(R.id.dash_profilepic);
         dash_username = view.findViewById(R.id.dash_username);
         filterbutton = view.findViewById(R.id.filterbutton);
+        searchbox = view.findViewById(R.id.searchbox);
 
-        eventRV = view.findViewById(R.id.eventRV_user);
-        eventData = new Vector<Vector<String>>();
-        readEventData();
+
+//        getActivity().stopService(new Intent(getActivity(), eventChange.class));
+
+        Intent startIntent = new Intent(getActivity(), eventChange.class);
+        startIntent.setAction("te");
+        getActivity().startService(startIntent);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -102,6 +117,10 @@ public class u_dashboard extends Fragment {
             }
         });
 
+        eventRV = view.findViewById(R.id.eventRV_user);
+        eventData = new Vector<Vector<String>>();
+        readEventData();
+
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getActivity());
         if (acct != null) {
             Uri personPhoto = acct.getPhotoUrl();
@@ -109,6 +128,16 @@ public class u_dashboard extends Fragment {
         }
 
         return view;
+    }
+
+    private boolean isServiceActive(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getActivity().getSystemService(getActivity().ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
@@ -155,6 +184,7 @@ public class u_dashboard extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
+                                f+=1;
 //                            Log.d("event", document.getId() + " => " + document.getData());
                                 Map<String,Object> data = document.getData();
 //                            Log.d("eventtest2",data.get("name").toString());
@@ -184,6 +214,11 @@ public class u_dashboard extends Fragment {
                         setToEventAdapter();
                     }
                 });
+    }
+
+    public int getVar() {
+        Log.d("testf",String.valueOf(f));
+        return this.f;
     }
 
     private void setToEventAdapter() {
