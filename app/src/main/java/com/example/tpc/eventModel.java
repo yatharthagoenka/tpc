@@ -2,24 +2,54 @@ package com.example.tpc;
 
 public class eventModel {
 
-    private String eventDay;
-    private String eventMonth;
+//    private String eventDay;
+//    private String eventMonth;
+    private String eventDate;
     private String eventName;
     private String eventDomain;
     private String eventRegCount;
     private String currRollno;
     private String docID;
     private String isAdmin;
+    private String eventDuration;
+    private String eventDesc;
 
-    public eventModel(String eventDay, String eventMonth, String eventName, String eventDomain, String eventRegCount, String currRollno, String docID, String isAdmin) {
-        this.eventDay = eventDay;
-        this.eventMonth = eventMonth;
+    public eventModel(String eventDate, String eventName, String eventDomain, String eventRegCount, String currRollno, String docID, String isAdmin, String eventDuration, String eventDesc) {
+//        this.eventDay = eventDay;
+//        this.eventMonth = eventMonth;
+        this.eventDate = eventDate;
         this.eventName = eventName;
         this.eventDomain = eventDomain;
         this.eventRegCount = eventRegCount;
+        this.eventDuration = eventDuration;
         this.currRollno = currRollno;
         this.docID = docID;
         this.isAdmin = isAdmin;
+        this.eventDesc = eventDesc;
+    }
+
+    public String getEventDesc() {
+        return eventDesc;
+    }
+
+    public void setEventDesc(String eventDesc) {
+        this.eventDesc = eventDesc;
+    }
+
+    public String getEventDate() {
+        return eventDate;
+    }
+
+    public void setEventDate(String eventDate) {
+        this.eventDate = eventDate;
+    }
+
+    public String getEventDuration() {
+        return eventDuration;
+    }
+
+    public void setEventDuration(String eventDuration) {
+        this.eventDuration = eventDuration;
     }
 
     public String getIsAdmin() {
@@ -46,21 +76,6 @@ public class eventModel {
         this.docID = docID;
     }
 
-    public String getEventDay() {
-        return eventDay;
-    }
-
-    public void setEventDay(String eventDay) {
-        this.eventDay = eventDay;
-    }
-
-    public String getEventMonth() {
-        return eventMonth;
-    }
-
-    public void setEventMonth(String eventMonth) {
-        this.eventMonth = eventMonth;
-    }
 
     public String getEventName() {
         return eventName;

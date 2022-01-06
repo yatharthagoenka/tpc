@@ -1,17 +1,17 @@
 package com.example.tpc;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +20,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentReference;
@@ -29,13 +28,13 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.Viewholder>{
 
     private Context context;
     private ArrayList<eventModel> eventModelArrayList;
+
 
     public EventAdapter(Context context, ArrayList<eventModel> eventModelArrayList) {
         this.context = context;
@@ -53,7 +52,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.Viewholder>{
         private TextView eventDay, eventMonth,eventName,eventDomain,eventRegCount;
         private ConstraintLayout eventcard_layout;
         private ImageView eventcard_img;
-        private FloatingActionButton rsvpbutton;
 
         public Viewholder(@NonNull View itemView) {
             super(itemView);
@@ -64,15 +62,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.Viewholder>{
             eventRegCount = itemView.findViewById(R.id.eventcard_reg);
             eventcard_layout = itemView.findViewById(R.id.eventcard_layout);
             eventcard_img = itemView.findViewById(R.id.eventcard_img);
-            rsvpbutton = itemView.findViewById(R.id.rsvpbutton);
         }
     }
 
     @Override
     public void onBindViewHolder(@NonNull EventAdapter.Viewholder holder, int position) {
         eventModel model = eventModelArrayList.get(position);
-        holder.eventDay.setText(model.getEventDay());
-        holder.eventMonth.setText(model.getEventMonth());
+        holder.eventDay.setText(model.getEventDate().split(" ")[0]);
+        holder.eventMonth.setText(model.getEventDate().split(" ")[1]);
         holder.eventName.setText(model.getEventName());
         holder.eventDomain.setText(model.getEventDomain());
         holder.eventRegCount.setText(model.getEventRegCount());
@@ -111,34 +108,22 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.Viewholder>{
             }
         });
 
-        holder.rsvpbutton.setOnClickListener(new View.OnClickListener(){
+        final View sharedElPic = holder.eventcard_img;
+        final View sharedElName = holder.eventName;
+
+        holder.eventcard_layout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-
-                if(!(model.getCurrRollno()==null)){
-
-//                  Toast.makeText(v.getContext(),model.getEventName(),Toast.LENGTH_SHORT).show();
-                    FirebaseFirestore db = FirebaseFirestore.getInstance();
-                    DocumentReference docref = db.collection("events").document(model.getDocID());
-                    docref.update("rsvp", FieldValue.arrayUnion(model.getCurrRollno()));
-
-                    docref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            if (task.isSuccessful()) {
-                                DocumentSnapshot document = task.getResult();
-                                Map<String,Object> data = document.getData();
-                                docref.update("regCount", ((ArrayList<?>) data.get("rsvp")).size());
-                                Toast.makeText(v.getContext(), "RSVP Confirmed", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Log.d("Event Data", "got failed with ", task.getException());
-                            }
-                        }
-                    });
-                }else{
-                    Toast.makeText(v.getContext(), "Auth failed. Try restarting the app.", Toast.LENGTH_SHORT).show();
-                }
-
+            public void onClick(View view) {
+                Intent startIntent = new Intent(view.getContext(), eventPage.class);
+                startIntent.putExtra("domain",model.getEventDomain());
+                startIntent.putExtra("name",model.getEventName());
+                startIntent.putExtra("date",model.getEventDate());
+                startIntent.putExtra("duration",model.getEventDuration());
+                startIntent.putExtra("docID",model.getDocID());
+                startIntent.putExtra("currUser",model.getCurrRollno());
+                startIntent.putExtra("desc",model.getEventDesc());
+                view.getContext().startActivity(startIntent);
+                ((Activity)context).overridePendingTransition(R.anim.slide_in_right, R.anim.mock_anim);
             }
         });
     }

@@ -39,16 +39,6 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/web_cardview" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/rsvpbutton"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:fabCustomSize="50dp"
-                android:layout_gravity="right"
-                android:layout_margin="20dp"
-                android:backgroundTint="#f7fffe"
-                android:src="@drawable/ic_baseline_post_add_24"
-                />
 
             <TextView
                 android:id="@+id/eventcard_day"

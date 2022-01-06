@@ -85,9 +85,9 @@ public class u_dashboard extends Fragment {
 
 //        getActivity().stopService(new Intent(getActivity(), eventChange.class));
 
-        Intent startIntent = new Intent(getActivity(), eventChange.class);
-        startIntent.setAction("te");
-        getActivity().startService(startIntent);
+//        Intent startIntent = new Intent(getActivity(), eventChange.class);
+//        startIntent.setAction("te");
+//        getActivity().startService(startIntent);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -189,20 +189,26 @@ public class u_dashboard extends Fragment {
                                 Map<String,Object> data = document.getData();
 //                            Log.d("eventtest2",data.get("name").toString());
 
-                                String[] full_date = data.get("eventDate").toString().split(" ");
-                                String day = full_date[0];
-                                String month = full_date[1];
+//                                String[] full_date = data.get("eventDate").toString().split(" ");
+//                                String day = full_date[0];
+//                                String month = full_date[1];
+                                String date = data.get("eventDate").toString();
                                 String name = data.get("name").toString();
                                 String domain = data.get("domain").toString();
                                 String regCount = data.get("regCount").toString()+" Joined";
+                                String duration = data.get("duration").toString();
+                                String desc = data.get("Desc").toString();
 
                                 Vector<String> tmp = new Vector<String>();
-                                tmp.add(day);
-                                tmp.add(month);
+                                tmp.add(date);
+//                                tmp.add(day);
+//                                tmp.add(month);
                                 tmp.add(name);
                                 tmp.add(domain);
                                 tmp.add(regCount);
                                 tmp.add(document.getId());
+                                tmp.add(duration);
+                                tmp.add(desc);
 
                                 eventData.add(tmp);
 
@@ -227,7 +233,7 @@ public class u_dashboard extends Fragment {
 //        Log.d("eventadapter",eventData.toString());
 
         for(int i=0;i<eventData.size();i++){
-            eventModelArrayList.add(new eventModel(eventData.get(i).get(0), eventData.get(i).get(1), eventData.get(i).get(2),eventData.get(i).get(3),eventData.get(i).get(4),rollno,eventData.get(i).get(5),isAdmin));
+            eventModelArrayList.add(new eventModel(eventData.get(i).get(0), eventData.get(i).get(1),eventData.get(i).get(2),eventData.get(i).get(3),rollno,eventData.get(i).get(4),isAdmin,eventData.get(i).get(5),eventData.get(i).get(6)));
         }
 
 //        Log.d("eventadapter",eventData.toString());

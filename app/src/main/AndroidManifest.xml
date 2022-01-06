@@ -13,10 +13,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tpc"
         tools:replace="android:label">
+        <activity
+            android:name=".eventPage"
+            android:exported="false" />
+
         <service
             android:name=".eventChange"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
         <activity android:name=".adminindex" />
         <activity android:name=".index" />

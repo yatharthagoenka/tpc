@@ -8,7 +8,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -62,6 +64,21 @@ public class login extends AppCompatActivity implements View.OnClickListener {
 
         linkreg = (TextView)findViewById(R.id.linkreg);
         logemail = (EditText)findViewById(R.id.logemail);
+        logemail.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction()==MotionEvent.ACTION_DOWN) {
+                    ViewAnimationUtils.createCircularReveal(logemail,
+                            (int) event.getX(),
+                            (int) event.getY(),
+                            0,
+                            logemail.getHeight() * 2).start();
+                }
+                return false;
+            }
+        });
+
+
         logpassword = (EditText)findViewById(R.id.logpassword);
         loginbutton = (LinearLayout) findViewById(R.id.loginbutton);
         mauth = FirebaseAuth.getInstance();

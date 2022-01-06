@@ -68,9 +68,11 @@
     <EditText
         android:id="@+id/logemail"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginTop="340dp"
         android:ems="10"
+        android:background="@drawable/selector_line_bellow"
+        android:paddingBottom="5dp"
         android:hint="Email"
         android:inputType="text"
         android:letterSpacing="0.20"
