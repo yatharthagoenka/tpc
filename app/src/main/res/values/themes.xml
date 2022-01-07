@@ -26,4 +26,9 @@
         <item name="android:background">@drawable/newevent_sheetbg</item>
     </style>
 
+    <style name="popUpAnimation">
+        <item name="android:windowEnterAnimation">@anim/scale_up</item>
+        <item name="android:windowExitAnimation">@anim/scale_out</item>
+    </style>
+
 </resources>

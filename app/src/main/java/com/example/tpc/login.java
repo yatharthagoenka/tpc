@@ -64,19 +64,6 @@ public class login extends AppCompatActivity implements View.OnClickListener {
 
         linkreg = (TextView)findViewById(R.id.linkreg);
         logemail = (EditText)findViewById(R.id.logemail);
-        logemail.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction()==MotionEvent.ACTION_DOWN) {
-                    ViewAnimationUtils.createCircularReveal(logemail,
-                            (int) event.getX(),
-                            (int) event.getY(),
-                            0,
-                            logemail.getHeight() * 2).start();
-                }
-                return false;
-            }
-        });
 
 
         logpassword = (EditText)findViewById(R.id.logpassword);

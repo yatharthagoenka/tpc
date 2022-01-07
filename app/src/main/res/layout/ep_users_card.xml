@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:id="@+id/epuser_cardview"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="#faf5f5f5"
+    app:cardElevation="3dp"
+    app:cardCornerRadius="14dp"
+    app:cardMaxElevation="2dp"
+    android:layout_marginBottom="2dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+
+
+    <RelativeLayout
+        android:id="@+id/cardlayout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        >
+
+        <TextView
+            android:id="@+id/epusers_tag"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/capsule_rsvpbutton"
+            android:backgroundTint="#80b5c7bf"
+            android:fontFamily="@font/montserrat_bold"
+            android:gravity="center"
+            android:text="A N"
+            android:textColor="#363636"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/epusers_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="85dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="30dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Attendee Name"
+            android:textColor="@color/black"
+            android:textFontWeight="100"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/epusers_rollno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="85dp"
+            android:layout_marginTop="45dp"
+            android:fontFamily="@font/work_sans_extralight"
+            android:text="20BCS240"
+            android:textColor="#000"
+            android:textFontWeight="100"
+            android:textSize="13sp" />
+
+    </RelativeLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/user_detailpanel"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        app:layout_constraintTop_toBottomOf="@+id/cardlayout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1.5dp"
+            android:background="#4dd4d4d4"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@id/user_detailpanel"/>
+
+        <TextView
+            android:id="@+id/epusers_infobutton"
+            android:layout_height="match_parent"
+            android:layout_width="150dp"
+            android:text="INFO"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/detailpanel_divider"
+            />
+
+        <View
+            android:id="@+id/detailpanel_divider"
+            android:layout_width="1dp"
+            android:layout_height="45dp"
+            android:background="#4dd4d4d4"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/epusers_adminbutton"
+            android:layout_height="match_parent"
+            android:layout_width="150dp"
+            android:gravity="center"
+            android:text="ADD HOST"
+            android:background="?attr/selectableItemBackground"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/detailpanel_divider"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

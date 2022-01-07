@@ -23,12 +23,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tpc.R;
+import com.example.tpc.User;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.kofigyan.stateprogressbar.StateProgressBar;
@@ -49,6 +58,10 @@ public class newEventSheet extends BottomSheetDialogFragment implements AdapterV
     private StateProgressBar newEventProgressBar;
     private ScrollView tagscrollview;
     private DatePicker eventDate;
+
+    private String userID,rollno;
+    private FirebaseUser user;
+    private DatabaseReference reference;
 
     Map<String, Object> event;
     int step;
@@ -108,12 +121,34 @@ public class newEventSheet extends BottomSheetDialogFragment implements AdapterV
         tagscrollview = view.findViewById(R.id.tagscrollview);
         eventDate = view.findViewById(R.id.eventDate);
 
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference("Users");
+        userID = user.getUid();
+
+        reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User userProfile = snapshot.getValue(User.class);
+                if(userProfile != null){
+                    rollno = userProfile.roll;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         event = new HashMap<>();
         ArrayList<String> attendees = new ArrayList<>();
+        ArrayList<String> hosts = new ArrayList<>();
         attendees.add("000");
+        hosts.add(rollno);
         event.put("rsvp", attendees);
+        event.put("hosts", hosts);
         event.put("regCount", 1);
 
         step = 1;

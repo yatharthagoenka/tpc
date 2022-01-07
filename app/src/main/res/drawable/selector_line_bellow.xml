@@ -4,12 +4,12 @@
     <item android:state_enabled="true"
         android:state_focused="true">
         <layer-list>
-            <item android:bottom="-25dp">
+            <item android:bottom="-45dp">
                 <shape android:shape="line">
-                    <solid android:color="@android:color/transparent"/>
+
                     <stroke
-                        android:width="3dp"
-                        android:color="#017ba7"/>
+                        android:width="0.6dp"
+                        android:color="#99ffd45e"/>
                 </shape>
             </item>
 
@@ -19,12 +19,12 @@
     <!-- default-->
     <item >
         <layer-list>
-            <item android:bottom="-25dp">
+            <item android:bottom="-45dp">
                 <shape android:shape="line">
-                    <solid android:color="@android:color/transparent"/>
+
                     <stroke
-                        android:width="3dp"
-                        android:color="#11017ba7"/>
+                        android:width="0.6dp"
+                        android:color="#99ffd45e"/>
                 </shape>
             </item>
         </layer-list>

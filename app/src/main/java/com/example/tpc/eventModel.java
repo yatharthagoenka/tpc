@@ -13,8 +13,9 @@ public class eventModel {
     private String isAdmin;
     private String eventDuration;
     private String eventDesc;
+    private String currUsername;
 
-    public eventModel(String eventDate, String eventName, String eventDomain, String eventRegCount, String currRollno, String docID, String isAdmin, String eventDuration, String eventDesc) {
+    public eventModel(String eventDate, String eventName, String eventDomain, String eventRegCount, String currRollno, String docID, String isAdmin, String eventDuration, String eventDesc, String currUsername) {
 //        this.eventDay = eventDay;
 //        this.eventMonth = eventMonth;
         this.eventDate = eventDate;
@@ -26,6 +27,15 @@ public class eventModel {
         this.docID = docID;
         this.isAdmin = isAdmin;
         this.eventDesc = eventDesc;
+        this.currUsername = currUsername;
+    }
+
+    public String getCurrUsername() {
+        return currUsername;
+    }
+
+    public void setCurrUsername(String currUsername) {
+        this.currUsername = currUsername;
     }
 
     public String getEventDesc() {

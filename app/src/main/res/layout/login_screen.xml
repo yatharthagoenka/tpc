@@ -8,12 +8,12 @@
 
     <View
         android:id="@+id/ss_shadow"
-        android:layout_width="800dp"
-        android:layout_height="894dp"
-        android:layout_marginTop="-200dp"
-        android:layout_marginLeft="-300dp"
+        android:layout_width="670dp"
+        android:layout_height="600dp"
+        android:layout_marginTop="-60dp"
+        android:layout_marginLeft="-180dp"
         android:background="@drawable/shadow"
-        android:backgroundTint="#fff"
+        android:backgroundTint="#ffffff"
         android:rotation="150"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -21,10 +21,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="60dp"
+        android:layout_margin="40dp"
         android:fontFamily="@font/montserrat_bold"
         android:text="TPC"
-        android:textColor="@color/white"
+        android:textColor="#dedede"
         android:textSize="30dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,15 +32,30 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="132dp"
-        android:layout_marginTop="37dp"
+        android:layout_marginLeft="112dp"
+        android:layout_marginTop="19dp"
         android:fontFamily="@font/montserrat_bold"
         android:text="."
-        android:textColor="@color/white"
+        android:textColor="#dedede"
         android:textSize="50dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--    work sans-->
+    <EditText
+        android:id="@+id/log_username"
+        android:layout_width="330dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="408dp"
+        android:background="@drawable/selector_line_bellow"
+        android:fontFamily="@font/work_sans_extralight"
+        android:hint="USERNAME"
+        android:paddingLeft="30dp"
+        android:paddingBottom="10dp"
+        android:textColorHint="#ebebeb"
+        android:textSize="14dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

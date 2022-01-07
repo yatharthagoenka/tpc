@@ -53,12 +53,11 @@ import java.util.Vector;
 public class a_dashboard extends Fragment {
 
     View view;
-    private TextView dash_username, newEventButton,eventtexts;
-    private Button filterbutton;
+    private TextView dash_username, newEventButton,eventtexts,filterbutton;
     private ImageView dash_profilepic;
     private LinearLayout all_chipdash,cp_chipdash,web_chipdash,app_chipdash,ai_chipdash;
 
-    private String userID,isAdmin,rollno;
+    private String userID,isAdmin,rollno,username;
     private FirebaseUser user;
     private DatabaseReference reference;
     private GoogleSignInClient mGoogleSignInClient;
@@ -101,7 +100,7 @@ public class a_dashboard extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User userProfile = snapshot.getValue(User.class);
                 if(userProfile != null){
-                    String username = userProfile.name;
+                    username = userProfile.name;
                     dash_username.setText(username);
                     isAdmin = userProfile.isAdmin;
                     rollno = userProfile.roll;
@@ -224,7 +223,7 @@ public class a_dashboard extends Fragment {
 //        Log.d("eventadapter",eventData.toString());
 
         for(int i=0;i<eventData.size();i++){
-            eventModelArrayList.add(new eventModel(eventData.get(i).get(0), eventData.get(i).get(1),eventData.get(i).get(2),eventData.get(i).get(3),rollno,eventData.get(i).get(4),isAdmin,eventData.get(i).get(5),eventData.get(i).get(6)));
+            eventModelArrayList.add(new eventModel(eventData.get(i).get(0), eventData.get(i).get(1),eventData.get(i).get(2),eventData.get(i).get(3),rollno,eventData.get(i).get(4),isAdmin,eventData.get(i).get(5),eventData.get(i).get(6),username));
         }
 
 //        Log.d("eventadapter",eventData.toString());

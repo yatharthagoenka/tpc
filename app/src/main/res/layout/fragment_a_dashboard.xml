@@ -37,8 +37,8 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
             android:layout_marginLeft="312dp"
             android:layout_marginTop="20dp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -57,30 +57,39 @@
 
         <EditText
             android:id="@+id/searchbox"
-            android:layout_width="270dp"
+            android:layout_width="280dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="36dp"
-            android:layout_marginTop="108dp"
-            android:background="@drawable/edittext_border"
+            android:clickable="true"
+            android:singleLine="true"
+            android:imeOptions="actionDone"
+            android:backgroundTint="#b3f5f5f5"
+            android:background="@drawable/capsule_rsvpbutton"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="107dp"
             android:drawableLeft="@drawable/ic_baseline_search_24"
             android:fontFamily="@font/poppins_light"
-            android:hint="  Search for event..."
-            android:paddingLeft="13dp"
+            android:hint="   Search for event"
+            android:paddingLeft="16dp"
             android:textSize="13dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
-        <Button
+
+        <TextView
             android:id="@+id/filterbutton"
-            android:layout_width="52dp"
-            android:layout_height="52dp"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:paddingTop="14dp"
+            android:clickable="true"
+            android:drawableTop="@drawable/ic_baseline_tune_24"
+            android:backgroundTint="#f5f5f5"
+            android:background="@drawable/ripple_button"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="108dp"
-            android:background="@drawable/edittext_border"
-            android:drawableLeft="@drawable/ic_baseline_tune_24"
+            android:layout_marginTop="104dp"
             app:layout_constraintLeft_toRightOf="@id/searchbox"
             app:layout_constraintTop_toTopOf="parent"
-            app:rippleColor="@null" />
+            />
 
         <HorizontalScrollView
             android:id="@+id/horview_chips"

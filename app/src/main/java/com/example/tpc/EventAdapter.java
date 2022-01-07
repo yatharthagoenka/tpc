@@ -120,8 +120,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.Viewholder>{
                 startIntent.putExtra("date",model.getEventDate());
                 startIntent.putExtra("duration",model.getEventDuration());
                 startIntent.putExtra("docID",model.getDocID());
-                startIntent.putExtra("currUser",model.getCurrRollno());
+                startIntent.putExtra("currUserRoll",model.getCurrRollno());
                 startIntent.putExtra("desc",model.getEventDesc());
+                startIntent.putExtra("currUsername",model.getCurrUsername());
+                startIntent.putExtra("isAdmin",model.getIsAdmin());
                 view.getContext().startActivity(startIntent);
                 ((Activity)context).overridePendingTransition(R.anim.slide_in_right, R.anim.mock_anim);
             }

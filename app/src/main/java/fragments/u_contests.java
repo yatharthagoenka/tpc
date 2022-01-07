@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.OvershootInterpolator;
 import android.widget.ProgressBar;
 
 import com.example.tpc.ContestAdapter;
@@ -56,6 +57,8 @@ import java.util.Locale;
 import java.util.Vector;
 
 import static java.lang.StrictMath.abs;
+
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
 public class u_contests extends Fragment {
 
@@ -117,31 +120,9 @@ public class u_contests extends Fragment {
                 new SwipeRefreshLayout.OnRefreshListener() {
                     @Override
                     public void onRefresh() {
-                        switch(tab){
-                            case 1:
-                                resultdata_All.clear();
-                                progressBar.setVisibility(View.VISIBLE);
-                                all_contest_fetch();
-                                break;
-                            case 2:
-                                resultdata_CC.clear();
-                                progressBar.setVisibility(View.VISIBLE);
-                                CC_list cclist = new CC_list();
-                                cclist.execute("https://www.codechef.com/api/list/contests/all?sort_by=START&sorting_order=asc&offset=0&mode=premium");
-                                break;
-                            case 3:
-                                resultdata_CF.clear();
-                                progressBar.setVisibility(View.VISIBLE);
-                                CF_list cflist = new CF_list();
-                                cflist.execute("https://codeforces.com/api/contest.list?gym=false");
-                                break;
-                            case 4:
-                                resultdata_AC.clear();
-                                progressBar.setVisibility(View.VISIBLE);
-                                AC_list aclist = new AC_list();
-                                aclist.execute();
-                                break;
-                        }
+                        resultdata_All.clear();
+                        progressBar.setVisibility(View.VISIBLE);
+                        all_contest_fetch();
                         swipeRefreshLayout.setRefreshing(false);
                     }
                 }
@@ -233,7 +214,6 @@ public class u_contests extends Fragment {
                     tmp.add(link);
 
                     resultdata_All.add(tmp);
-                    resultdata_CC.add(tmp);
 
                 }
 //                contestlisttest.setText(String.valueOf(resultdata));
@@ -324,7 +304,6 @@ public class u_contests extends Fragment {
                     tmp.add(duration);
                     tmp.add(link);
                     resultdata_All.add(tmp);
-                    resultdata_CF.add(tmp);
                 }
 //                contestlisttest.setText(String.valueOf(resultdata));
                 setToAdapter();
@@ -392,7 +371,6 @@ public class u_contests extends Fragment {
 
 //                Log.i("tmptest",String.valueOf(tmp));
                 resultdata_All.add(tmp);
-                resultdata_AC.add(tmp);
             }
 //            contestlisttest.setText(String.valueOf(resultdata));
             setToAdapter();
@@ -406,13 +384,25 @@ public class u_contests extends Fragment {
                 resultdata = (Vector<Vector<String>>) resultdata_All.clone();
                 break;
             case 2:
-                resultdata = (Vector<Vector<String>>) resultdata_CC.clone();
+                for(int i=0;i<resultdata_All.size();i++){
+                    if(resultdata_All.get(i).get(1).equals("Codechef")){
+                        resultdata.add(resultdata_All.get(i));
+                    }
+                }
                 break;
             case 3:
-                resultdata = (Vector<Vector<String>>) resultdata_CF.clone();
+                for(int i=0;i<resultdata_All.size();i++){
+                    if(resultdata_All.get(i).get(1).equals("Codeforces")){
+                        resultdata.add(resultdata_All.get(i));
+                    }
+                }
                 break;
             case 4:
-                resultdata = (Vector<Vector<String>>) resultdata_AC.clone();
+                for(int i=0;i<resultdata_All.size();i++){
+                    if(resultdata_All.get(i).get(1).equals("AtCoder")){
+                        resultdata.add(resultdata_All.get(i));
+                    }
+                }
                 break;
         }
         Collections.sort(resultdata, new Comparator<Vector<String>>(){
