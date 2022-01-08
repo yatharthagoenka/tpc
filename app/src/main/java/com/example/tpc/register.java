@@ -2,11 +2,16 @@ package com.example.tpc;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Patterns;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -22,8 +27,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class register extends AppCompatActivity implements View.OnClickListener {
-    private TextView linklogin;
-    private LinearLayout regbutton;
+    private TextView linklogin,regnametext,regrolltext,regemailtext,regpasswordtext;
+    private ConstraintLayout regbutton;
     private EditText regname,regroll,regemail,regpass;
     private ProgressBar progressBar;
 
@@ -37,15 +42,81 @@ public class register extends AppCompatActivity implements View.OnClickListener 
         mAuth = FirebaseAuth.getInstance();
 
         linklogin = (TextView)findViewById(R.id.linklogin);
+        regnametext = (TextView)findViewById(R.id.regnametext);
+        regrolltext = (TextView)findViewById(R.id.regrolltext);
+        regemailtext = (TextView)findViewById(R.id.regemailtext);
+        regpasswordtext = (TextView)findViewById(R.id.regpasswordtext);
         regname = (EditText)findViewById(R.id.regname);
         regroll = (EditText)findViewById(R.id.regroll);
         regemail = (EditText)findViewById(R.id.regemail);
         regpass = (EditText)findViewById(R.id.regpassword);
 
+        regname.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    regnametext.animate().alpha(0).setDuration(150);
+                    regname.animate().scaleXBy(0.2f).setDuration(800);
+                }else{
+                    if(regname.getText().toString().isEmpty()){
+                        regnametext.animate().alpha(1).setDuration(200);
+                    }
+                    regname.animate().scaleXBy(-0.2f).setDuration(800);
+                }
+            }
+        });
+
+        regroll.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    regrolltext.animate().alpha(0).setDuration(150);
+                    regroll.animate().scaleXBy(0.2f).setDuration(800);
+                }else{
+                    if(regroll.getText().toString().isEmpty()){
+                        regrolltext.animate().alpha(1).setDuration(200);
+                    }
+                    regroll.animate().scaleXBy(-0.2f).setDuration(800);
+                }
+            }
+        });
+
+        regemail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    regemailtext.animate().alpha(0).setDuration(150);
+                    regemail.animate().scaleXBy(0.2f).setDuration(800);
+                }else{
+                    if(regemail.getText().toString().isEmpty()){
+                        regemailtext.animate().alpha(1).setDuration(200);
+                    }
+                    regemail.animate().scaleXBy(-0.2f).setDuration(800);
+                }
+            }
+        });
+
+        regpass.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    regpasswordtext.animate().alpha(0).setDuration(150);
+                    regpass.animate().scaleXBy(0.2f).setDuration(800);
+                }else{
+                    if(regpass.getText().toString().isEmpty()){
+                        regpasswordtext.animate().alpha(1).setDuration(200);
+                    }
+                    regpass.animate().scaleXBy(-0.2f).setDuration(800);
+                }
+            }
+        });
+
+
+
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
 
-        regbutton = (LinearLayout) findViewById(R.id.regbutton);
+        regbutton = (ConstraintLayout) findViewById(R.id.regbutton);
         regbutton.setOnClickListener(this);
 
         linklogin.setOnClickListener(this);
@@ -55,6 +126,7 @@ public class register extends AppCompatActivity implements View.OnClickListener 
         switch (v.getId()){
             case R.id.linklogin:
                 startActivity(new Intent(this,login.class));
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 break;
             case R.id.regbutton:
                 registerUser();
@@ -134,6 +206,30 @@ public class register extends AppCompatActivity implements View.OnClickListener 
                     }
                 });
 
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if ( v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent( event );
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
 

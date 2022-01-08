@@ -1,187 +1,241 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context=".login">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription=""
         android:scaleType="centerCrop"
-        android:src="@drawable/loginbg"
+        android:src="@drawable/loginb2"
         tools:ignore="ContentDescription" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#4D000000"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="-30dp" />
-
-
     <TextView
-        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="84dp"
-        android:fontFamily="@font/catamaran_extrabold"
-        android:text="Register"
-        android:textColor="@color/white"
-        android:textSize="60dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:layout_width="50dp"
-        android:layout_height="3dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="64dp"
-        android:background="#49de71"
+        android:layout_margin="40dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="TPC"
+        android:textColor="#dedede"
+        android:textSize="30dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="84dp"
-        android:layout_marginTop="52dp"
-        android:fontFamily="@font/work_sans"
-        android:text="TPC | IIITDMJ"
-        android:textColor="@color/white"
-        android:textSize="20dp"
+        android:layout_marginLeft="112dp"
+        android:layout_marginTop="19dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="."
+        android:textColor="#dedede"
+        android:textSize="50dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="170dp"
-        android:layout_height="6dp"
-        android:layout_marginLeft="120dp"
-        android:layout_marginTop="4dp"
-        android:background="@color/white"
+    <TextView
+        android:id="@+id/registerTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="REGISTER"
+        android:gravity="center"
+        android:fontFamily="@font/work_sans_extralight"
+        android:textColor="#fff"
+        android:textFontWeight="800"
+        android:textSize="23dp"
+        android:layout_marginLeft="60dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="155dp"
+        />
+
+<!--    REG NAME-->
 
     <EditText
         android:id="@+id/regname"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:ems="10"
-        android:hint="Name"
-        android:inputType="text"
-        android:letterSpacing="0.20"
-        android:textColor="@color/white"
-        android:textColorHint="#b8b8b8"
-        android:textSize="16sp"
-        app:layout_constraintHorizontal_bias="0.531"
+        android:layout_height="70dp"
+        android:layout_marginTop="40dp"
+        android:paddingLeft="10dp"
+        android:clickable="true"
+        android:textColor="#ebebeb"
+        android:fontFamily="@font/work_sans_extralight"
+        android:background="@drawable/selector_line_bellow"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
+        app:layout_constraintTop_toBottomOf="@id/registerTextView" />
+
+    <TextView
+        android:id="@+id/regnametext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/work_sans_extralight"
+        android:text="NAME"
+        android:layout_marginLeft="40dp"
+        android:layout_marginBottom="30dp"
+        android:textColor="#ebebeb"
+        android:textSize="13dp"
+        app:layout_constraintLeft_toLeftOf="@id/regname"
+        app:layout_constraintBottom_toBottomOf="@id/regname"
+        />
+
+    <!--    REG NAME-->
+
+    <!--    REG ROLL NO-->
 
     <EditText
         android:id="@+id/regroll"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:hint="Roll No"
-        android:inputType="text"
-        android:letterSpacing="0.20"
-        android:textColor="@color/white"
-        android:textColorHint="#b8b8b8"
-        android:textSize="16sp"
-        app:layout_constraintHorizontal_bias="0.504"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="10dp"
+        android:clickable="true"
+        android:textColor="#ebebeb"
+        android:fontFamily="@font/work_sans_extralight"
+        android:background="@drawable/selector_line_bellow"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/regname" />
+        app:layout_constraintTop_toBottomOf="@id/regname" />
+
+    <TextView
+        android:id="@+id/regrolltext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/work_sans_extralight"
+        android:text="ROLL NUMBER"
+        android:layout_marginLeft="40dp"
+        android:layout_marginBottom="30dp"
+        android:textColor="#ebebeb"
+        android:textSize="13dp"
+        app:layout_constraintLeft_toLeftOf="@id/regroll"
+        app:layout_constraintBottom_toBottomOf="@id/regroll"
+        />
+
+    <!--    REG ROLL NO-->
+
+    <!--    REG EMAIL-->
 
     <EditText
         android:id="@+id/regemail"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="text"
-        android:letterSpacing="0.20"
-        android:textColor="@color/white"
-        android:textColorHint="#b8b8b8"
-        android:textSize="16sp"
-        app:layout_constraintHorizontal_bias="0.495"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="10dp"
+        android:clickable="true"
+        android:textColor="#ebebeb"
+        android:fontFamily="@font/work_sans_extralight"
+        android:background="@drawable/selector_line_bellow"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/regroll" />
+        app:layout_constraintTop_toBottomOf="@id/regroll" />
+
+    <TextView
+        android:id="@+id/regemailtext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/work_sans_extralight"
+        android:text="EMAIL ID"
+        android:layout_marginLeft="40dp"
+        android:layout_marginBottom="30dp"
+        android:textColor="#ebebeb"
+        android:textSize="13dp"
+        app:layout_constraintLeft_toLeftOf="@id/regemail"
+        app:layout_constraintBottom_toBottomOf="@id/regemail"
+        />
+
+    <!--    REG EMAIL-->
+
+    <!--    REG PASSWORD-->
 
     <EditText
         android:id="@+id/regpassword"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:letterSpacing="0.20"
-        android:textColor="@color/white"
-        android:textColorHint="#b8b8b8"
-        android:textSize="16sp"
-        app:layout_constraintHorizontal_bias="0.504"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="10dp"
+        android:clickable="true"
+        android:textColor="#ebebeb"
+        android:fontFamily="@font/work_sans_extralight"
+        android:background="@drawable/selector_line_bellow"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/regemail" />
 
-    <LinearLayout
-        android:id="@+id/regbutton"
+    <TextView
+        android:id="@+id/regpasswordtext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:background="@drawable/border"
-        android:clickable="true"
-        android:padding="10dp"
-        app:layout_constraintHorizontal_bias="0.489"
+        android:fontFamily="@font/work_sans_extralight"
+        android:text="PASSWORD"
+        android:layout_marginLeft="40dp"
+        android:layout_marginBottom="30dp"
+        android:textColor="#ebebeb"
+        android:textSize="13dp"
+        app:layout_constraintLeft_toLeftOf="@id/regpassword"
+        app:layout_constraintBottom_toBottomOf="@id/regpassword"
+        />
+
+    <!--  REG PASSWORD -->
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/regbutton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/regpassword">
-
-        <View
-            android:layout_width="140dp"
-            android:layout_height="4dp"
-            android:layout_marginLeft="13dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/white"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toBottomOf="@id/regpassword"
+        app:layout_constraintRight_toRightOf="parent">
 
         <TextView
+            android:id="@+id/regbutton_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:fontFamily="@font/work_sans"
-            android:text="  SIGN UP"
-            android:textColor="@color/white"
+            android:text="REGISTER"
+            android:gravity="center"
+            android:fontFamily="@font/work_sans_extralight"
+            android:textColor="#ababab"
             android:textFontWeight="900"
-            android:textSize="18dp"
+            android:textSize="14dp"
+            android:layout_marginLeft="80dp"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <ImageView
+            android:layout_width="170dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="10dp"
+            android:paddingTop="4dp"
+            android:backgroundTint="#ababab"
+            android:src="@drawable/long_arrow"
+            app:layout_constraintLeft_toRightOf="@id/regbutton_text"
             app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
     <TextView
         android:id="@+id/linklogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="52dp"
-        android:text="Login"
-        android:textColor="@color/white"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/regbutton" />
+        android:text="LOGIN"
+        android:gravity="center"
+        android:fontFamily="@font/work_sans_extralight"
+        android:textColor="#ababab"
+        android:textFontWeight="900"
+        android:textSize="16dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="35dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/regbutton"
+        />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -194,5 +248,197 @@ tools:context=".login">
         app:layout_constraintRight_toRightOf="parent"
         />
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--xmlns:tools="http://schemas.android.com/tools"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="match_parent"-->
+<!--tools:context=".login">-->
+
+<!--    <ImageView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:contentDescription=""-->
+<!--        android:scaleType="centerCrop"-->
+<!--        android:src="@drawable/loginbg"-->
+<!--        tools:ignore="ContentDescription" />-->
+
+<!--    <View-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:background="#4D000000"-->
+<!--        tools:layout_editor_absoluteX="0dp"-->
+<!--        tools:layout_editor_absoluteY="-30dp" />-->
+
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView2"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginLeft="40dp"-->
+<!--        android:layout_marginTop="84dp"-->
+<!--        android:fontFamily="@font/catamaran_extrabold"-->
+<!--        android:text="Register"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="60dp"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--    <View-->
+<!--        android:layout_width="50dp"-->
+<!--        android:layout_height="3dp"-->
+<!--        android:layout_marginLeft="20dp"-->
+<!--        android:layout_marginTop="64dp"-->
+<!--        android:background="#49de71"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginLeft="84dp"-->
+<!--        android:layout_marginTop="52dp"-->
+<!--        android:fontFamily="@font/work_sans"-->
+<!--        android:text="TPC | IIITDMJ"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="20dp"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--    <View-->
+<!--        android:id="@+id/view"-->
+<!--        android:layout_width="170dp"-->
+<!--        android:layout_height="6dp"-->
+<!--        android:layout_marginLeft="120dp"-->
+<!--        android:layout_marginTop="4dp"-->
+<!--        android:background="@color/white"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView2" />-->
+
+<!--    <EditText-->
+<!--        android:id="@+id/regname"-->
+<!--        android:layout_width="300dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="52dp"-->
+<!--        android:ems="10"-->
+<!--        android:hint="Name"-->
+<!--        android:inputType="text"-->
+<!--        android:letterSpacing="0.20"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textColorHint="#b8b8b8"-->
+<!--        android:textSize="16sp"-->
+<!--        app:layout_constraintHorizontal_bias="0.531"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/view" />-->
+
+<!--    <EditText-->
+<!--        android:id="@+id/regroll"-->
+<!--        android:layout_width="300dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="24dp"-->
+<!--        android:ems="10"-->
+<!--        android:hint="Roll No"-->
+<!--        android:inputType="text"-->
+<!--        android:letterSpacing="0.20"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textColorHint="#b8b8b8"-->
+<!--        android:textSize="16sp"-->
+<!--        app:layout_constraintHorizontal_bias="0.504"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/regname" />-->
+
+<!--    <EditText-->
+<!--        android:id="@+id/regemail"-->
+<!--        android:layout_width="300dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="24dp"-->
+<!--        android:ems="10"-->
+<!--        android:hint="Email"-->
+<!--        android:inputType="text"-->
+<!--        android:letterSpacing="0.20"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textColorHint="#b8b8b8"-->
+<!--        android:textSize="16sp"-->
+<!--        app:layout_constraintHorizontal_bias="0.495"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/regroll" />-->
+
+<!--    <EditText-->
+<!--        android:id="@+id/regpassword"-->
+<!--        android:layout_width="300dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="24dp"-->
+<!--        android:ems="10"-->
+<!--        android:hint="Password"-->
+<!--        android:inputType="textPassword"-->
+<!--        android:letterSpacing="0.20"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textColorHint="#b8b8b8"-->
+<!--        android:textSize="16sp"-->
+<!--        app:layout_constraintHorizontal_bias="0.504"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/regemail" />-->
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/regbutton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="44dp"-->
+<!--        android:background="@drawable/border"-->
+<!--        android:clickable="true"-->
+<!--        android:padding="10dp"-->
+<!--        app:layout_constraintHorizontal_bias="0.489"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/regpassword">-->
+
+<!--        <View-->
+<!--            android:layout_width="140dp"-->
+<!--            android:layout_height="4dp"-->
+<!--            android:layout_marginLeft="13dp"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:background="@color/white"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginRight="10dp"-->
+<!--            android:fontFamily="@font/work_sans"-->
+<!--            android:text="  SIGN UP"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textFontWeight="900"-->
+<!--            android:textSize="18dp"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--    </LinearLayout>-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/linklogin"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="40dp"-->
+<!--        android:layout_marginEnd="52dp"-->
+<!--        android:text="Login"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="20dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/regbutton" />-->
+
+
+
+
+<!--</androidx.constraintlayout.widget.ConstraintLayout>-->

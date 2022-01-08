@@ -88,9 +88,9 @@ public class u_dashboard extends Fragment {
 
 //        getActivity().stopService(new Intent(getActivity(), eventChange.class));
 
-//        Intent startIntent = new Intent(getActivity(), eventChange.class);
-//        startIntent.setAction("te");
-//        getActivity().startService(startIntent);
+        Intent startIntent = new Intent(getActivity(), eventChange.class);
+        startIntent.setAction("te");
+        getActivity().startService(startIntent);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))

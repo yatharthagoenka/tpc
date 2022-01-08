@@ -2,17 +2,27 @@ package com.example.tpc;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,18 +48,18 @@ import com.google.firebase.database.ValueEventListener;
 
 public class login extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView linkreg;
-    private LinearLayout loginbutton;
+    private TextView linkreg,signInButton,logemailtextview,logpasswordtextview,loginbutton_text;
+    private ConstraintLayout loginbutton;
+    private ImageView loginbackarrow;
     private EditText logemail,logpassword;
 
-    private String userID;
+    private String userID,userEmail="";
     private FirebaseUser user;
     private DatabaseReference reference;
 
-    private SignInButton signInButton;
     private GoogleSignInClient mGoogleSignInClient;
     private String TAG = "login";
-    private int RC_SIGN_IN = 1;
+    private int RC_SIGN_IN = 1,loginstage = 0;
 //    SharedPreferences sharedPreferences;
 //    public static final String fileName = "userauth";
 //    public static final String Email = "email";
@@ -63,11 +73,53 @@ public class login extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.activity_login);
 
         linkreg = (TextView)findViewById(R.id.linkreg);
+        logemailtextview = (TextView)findViewById(R.id.logemailtextview);
+        logpasswordtextview = (TextView)findViewById(R.id.logpasswordtextview);
+        loginbutton_text = (TextView)findViewById(R.id.loginbutton_text);
         logemail = (EditText)findViewById(R.id.logemail);
 
+        loginbackarrow = (ImageView) findViewById(R.id.loginbackarrow);
+        loginbackarrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!userEmail.equals("")){
+                    logemailtextview.setVisibility(View.GONE);
+                }
+                loginbutton_text.setText("PASSWORD");
+                loginbackarrow.animate().alpha(0).setDuration(300);
+                logemail.animate().scaleXBy(0.5f).setDuration(800);
+                logemailtextview.animate().translationX(30f).setDuration(800);
+                logpasswordtextview.animate().translationX(960f).setDuration(900);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        logemail.animate().scaleXBy(-0.5f).setDuration(800);
+                        logemail.setText(userEmail);
+                    }
+                },800);
+                loginstage=0;
+            }
+        });
+
+        logemail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    logemailtextview.animate().alpha(0).setDuration(150);
+                    logpasswordtextview.animate().alpha(0).setDuration(150);
+                    logemail.animate().scaleXBy(0.2f).setDuration(800);
+                }else{
+                    if(logemail.getText().toString().isEmpty()){
+                        logemailtextview.animate().alpha(1).setDuration(200);
+                        logpasswordtextview.animate().alpha(1).setDuration(200);
+                    }
+                    logemail.animate().scaleXBy(-0.2f).setDuration(800);
+                }
+            }
+        });
 
         logpassword = (EditText)findViewById(R.id.logpassword);
-        loginbutton = (LinearLayout) findViewById(R.id.loginbutton);
+        loginbutton = (ConstraintLayout) findViewById(R.id.loginbutton);
         mauth = FirebaseAuth.getInstance();
 
         linkreg.setOnClickListener(this);
@@ -87,14 +139,52 @@ public class login extends AppCompatActivity implements View.OnClickListener {
         switch (v.getId()){
             case R.id.linkreg:
                 startActivity(new Intent(this,register.class));
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
                 break;
             case R.id.loginbutton:
-                userLogin();
+                if(loginstage==0){
+                    userEmail = logemail.getText().toString();
+                    logemail.getText().clear();
+                    logemail.animate().scaleXBy(0.5f).setDuration(800);
+                    logemailtextview.animate().translationX(-900f).setDuration(800);
+                    logpasswordtextview.animate().translationX(-960f).alpha(1).setDuration(900);
+                    loginbutton_text.setText("GET ACCESS");
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            logemail.animate().scaleXBy(-0.5f).setDuration(800);
+                            loginbackarrow.animate().alpha(1).setDuration(300);
+                        }
+                    },800);
+
+                    loginstage+=1;
+                }else{
+                    userLogin();
+                }
                 break;
             case R.id.signInButton:
+                signInButton.setTextColor(Color.parseColor("#8f8f8f"));
                 googleSignIn();
                 break;
         }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if ( v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent( event );
     }
 
     private void googleSignIn() {
@@ -152,6 +242,9 @@ public class login extends AppCompatActivity implements View.OnClickListener {
 
                                     }
                                 });
+                            }else{
+                                Toast.makeText(login.this, "Authentication Failed", Toast.LENGTH_LONG).show();
+
                             }
 
                         } else {
@@ -163,8 +256,8 @@ public class login extends AppCompatActivity implements View.OnClickListener {
 
 
     private void userLogin() {
-        String email = logemail.getText().toString().trim();
-        String pass = logpassword.getText().toString().trim();
+        String email = userEmail;
+        String pass = logemail.getText().toString().trim();
 
         if(email.isEmpty()){
             logemail.setError("Email is required");

@@ -14,9 +14,6 @@
         android:theme="@style/Theme.Tpc"
         tools:replace="android:label">
         <activity
-            android:name=".loginActivity"
-            android:exported="false" />
-        <activity
             android:name=".eventPage"
             android:exported="false" />
 

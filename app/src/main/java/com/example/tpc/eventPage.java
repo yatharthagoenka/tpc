@@ -48,7 +48,7 @@ import cdflynn.android.library.checkview.CheckView;
 public class eventPage extends AppCompatActivity {
 
     private ImageView ep_cover,ep_backbutton;
-    private TextView ep_name,ep_domain,ep_date,ep_duration,ep_desc,ep_rsvpButton,ep_successText;
+    private TextView ep_name,ep_domain,ep_date,ep_duration,ep_desc,ep_rsvpButton,ep_successText,ep_regCount;
     private CheckView ep_rsvpCheck;
     private RelativeLayout ep_successOverlay;
     private ConstraintLayout ep_usersegment;
@@ -89,12 +89,29 @@ public class eventPage extends AppCompatActivity {
 
             }
         });
+        Intent i = getIntent();
+
 
         ep_successOverlay = findViewById(R.id.ep_successOverlay);
         ep_rsvpCheck = findViewById(R.id.ep_rsvpCheck);
         ep_successText = findViewById(R.id.ep_successText);
 
-        Intent i = getIntent();
+        ep_regCount = findViewById(R.id.ep_regCount);
+        FirebaseFirestore db2 = FirebaseFirestore.getInstance();
+        DocumentReference docRef2 = db2.collection("events").document(i.getStringExtra("docID"));
+        docRef2.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        ep_regCount.setText(document.get("regCount")+" Attending");
+                    }
+                }
+            }
+        });
+
         ep_name = findViewById(R.id.ep_name);
         ep_name.setText(i.getStringExtra("name"));
 
@@ -125,6 +142,8 @@ public class eventPage extends AppCompatActivity {
             ep_cover.setImageResource(R.drawable.cp_cardview);
         }
 
+//        ArrayList<String> regCount = docRef.get("regCount")
+
         ep_usersegment = findViewById(R.id.ep_usersegment);
         ep_usersegment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,7 +155,6 @@ public class eventPage extends AppCompatActivity {
                 dataRV = new ArrayList<>();
 
                 ep_userlistRV = (RecyclerView) popupView.findViewById(R.id.epusers_rv);
-//                ArrayList<String> data = new ArrayList<>();
 
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 DocumentReference docRef = db.collection("events").document(i.getStringExtra("docID"));
