@@ -49,7 +49,7 @@ import com.google.firebase.database.ValueEventListener;
 public class login extends AppCompatActivity implements View.OnClickListener {
 
     private TextView linkreg,signInButton,logemailtextview,logpasswordtextview,loginbutton_text;
-    private ConstraintLayout loginbutton;
+    private LinearLayout loginbutton;
     private ImageView loginbackarrow;
     private EditText logemail,logpassword;
 
@@ -118,8 +118,8 @@ public class login extends AppCompatActivity implements View.OnClickListener {
             }
         });
 
-        logpassword = (EditText)findViewById(R.id.logpassword);
-        loginbutton = (ConstraintLayout) findViewById(R.id.loginbutton);
+//        logpassword = (EditText)findViewById(R.id.logpassword);
+        loginbutton = (LinearLayout) findViewById(R.id.loginbutton);
         mauth = FirebaseAuth.getInstance();
 
         linkreg.setOnClickListener(this);

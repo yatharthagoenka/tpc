@@ -27,15 +27,16 @@
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/profilebg.xml" value="0.199609375" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/profilepic_bg.xml" value="0.199609375" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/ripple_button.xml" value="0.2100877192982456" />
+        <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/ripple_loginbutton.xml" value="0.22412280701754386" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/roundcorner_button.xml" value="0.187109375" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/selector_line_bellow.xml" value="0.2100877192982456" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/shadow.xml" value="0.20701754385964913" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/a_event_page.xml" value="0.1875" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/activity_event_page.xml" value="0.1875" />
-        <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/activity_login.xml" value="0.264" />
+        <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/activity_login.xml" value="0.4" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/activity_login2.xml" value="0.21052631578947367" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/activity_main.xml" value="0.176" />
-        <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/activity_register.xml" value="0.21052631578947367" />
+        <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/activity_register.xml" value="0.16" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/contest_card.xml" value="0.25" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/ep_users_card.xml" value="0.264" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/ep_userswindow.xml" value="0.21052631578947367" />

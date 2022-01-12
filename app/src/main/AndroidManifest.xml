@@ -22,10 +22,14 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".adminindex" />
-        <activity android:name=".index" />
-        <activity android:name=".register" />
-        <activity android:name=".login" />
+        <activity android:name=".adminindex"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity android:name=".index"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity android:name=".register"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity android:name=".login"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">

@@ -28,7 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class register extends AppCompatActivity implements View.OnClickListener {
     private TextView linklogin,regnametext,regrolltext,regemailtext,regpasswordtext;
-    private ConstraintLayout regbutton;
+    private LinearLayout regbutton;
     private EditText regname,regroll,regemail,regpass;
     private ProgressBar progressBar;
 
@@ -116,7 +116,7 @@ public class register extends AppCompatActivity implements View.OnClickListener 
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
 
-        regbutton = (ConstraintLayout) findViewById(R.id.regbutton);
+        regbutton = (LinearLayout) findViewById(R.id.regbutton);
         regbutton.setOnClickListener(this);
 
         linklogin.setOnClickListener(this);
