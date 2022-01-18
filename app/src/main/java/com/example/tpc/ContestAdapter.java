@@ -1,10 +1,14 @@
 package com.example.tpc;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.provider.CalendarContract;
 import android.telecom.Call;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +19,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tpc.contestModel;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class ContestAdapter extends RecyclerView.Adapter<ContestAdapter.Viewholder> {
 
@@ -60,6 +67,41 @@ public class ContestAdapter extends RecyclerView.Adapter<ContestAdapter.Viewhold
                 final String website = model.getContestLink();
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(website));
                 context.startActivity(browserIntent);
+            }
+        });
+
+        holder.cardlayout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Intent intentCal = new Intent(Intent.ACTION_INSERT);
+                intentCal.setData(CalendarContract.Events.CONTENT_URI);
+                intentCal.putExtra(CalendarContract.Events.TITLE, model.getContestName());
+                intentCal.putExtra(CalendarContract.Events.DESCRIPTION, model.getContestPlatform()+" Contest, Competitive Programming");
+
+                Calendar beginCal = Calendar.getInstance();
+                String[] start = model.getContestStart().split("-");
+//                beginCal.set(Calendar.YEAR,Integer.parseInt(start[2].split(" ")[0]));
+//                beginCal.set(Calendar.MONTH,0);
+//                beginCal.set(Calendar.DAY_OF_MONTH,Integer.parseInt(start[0]));
+//                beginCal.set(Calendar.HOUR,Integer.parseInt(start[2].split(" ")[2].split(":")[0]));
+//                beginCal.set(Calendar.MINUTE,Integer.parseInt(start[2].split(" ")[2].split(":")[1]));
+                beginCal.set(Integer.parseInt(start[2].split(" ")[0]), Integer.parseInt(start[1])-1, Integer.parseInt(start[0]), Integer.parseInt(start[2].split(" ")[2].split(":")[0]), Integer.parseInt(start[2].split(" ")[2].split(":")[1]));
+//                Log.d("testdate",String.valueOf(beginCal.getTimeInMillis()));
+
+                intentCal.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginCal.getTimeInMillis());
+
+                new AlertDialog.Builder(view.getContext())
+                        .setTitle("Set Reminder")
+                        .setMessage("\nDo you want to add the selected contest to your calender?")
+                        .setIcon(R.drawable.app_icon)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                context.startActivity(intentCal);
+                            }})
+                        .setNegativeButton(android.R.string.no, null).show();
+
+                return true;
             }
         });
 

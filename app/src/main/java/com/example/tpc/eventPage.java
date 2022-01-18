@@ -6,9 +6,12 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.CalendarContract;
 import android.transition.Fade;
 import android.util.Log;
 import android.view.Gravity;
@@ -40,6 +43,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Map;
 import java.util.Vector;
 
@@ -48,7 +52,7 @@ import cdflynn.android.library.checkview.CheckView;
 public class eventPage extends AppCompatActivity {
 
     private ImageView ep_cover,ep_backbutton;
-    private TextView ep_name,ep_domain,ep_date,ep_duration,ep_desc,ep_rsvpButton,ep_successText,ep_regCount;
+    private TextView ep_name,ep_domain,ep_date,ep_duration,ep_desc,ep_rsvpButton,ep_successText,ep_regCount,ep_calenderButton;
     private CheckView ep_rsvpCheck;
     private RelativeLayout ep_successOverlay;
     private ConstraintLayout ep_usersegment;
@@ -259,6 +263,51 @@ public class eventPage extends AppCompatActivity {
                 }else{
                     Toast.makeText(getApplicationContext(), "RSVP failed. Try restarting the app.", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        ep_calenderButton = findViewById(R.id.ep_calenderButton);
+        ep_calenderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentCal = new Intent(Intent.ACTION_INSERT);
+                intentCal.setData(CalendarContract.Events.CONTENT_URI);
+                intentCal.putExtra(CalendarContract.Events.TITLE, i.getStringExtra("name"));
+                intentCal.putExtra(CalendarContract.Events.DESCRIPTION, i.getStringExtra("desc"));
+
+                Calendar beginCal = Calendar.getInstance();
+                String[] start = i.getStringExtra("date").split(" ");
+
+                int ts_v=0;
+                if(start[1].equals("Jan")) ts_v=0;
+                else if(start[1].equals("Feb")) ts_v=1;
+                else if(start[1].equals("Mar")) ts_v=2;
+                else if(start[1].equals("Apr")) ts_v=3;
+                else if(start[1].equals("May")) ts_v=4;
+                else if(start[1].equals("Jun")) ts_v=5;
+                else if(start[1].equals("Jul")) ts_v=6;
+                else if(start[1].equals("Aug")) ts_v=7;
+                else if(start[1].equals("Sep")) ts_v=8;
+                else if(start[1].equals("Oct")) ts_v=9;
+                else if(start[1].equals("Nov")) ts_v=10;
+                else if(start[1].equals("Dec")) ts_v=11;
+
+                beginCal.set(Integer.parseInt(start[2]), ts_v, Integer.parseInt(start[0]), 12, 0);
+//                Log.d("testdate",String.valueOf(beginCal.getTimeInMillis()));
+
+                intentCal.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginCal.getTimeInMillis());
+
+                new AlertDialog.Builder(view.getContext())
+                        .setTitle(i.getStringExtra("name"))
+                        .setMessage("\nDo you want to add the selected event to your calender?\n")
+                        .setIcon(R.drawable.app_icon)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                startActivity(intentCal);
+                            }})
+                        .setNegativeButton(android.R.string.no, null).show();
+
             }
         });
 
