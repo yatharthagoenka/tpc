@@ -29,11 +29,13 @@
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/profilepic_bg.xml" value="0.199609375" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/ripple_button.xml" value="0.2100877192982456" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/ripple_loginbutton.xml" value="0.22412280701754386" />
+        <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/round_corner_layout.xml" value="0.22412280701754386" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/roundcorner_button.xml" value="0.187109375" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/selector_line_bellow.xml" value="0.2100877192982456" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/shadow.xml" value="0.20701754385964913" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/a_event_page.xml" value="0.1875" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/activity_event_page.xml" value="0.1875" />
+        <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/activity_index.xml" value="0.21052631578947367" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/activity_login.xml" value="0.4" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/activity_login2.xml" value="0.21052631578947367" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/activity_main.xml" value="0.176" />
@@ -49,7 +51,7 @@
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/fragment_event_page.xml" value="0.184765625" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/fragment_new_event_sheet.xml" value="0.2" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/fragment_profile.xml" value="0.21052631578947367" />
-        <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/fragment_u_contests.xml" value="0.11236338797814208" />
+        <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/fragment_u_contests.xml" value="0.2" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/fragment_u_dashboard.xml" value="0.1875" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/login_screen.xml" value="0.264" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/nav_drawer.xml" value="0.25" />

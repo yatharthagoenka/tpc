@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,9 +17,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -35,6 +38,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.Vector;
+
+import fragments.profile;
+import fragments.u_dashboard;
 
 public class epRSVPAdapter extends RecyclerView.Adapter<epRSVPAdapter.Viewholder> {
 
@@ -97,7 +103,24 @@ public class epRSVPAdapter extends RecyclerView.Adapter<epRSVPAdapter.Viewholder
             notifyItemChanged(position);
         });
 
-//
+        holder.epusers_infobutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent startIntent = new Intent(view.getContext(), profile.class);
+//                startIntent.putExtra("username",details[0]);
+//                startIntent.putExtra("rollno",details[1]);
+//                view.getContext().startActivity(startIntent);
+//                ((Activity)context).overridePendingTransition(R.anim.slide_in_right, R.anim.mock_anim);
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                Bundle bundle = new Bundle();
+                bundle.putString("username",details[0]);
+                bundle.putString("rollno",details[1]);
+                bundle.putString("callingAct","eventPage");
+                Fragment uprof = new profile();
+                uprof.setArguments(bundle);
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.eventPageContainer,uprof).commit();
+            }
+        });
 
         holder.epusers_adminbutton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -58,6 +58,7 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.github.cdflynn:checkview:v1.1'
     implementation 'jp.wasabeef:recyclerview-animators:4.0.2'
+    implementation 'com.github.mreram:showcaseview:1.4.0'
 
     implementation 'org.jsoup:jsoup:1.11.2'
 }

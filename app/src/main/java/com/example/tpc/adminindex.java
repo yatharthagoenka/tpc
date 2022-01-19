@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -18,20 +19,31 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
 import fragments.a_contests;
 import fragments.a_dashboard;
 import fragments.a_profile;
+import fragments.profile;
 
 public class adminindex extends AppCompatActivity {
 
     private Button logoutbutton;
-    private GoogleSignInClient mGoogleSignInClient;
     private LinearLayout bn_dashboard,bn_contests,bn_profile,bn_logout;
-//    ChipNavigationBar chipNavigationBar;
     private SlidingRootNav slidingRootNav;
+
+
+    private String userID,username;
+    private FirebaseUser user;
+    private DatabaseReference reference;
+    private GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +68,27 @@ public class adminindex extends AppCompatActivity {
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this,gso);
 
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference("Users");
+        userID = user.getUid();
+
+        reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User userProfile = snapshot.getValue(User.class);
+                if(userProfile != null){
+                    username = userProfile.name;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
         bn_dashboard = findViewById(R.id.bn_dashboard);
         bn_dashboard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +110,12 @@ public class adminindex extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 slidingRootNav.closeMenu();
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new a_profile()).commit();
+                Bundle bundle = new Bundle();
+                bundle.putString("username",username);
+                bundle.putString("callingAct","adminindex");
+                Fragment prof = new profile();
+                prof.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,prof).commit();
             }
         });
         bn_logout = findViewById(R.id.bn_logout);

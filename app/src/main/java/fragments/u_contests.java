@@ -8,6 +8,8 @@ import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,7 +30,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.tpc.ContestAdapter;
 import com.example.tpc.R;
@@ -64,11 +68,15 @@ import java.util.Vector;
 import static java.lang.StrictMath.abs;
 
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
+import smartdevelop.ir.eram.showcaseviewlib.GuideView;
+import smartdevelop.ir.eram.showcaseviewlib.config.DismissType;
+import smartdevelop.ir.eram.showcaseviewlib.config.Gravity;
 
 public class u_contests extends Fragment {
 
     View view;
     private int tab;
+    private TextView contestHeadtext;
     private Vector<Vector<String>> resultdata_All,resultdata_AC,resultdata_CF,resultdata_CC;
     ChipNavigationBar chipNavigationBar;
 
@@ -85,12 +93,30 @@ public class u_contests extends Fragment {
         chipNavigationBar = view.findViewById(R.id.contest_menubar);
         chipNavigationBar.setItemSelected(R.id.contestmenu_all,true);
         contestRV = view.findViewById(R.id.contestRV);
+        contestHeadtext = view.findViewById(R.id.contestHeadtext);
 
         progressBar = view.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
 
-
         all_contest_fetch();
+
+        SharedPreferences settings = getActivity().getSharedPreferences("firstRunCheck", 0);
+
+        if (settings.getBoolean("check", true)) {
+
+            new GuideView.Builder(getActivity())
+                    .setTitle("UI Functions")
+                    .setContentText("Press and hold the contest cards to add contests to your calender for easy reminders\n\n Swipe down the list to refresh")
+                    .setGravity(Gravity.auto) //optional
+                    .setDismissType(DismissType.anywhere) //optional - default DismissType.targetView
+                    .setTargetView(contestHeadtext)
+                    .setContentTextSize(12)//optional
+                    .setTitleTextSize(14)//optional
+                    .build()
+                    .show();
+
+            settings.edit().putBoolean("check", false).commit();
+        }
 
         resultdata_All = new Vector<Vector<String>>();
         resultdata_CF = new Vector<Vector<String>>();
@@ -430,27 +456,9 @@ public class u_contests extends Fragment {
         contestRV.setLayoutManager(linearLayoutManager);
         contestRV.setAdapter(contestAdapter);
         progressBar.setVisibility(View.GONE);
+
+
     }
 
-    private void pushNotification(String platform, String name){
-        NotificationManager mNotificationManager =
-                (NotificationManager) getActivity().getSystemService(getActivity().NOTIFICATION_SERVICE);
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("YOUR_CHANNEL_ID",
-                    "YOUR_CHANNEL_NAME",
-                    NotificationManager.IMPORTANCE_DEFAULT);
-            channel.setDescription("YOUR_NOTIFICATION_CHANNEL_DESCRIPTION");
-            mNotificationManager.createNotificationChannel(channel);
-        }
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getActivity(), "YOUR_CHANNEL_ID")
-                .setSmallIcon(R.mipmap.ic_launcher) // notification icon
-                .setContentTitle("Upcoming Contest") // title for notification
-                .setContentText(platform+" : "+name)// message for notification
-                .setAutoCancel(true); // clear notification after click
-        Intent intent = new Intent(getActivity(), u_contests.class);
-        PendingIntent pi = PendingIntent.getActivity(getActivity(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        mBuilder.setContentIntent(pi);
-        mNotificationManager.notify(0, mBuilder.build());
-    }
 
 }

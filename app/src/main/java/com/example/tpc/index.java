@@ -34,6 +34,7 @@ import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 import fragments.a_contests;
 import fragments.a_dashboard;
 import fragments.a_profile;
+import fragments.profile;
 import fragments.u_contests;
 import fragments.u_dashboard;
 import fragments.u_profile;
@@ -43,7 +44,9 @@ public class index extends AppCompatActivity {
     private LinearLayout bn_dashboard,bn_contests,bn_profile,bn_logout;
     private SlidingRootNav slidingRootNav;
 
-//    ChipNavigationBar chipNavigationBar;
+    private String userID,username;
+    private FirebaseUser user;
+    private DatabaseReference reference;
     private GoogleSignInClient mGoogleSignInClient;
 
 
@@ -70,6 +73,25 @@ public class index extends AppCompatActivity {
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this,gso);
 
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference("Users");
+        userID = user.getUid();
+
+        reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User userProfile = snapshot.getValue(User.class);
+                if(userProfile != null){
+                    username = userProfile.name;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         bn_dashboard = findViewById(R.id.bn_dashboard);
         bn_dashboard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +113,12 @@ public class index extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 slidingRootNav.closeMenu();
-                getSupportFragmentManager().beginTransaction().replace(R.id.u_fragment_container,new u_profile()).commit();
+                Bundle bundle = new Bundle();
+                bundle.putString("username",username);
+                bundle.putString("callingAct","index");
+                Fragment prof = new profile();
+                prof.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.u_fragment_container,prof).commit();
             }
         });
         bn_logout = findViewById(R.id.bn_logout);

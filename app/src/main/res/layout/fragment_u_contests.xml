@@ -11,23 +11,16 @@
         android:background="@color/white"/>
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/contestHeadtext"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/yantramanav_bold"
         android:textSize="35dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal"
         android:textColor="@color/black"
         android:text="Contests" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="75dp"
-        android:fontFamily="@font/poppins_light"
-        android:textSize="13dp"
-        android:text="Swipe down to refresh" />
 
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
         android:id="@+id/contest_menubar"

@@ -60,6 +60,8 @@ public class eventPage extends AppCompatActivity {
     ArrayList<String> data,dataHost;
     ArrayList<Vector<String>> dataRV;
 
+    public static PopupWindow popupWindow;
+
 
     private String isAdmin,userID;
     private FirebaseUser user;
@@ -203,7 +205,7 @@ public class eventPage extends AppCompatActivity {
                     }
                 });
 
-                final PopupWindow popupWindow = new PopupWindow(popupView, width, height, true);
+                popupWindow = new PopupWindow(popupView, width, height, true);
                 popupWindow.setAnimationStyle(R.style.popUpAnimation);
                 popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
             }
