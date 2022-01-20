@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,11 +21,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class register extends AppCompatActivity implements View.OnClickListener {
     private TextView linklogin,regnametext,regrolltext,regemailtext,regpasswordtext;
@@ -180,10 +185,10 @@ public class register extends AppCompatActivity implements View.OnClickListener 
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            User user = new User(name,roll,email,isAdmin);
+                            User user2 = new User(name,roll,email,isAdmin);
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    .setValue(user2).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
@@ -191,6 +196,7 @@ public class register extends AppCompatActivity implements View.OnClickListener 
                                         user.sendEmailVerification();
                                         progressBar.setVisibility(View.GONE);
                                         Toast.makeText(register.this,"Verification Mail Sent",Toast.LENGTH_LONG).show();
+                                        addUserToFirestore(user2);
                                     }
                                     else{
                                         progressBar.setVisibility(View.GONE);
@@ -232,5 +238,22 @@ public class register extends AppCompatActivity implements View.OnClickListener 
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
+    void addUserToFirestore(User user){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("users").document(user.roll)
+            .set(user)
+            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Log.i("adduser", "DocumentSnapshot successfully written!");
+                }
+            })
+            .addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d("adduser", "Error writing document", e);
+                }
+        });
+    }
 
 }

@@ -36,6 +36,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -44,6 +46,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -111,6 +115,7 @@ public class u_dashboard extends Fragment {
                     dash_username.setText(username);
                     isAdmin = userProfile.isAdmin;
                     rollno = userProfile.roll;
+                    setUserDP();
                 }
             }
 
@@ -124,11 +129,7 @@ public class u_dashboard extends Fragment {
         eventData = new Vector<Vector<String>>();
         readEventData();
 
-        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getActivity());
-        if (acct != null) {
-            Uri personPhoto = acct.getPhotoUrl();
-            new ImageLoadTask(personPhoto.toString(), dash_profilepic).execute();
-        }
+
 
         searchbox.addTextChangedListener(new TextWatcher() {
             @Override
@@ -181,6 +182,54 @@ public class u_dashboard extends Fragment {
             }
         }
         return false;
+    }
+
+    void setUserDP(){
+        final String[] userDP = {""};
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference userRef = db.collection("users").document(rollno);
+        userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Map<String,Object> data = document.getData();
+                        try {
+                            new ImageLoadTask(data.get("userDP").toString(), dash_profilepic).execute();
+                            Log.d("testdp","loading dp from db");
+                        }catch(Exception e){
+                            Log.d("testdp","loading dp from google acc");
+
+                            GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getActivity());
+                            if (acct != null) {
+                                Uri personPhoto = acct.getPhotoUrl();
+                                new ImageLoadTask(personPhoto.toString(), dash_profilepic).execute();
+
+                                userRef.update("userDP", personPhoto.toString())
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.i("setUserDP", "User DP successfully updated!");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.d("setUserDP", "Error updating document", e);
+                                            }
+                                        });
+                            }
+                        }
+                    } else {
+                    }
+                } else {
+                    Log.d("fetchedUser", "get failed with ", task.getException());
+                }
+            }
+        });
+
     }
 
     public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {

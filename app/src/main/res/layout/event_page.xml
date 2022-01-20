@@ -254,12 +254,6 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ep_usersegment" />
 
-            <RelativeLayout
-                android:id="@+id/ep_successOverlay"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:alpha="0"
-                android:background="#b3000000" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -316,6 +310,13 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <RelativeLayout
+        android:id="@+id/ep_successOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0"
+        android:background="#b3000000" />
+
     <cdflynn.android.library.checkview.CheckView
         android:id="@+id/ep_rsvpCheck"
         android:layout_width="150dp"
@@ -341,5 +342,7 @@
         android:fontFamily="@font/poppins_light"
         android:textColor="#fff"
         />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

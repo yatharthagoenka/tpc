@@ -84,10 +84,10 @@ public class epRSVPAdapter extends RecyclerView.Adapter<epRSVPAdapter.Viewholder
         }
 
         if(epUsersArrayList.get(position).get(1).equals("true")){
-            holder.epusers_adminbutton.setText("REMOVE ADMIN");
+            holder.epusers_adminbutton.setText("REMOVE HOST");
             holder.epusers_tag.setBackgroundTintList(ContextCompat.getColorStateList(context.getApplicationContext(), R.color.green));
         }else{
-            holder.epusers_adminbutton.setText("ADD ADMIN");
+            holder.epusers_adminbutton.setText("ADD HOST");
             holder.epusers_tag.setBackgroundTintList(ContextCompat.getColorStateList(context.getApplicationContext(), R.color.yellow));
         }
 //        holder.epusers_tag.setText(details[0].charAt(0)+details[0].split(" ")[1].charAt(0));

@@ -44,7 +44,7 @@ public class index extends AppCompatActivity {
     private LinearLayout bn_dashboard,bn_contests,bn_profile,bn_logout;
     private SlidingRootNav slidingRootNav;
 
-    private String userID,username;
+    private String userID,username,isAdmin,rollno;
     private FirebaseUser user;
     private DatabaseReference reference;
     private GoogleSignInClient mGoogleSignInClient;
@@ -83,6 +83,8 @@ public class index extends AppCompatActivity {
                 User userProfile = snapshot.getValue(User.class);
                 if(userProfile != null){
                     username = userProfile.name;
+                    isAdmin = userProfile.isAdmin;
+                    rollno = userProfile.roll;
                 }
             }
 
@@ -115,6 +117,8 @@ public class index extends AppCompatActivity {
                 slidingRootNav.closeMenu();
                 Bundle bundle = new Bundle();
                 bundle.putString("username",username);
+                bundle.putString("isAdmin",isAdmin);
+                bundle.putString("rollno",rollno);
                 bundle.putString("callingAct","index");
                 Fragment prof = new profile();
                 prof.setArguments(bundle);

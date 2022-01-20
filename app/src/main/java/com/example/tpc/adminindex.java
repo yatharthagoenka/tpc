@@ -40,7 +40,7 @@ public class adminindex extends AppCompatActivity {
     private SlidingRootNav slidingRootNav;
 
 
-    private String userID,username;
+    private String userID,username,isAdmin,rollno;
     private FirebaseUser user;
     private DatabaseReference reference;
     private GoogleSignInClient mGoogleSignInClient;
@@ -79,6 +79,8 @@ public class adminindex extends AppCompatActivity {
                 User userProfile = snapshot.getValue(User.class);
                 if(userProfile != null){
                     username = userProfile.name;
+                    isAdmin = userProfile.isAdmin;
+                    rollno = userProfile.roll;
                 }
             }
 
@@ -112,6 +114,8 @@ public class adminindex extends AppCompatActivity {
                 slidingRootNav.closeMenu();
                 Bundle bundle = new Bundle();
                 bundle.putString("username",username);
+                bundle.putString("isAdmin",isAdmin);
+                bundle.putString("rollno",rollno);
                 bundle.putString("callingAct","adminindex");
                 Fragment prof = new profile();
                 prof.setArguments(bundle);

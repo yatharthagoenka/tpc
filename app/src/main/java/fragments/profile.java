@@ -29,6 +29,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -39,12 +41,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Map;
 
 public class profile extends Fragment {
 
@@ -66,16 +70,15 @@ public class profile extends Fragment {
         profName = view.findViewById(R.id.profName);
         profRollNo = view.findViewById(R.id.profRollNo);
 
+        currUserProfile();
+
+        fetchedRoll = getArguments().getString("rollno");
+        fetchUserProfile();
 
         if(getArguments().getString("callingAct").equals("index") || getArguments().getString("callingAct").equals("adminindex")){
             profBackButton.setVisibility(View.GONE);
-            currUserProfile();
 
         }else{
-            profName.setText(getArguments().getString("username"));
-            fetchedRoll = getArguments().getString("rollno");
-            fetchUserProfile();
-
             profBackButton.setVisibility(View.VISIBLE);
             profBackButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -119,8 +122,6 @@ public class profile extends Fragment {
                     username = userProfile.name;
                     isAdmin = userProfile.isAdmin;
                     rollno = userProfile.roll;
-                    profRollNo.setText(rollno);
-
                 }
             }
 
@@ -130,17 +131,38 @@ public class profile extends Fragment {
             }
         });
 
-        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getActivity());
-        if (acct != null) {
-            Uri personPhoto = acct.getPhotoUrl();
-            new ImageLoadTask(personPhoto.toString(), profDP).execute();
-        }
+//        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getActivity());
+//        if (acct != null) {
+//            Uri personPhoto = acct.getPhotoUrl();
+//            new ImageLoadTask(personPhoto.toString(), profDP).execute();
+//        }
 
     }
 
     void fetchUserProfile(){
-        fetchRef = FirebaseDatabase.getInstance().getReference("Users");
-//        Log.d("fetchtest", fetchRef.child("1u1gCDSHQgMphaoI8PU6UHAF1ew2").toString());
+
+        profRollNo.setText(fetchedRoll);
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference docRef = db.collection("users").document(fetchedRoll.trim());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Map<String,Object> data = document.getData();
+                        String username = data.get("name").toString();
+                        profName.setText(username);
+                        new ImageLoadTask(data.get("userDP").toString(), profDP).execute();
+                    } else {
+                        Log.d("fetchedUser", "No such document");
+                    }
+                } else {
+                    Log.d("fetchedUser", "get failed with ", task.getException());
+                }
+            }
+        });
     }
 
 
