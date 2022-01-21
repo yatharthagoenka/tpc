@@ -413,51 +413,51 @@ public class u_contests extends Fragment {
     }
 
     void setToAdapter(){
-        Vector<Vector<String>> resultdata = new Vector<Vector<String>>();
-        switch(tab){
-            case 1:
-                resultdata = (Vector<Vector<String>>) resultdata_All.clone();
-                break;
-            case 2:
-                for(int i=0;i<resultdata_All.size();i++){
-                    if(resultdata_All.get(i).get(1).equals("Codechef")){
-                        resultdata.add(resultdata_All.get(i));
-                    }
-                }
-                break;
-            case 3:
-                for(int i=0;i<resultdata_All.size();i++){
-                    if(resultdata_All.get(i).get(1).equals("Codeforces")){
-                        resultdata.add(resultdata_All.get(i));
-                    }
-                }
-                break;
-            case 4:
-                for(int i=0;i<resultdata_All.size();i++){
-                    if(resultdata_All.get(i).get(1).equals("AtCoder")){
-                        resultdata.add(resultdata_All.get(i));
-                    }
-                }
-                break;
-        }
-        Collections.sort(resultdata, new Comparator<Vector<String>>(){
-            @Override  public int compare(Vector<String> v1, Vector<String> v2) {
-                return v1.get(0).compareTo(v2.get(0)); //If you order by 2nd element in row
-            }});
-
-
-        contestModelArrayList = new ArrayList<>();
-
-        for(int i=0;i<resultdata.size();i++){
-            contestModelArrayList.add(new contestModel(resultdata.get(i).get(2), resultdata.get(i).get(3), resultdata.get(i).get(4),resultdata.get(i).get(5),resultdata.get(i).get(1)));
-        }
-        ContestAdapter contestAdapter = new ContestAdapter(getActivity(), contestModelArrayList);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        contestRV.setLayoutManager(linearLayoutManager);
-        contestRV.setAdapter(contestAdapter);
-        progressBar.setVisibility(View.GONE);
-
-
+//        Vector<Vector<String>> resultdata = new Vector<Vector<String>>();
+//        switch(tab){
+//            case 1:
+//                resultdata = (Vector<Vector<String>>) resultdata_All.clone();
+//                break;
+//            case 2:
+//                for(int i=0;i<resultdata_All.size();i++){
+//                    if(resultdata_All.get(i).get(1).equals("Codechef")){
+//                        resultdata.add(resultdata_All.get(i));
+//                    }
+//                }
+//                break;
+//            case 3:
+//                for(int i=0;i<resultdata_All.size();i++){
+//                    if(resultdata_All.get(i).get(1).equals("Codeforces")){
+//                        resultdata.add(resultdata_All.get(i));
+//                    }
+//                }
+//                break;
+//            case 4:
+//                for(int i=0;i<resultdata_All.size();i++){
+//                    if(resultdata_All.get(i).get(1).equals("AtCoder")){
+//                        resultdata.add(resultdata_All.get(i));
+//                    }
+//                }
+//                break;
+//        }
+//        Collections.sort(resultdata, new Comparator<Vector<String>>(){
+//            @Override  public int compare(Vector<String> v1, Vector<String> v2) {
+//                return v1.get(0).compareTo(v2.get(0)); //If you order by 2nd element in row
+//            }});
+//
+//
+//        contestModelArrayList = new ArrayList<>();
+//
+//        for(int i=0;i<resultdata.size();i++){
+//            contestModelArrayList.add(new contestModel(resultdata.get(i).get(2), resultdata.get(i).get(3), resultdata.get(i).get(4),resultdata.get(i).get(5),resultdata.get(i).get(1)));
+//        }
+//        ContestAdapter contestAdapter = new ContestAdapter(getActivity(), contestModelArrayList);
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+//        contestRV.setLayoutManager(linearLayoutManager);
+//        contestRV.setAdapter(contestAdapter);
+//        progressBar.setVisibility(View.GONE);
+//
+//
     }
 
 

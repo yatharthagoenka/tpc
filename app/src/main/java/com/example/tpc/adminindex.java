@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
@@ -15,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.example.tpc.ViewModels.contestViewModel;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -40,7 +40,7 @@ public class adminindex extends AppCompatActivity {
     private LinearLayout bn_dashboard,bn_contests,bn_profile,bn_logout;
     private SlidingRootNav slidingRootNav;
 
-    private contestViewModel contestViewModel;
+    private com.example.tpc.ViewModels.contestViewModel contestViewModel;
 
     private String userID,username,isAdmin,rollno,fetchCheck;
     private FirebaseUser user;
@@ -69,12 +69,12 @@ public class adminindex extends AppCompatActivity {
         bundle = new Bundle();
         bundle.putString("adminCheck",fetchCheck);
 
-        contestViewModel = new ViewModelProvider(this).get(contestViewModel.class);
-        contestViewModel.init();
-
         Fragment a_dash = new a_dashboard();
         a_dash.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,a_dash).commit();
+
+        contestViewModel = new ViewModelProvider(this).get(contestViewModel.class);
+        contestViewModel.init();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))

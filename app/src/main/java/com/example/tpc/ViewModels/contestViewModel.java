@@ -1,4 +1,4 @@
-package com.example.tpc;
+package com.example.tpc.ViewModels;
 
 import android.os.AsyncTask;
 import android.os.Build;
@@ -8,6 +8,8 @@ import androidx.annotation.RequiresApi;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
+import com.example.tpc.contestModel;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -37,28 +39,26 @@ public class contestViewModel extends ViewModel {
     private MutableLiveData<ArrayList<contestModel>> contestLiveData;
     private ArrayList<contestModel> contestArrayList;
 
-    private Vector<Vector<String>> result;
+    private Vector<Vector<String>> result_vector;
 
     public contestViewModel() {
         contestLiveData = new MutableLiveData<>();
-        contestArrayList = new ArrayList<>();
-        result = new Vector<>();
         init();
     }
 
     public MutableLiveData<ArrayList<contestModel>> getContestMutableLiveData() {
+//        Log.d("testarrl",String.valueOf(contestLiveData.getValue().size()));
         return contestLiveData;
     }
 
     public void init(){
-
+        contestArrayList = new ArrayList<>();
+        result_vector = new Vector<>();
         populateList();
         contestLiveData.setValue(contestArrayList);
     }
 
     private void populateList(){
-        contestArrayList = new ArrayList<>();
-        result = new Vector<>();
         CC_list cclist2 = new CC_list();
         cclist2.execute("https://www.codechef.com/api/list/contests/all?sort_by=START&sorting_order=asc&offset=0&mode=premium");
         CF_list cflist2 = new CF_list();
@@ -139,8 +139,8 @@ public class contestViewModel extends ViewModel {
                     tmp.add(start);
                     tmp.add(duration);
                     tmp.add(link);
-                    
-                    result.add(tmp);
+
+                    result_vector.add(tmp);
                 }
 
 
@@ -229,7 +229,7 @@ public class contestViewModel extends ViewModel {
                     tmp.add(start);
                     tmp.add(duration);
                     tmp.add(link);
-                    result.add(tmp);
+                    result_vector.add(tmp);
                 }
 
 
@@ -293,23 +293,21 @@ public class contestViewModel extends ViewModel {
                 tmp.add(start);
                 tmp.add(tmp_dur);
                 tmp.add(link);
-                result.add(tmp);
-
-//                contestArrayList.add(new contestModel(tmp.get(2), tmp.get(3), tmp.get(4),tmp.get(5),tmp.get(1)));
-
+                result_vector.add(tmp);
             }
             addTOFinalList();
+
         }
     }
     
     void addTOFinalList(){
-        Collections.sort(result, new Comparator<Vector<String>>(){
+        Collections.sort(result_vector, new Comparator<Vector<String>>(){
             @Override  public int compare(Vector<String> v1, Vector<String> v2) {
                 return v1.get(0).compareTo(v2.get(0)); //If you order by 2nd element in row
             }});
 
-        for(int i=0;i<result.size();i++){
-            contestArrayList.add(new contestModel(result.get(i).get(2), result.get(i).get(3), result.get(i).get(4),result.get(i).get(5),result.get(i).get(1)));
+        for(int i=0;i<result_vector.size();i++){
+            contestArrayList.add(new contestModel(result_vector.get(i).get(2), result_vector.get(i).get(3), result_vector.get(i).get(4),result_vector.get(i).get(5),result_vector.get(i).get(1)));
         }
 
     }
