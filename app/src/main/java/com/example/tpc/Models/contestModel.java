@@ -1,4 +1,4 @@
-package com.example.tpc;
+package com.example.tpc.Models;
 
 public class contestModel {
 

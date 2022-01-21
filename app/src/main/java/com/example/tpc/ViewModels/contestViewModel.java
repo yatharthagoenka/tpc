@@ -5,11 +5,10 @@ import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.RequiresApi;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.tpc.contestModel;
+import com.example.tpc.Models.contestModel;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -31,8 +30,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Locale;
 import java.util.Vector;
-
-import fragments.a_contests;
 
 public class contestViewModel extends ViewModel {
 

@@ -16,16 +16,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.tpc.EventAdapter;
+import com.example.tpc.Adapters.EventAdapter;
 import com.example.tpc.R;
 import com.example.tpc.User;
 import com.example.tpc.eventChange;
-import com.example.tpc.eventModel;
+import com.example.tpc.Models.eventModel;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;

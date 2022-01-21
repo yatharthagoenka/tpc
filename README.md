@@ -1,3 +1,3 @@
 # tpc
 
-> APK located [here](https://github.com/yatharthagoenka/Synapse/tree/master/app/build/outputs/apk/debug)
+> Source files located [here](https://github.com/yatharthagoenka/tpc/tree/master/app/src/main/java/com/example/tpc)

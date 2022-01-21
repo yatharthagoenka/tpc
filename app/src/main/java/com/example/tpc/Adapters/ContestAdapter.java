@@ -1,4 +1,4 @@
-package com.example.tpc;
+package com.example.tpc.Adapters;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -7,20 +7,16 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.provider.CalendarContract;
-import android.telecom.Call;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.tpc.contestModel;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.example.tpc.Models.contestModel;
+import com.example.tpc.R;
 
 import java.util.ArrayList;
 import java.util.Calendar;

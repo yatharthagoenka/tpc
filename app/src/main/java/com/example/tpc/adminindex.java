@@ -74,7 +74,7 @@ public class adminindex extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,a_dash).commit();
 
         contestViewModel = new ViewModelProvider(this).get(contestViewModel.class);
-        contestViewModel.init();
+//        contestViewModel.init();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
