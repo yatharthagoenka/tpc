@@ -61,7 +61,7 @@ public class a_dashboard extends Fragment {
     private ImageView dash_profilepic;
     private LinearLayout all_chipdash,cp_chipdash,web_chipdash,app_chipdash,ai_chipdash;
 
-    private String userID,isAdmin,rollno,username;
+    private String userID,isAdmin,rollno,username,fetchAdminCheck;
     private FirebaseUser user;
     private DatabaseReference reference;
     private GoogleSignInClient mGoogleSignInClient;
@@ -76,6 +76,8 @@ public class a_dashboard extends Fragment {
         dash_username = view.findViewById(R.id.dash_username);
         filterbutton = view.findViewById(R.id.filterbutton);
         dash_profilepic = view.findViewById(R.id.dash_profilepic);
+
+        fetchAdminCheck = getArguments().getString("adminCheck");
 
         Intent startIntent = new Intent(getActivity(), eventChange.class);
         startIntent.setAction("te");
@@ -123,6 +125,12 @@ public class a_dashboard extends Fragment {
         readEventData();
 
         newEventButton = view.findViewById(R.id.newEventButton);
+
+        if(fetchAdminCheck.equals("NO")){
+            newEventButton.setVisibility(View.GONE);
+            newEventButton.setClickable(false);
+        }
+
         newEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

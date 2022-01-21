@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -30,7 +32,6 @@ import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
 import fragments.a_contests;
 import fragments.a_dashboard;
-import fragments.a_profile;
 import fragments.profile;
 
 public class adminindex extends AppCompatActivity {
@@ -39,17 +40,22 @@ public class adminindex extends AppCompatActivity {
     private LinearLayout bn_dashboard,bn_contests,bn_profile,bn_logout;
     private SlidingRootNav slidingRootNav;
 
+    private contestViewModel contestViewModel;
 
-    private String userID,username,isAdmin,rollno;
+    private String userID,username,isAdmin,rollno,fetchCheck;
     private FirebaseUser user;
     private DatabaseReference reference;
     private GoogleSignInClient mGoogleSignInClient;
+    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adminindex);
+
+        Intent i = getIntent();
+        fetchCheck = i.getStringExtra("isAdmin");
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setBackgroundColor(Color.TRANSPARENT);
@@ -60,7 +66,15 @@ public class adminindex extends AppCompatActivity {
                 .withMenuLayout(R.layout.nav_drawer)
                 .inject();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new a_dashboard()).commit();
+        bundle = new Bundle();
+        bundle.putString("adminCheck",fetchCheck);
+
+        contestViewModel = new ViewModelProvider(this).get(contestViewModel.class);
+        contestViewModel.init();
+
+        Fragment a_dash = new a_dashboard();
+        a_dash.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,a_dash).commit();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -90,13 +104,14 @@ public class adminindex extends AppCompatActivity {
             }
         });
 
-
         bn_dashboard = findViewById(R.id.bn_dashboard);
         bn_dashboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 slidingRootNav.closeMenu();
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new a_dashboard()).commit();
+                Fragment a_dash2 = new a_dashboard();
+                a_dash2.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,a_dash2).commit();
             }
         });
         bn_contests = findViewById(R.id.bn_contests);

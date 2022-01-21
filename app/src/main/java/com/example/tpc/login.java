@@ -229,11 +229,14 @@ public class login extends AppCompatActivity implements View.OnClickListener {
                                         User userProfile = snapshot.getValue(User.class);
                                         if(userProfile != null){
                                             String check = userProfile.isAdmin;
-                                            if(check.equals("YES")){
-                                                startActivity(new Intent(login.this,adminindex.class));
-                                            }else{
-                                                startActivity(new Intent(login.this,index.class));
-                                            }
+                                            Intent i = new Intent(login.this,adminindex.class);
+                                            i.putExtra("isAdmin",check);
+                                            startActivity(i);
+//                                            if(check.equals("YES")){
+//                                                startActivity(new Intent(login.this,adminindex.class));
+//                                            }else{
+//                                                startActivity(new Intent(login.this,index.class));
+//                                            }
                                         }
                                     }
 

@@ -1,38 +1,13 @@
-package fragments;
+package com.example.tpc;
 
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.core.app.NotificationCompat;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import com.example.tpc.ContestAdapter;
-import com.example.tpc.R;
-import com.example.tpc.adminindex;
-import com.example.tpc.contestModel;
-import com.example.tpc.contestViewModel;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -55,128 +30,35 @@ import java.util.Comparator;
 import java.util.Locale;
 import java.util.Vector;
 
+import fragments.a_contests;
 
-public class a_contests extends Fragment implements LifecycleOwner {
+public class contestViewModel extends ViewModel {
 
-    View view;
-//    private TextView contestlisttest;
-    private int tab;
-    private Vector<Vector<String>> resultdata_All,resultdata_AC,resultdata_CF,resultdata_CC;
-//    ChipNavigationBar chipNavigationBar;
-    private FloatingActionButton floatingActionButton;
-    private ProgressBar progressBar;
-    private SwipeRefreshLayout swipeRefreshLayout;
-    private LinearLayoutManager linearLayoutManager;
+    private MutableLiveData<ArrayList<contestModel>> contestLiveData;
+    private ArrayList<contestModel> contestArrayList;
 
-    private contestViewModel contestViewModel;
+    private Vector<Vector<String>> result;
 
-    private RecyclerView contestRV;
-    private ArrayList<contestModel> contestModelArrayList;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        contestViewModel = new ViewModelProvider(requireActivity()).get(contestViewModel.class);
+    public contestViewModel() {
+        contestLiveData = new MutableLiveData<>();
+        contestArrayList = new ArrayList<>();
+        result = new Vector<>();
+        init();
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_a_contests, container, false);
-//        chipNavigationBar = view.findViewById(R.id.contest_menubar);
-//        chipNavigationBar.setItemSelected(R.id.contestmenu_all,true);
-        contestRV = view.findViewById(R.id.contestRV);
-//        swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.a_refreshLayout);
-        linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-
-        progressBar = view.findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.VISIBLE);
-
-        contestViewModel.getContestMutableLiveData().observe(getViewLifecycleOwner(), contestListUpdateObserver);
-
-
-        return view;
+    public MutableLiveData<ArrayList<contestModel>> getContestMutableLiveData() {
+        return contestLiveData;
     }
 
+    public void init(){
 
-    private Observer<ArrayList<contestModel>> contestListUpdateObserver = new Observer<ArrayList<contestModel>>() {
-
-        @Override
-        public void onChanged(ArrayList<contestModel> userArrayList) {
-            ContestAdapter contestAdapter = new ContestAdapter(requireActivity(), userArrayList);
-            contestRV.setLayoutManager(linearLayoutManager);
-            contestRV.setAdapter(contestAdapter);
-            progressBar.setVisibility(View.GONE);
-        }
-    };
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        tab = 1;
-
-//        chipNavigationBar.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
-//            @RequiresApi(api = Build.VERSION_CODES.O)
-//            @Override
-//            public void onItemSelected(int i) {
-//                Fragment fragment = null;
-//                switch (i) {
-//                    case R.id.contestmenu_all:
-//                        tab = 1;
-////                        setToAdapter();
-//                        break;
-//                    case R.id.contestmenu_cc:
-//                        tab = 2;
-////                        setToAdapter();
-//                        break;
-//                    case R.id.contestmenu_cf:
-//                        tab = 3;
-////                        setToAdapter();
-//                        break;
-//                    case R.id.contestmenu_ac:
-//                        tab = 4;
-////                        setToAdapter();
-//                        break;
-//                }
-//            }
-//        });
-
-//        swipeRefreshLayout.setOnRefreshListener(
-//                new SwipeRefreshLayout.OnRefreshListener() {
-//                    @Override
-//                    public void onRefresh() {
-//                        switch(tab){
-//                            case 1:
-//                                resultdata_All.clear();
-//                                progressBar.setVisibility(View.VISIBLE);
-//                                all_contest_fetch();
-//                                break;
-//                            case 2:
-//                                resultdata_CC.clear();
-//                                progressBar.setVisibility(View.VISIBLE);
-//                                CC_list cclist = new CC_list();
-//                                cclist.execute("https://www.codechef.com/api/list/contests/all?sort_by=START&sorting_order=asc&offset=0&mode=premium");
-//                                break;
-//                            case 3:
-//                                resultdata_CF.clear();
-//                                progressBar.setVisibility(View.VISIBLE);
-//                                CF_list cflist = new CF_list();
-//                                cflist.execute("https://codeforces.com/api/contest.list?gym=false");
-//                                break;
-//                            case 4:
-//                                resultdata_AC.clear();
-//                                progressBar.setVisibility(View.VISIBLE);
-//                                AC_list aclist = new AC_list();
-//                                aclist.execute();
-//                                break;
-//                        }
-//                        swipeRefreshLayout.setRefreshing(false);
-//                    }
-//                }
-//        );
+        populateList();
+        contestLiveData.setValue(contestArrayList);
     }
 
-    public void all_contest_fetch(){
+    private void populateList(){
+        contestArrayList = new ArrayList<>();
+        result = new Vector<>();
         CC_list cclist2 = new CC_list();
         cclist2.execute("https://www.codechef.com/api/list/contests/all?sort_by=START&sorting_order=asc&offset=0&mode=premium");
         CF_list cflist2 = new CF_list();
@@ -184,7 +66,6 @@ public class a_contests extends Fragment implements LifecycleOwner {
         AC_list aclist2 = new AC_list();
         aclist2.execute();
     }
-
 
     public class CC_list extends AsyncTask<String,Void,String> {
         @Override
@@ -258,12 +139,11 @@ public class a_contests extends Fragment implements LifecycleOwner {
                     tmp.add(start);
                     tmp.add(duration);
                     tmp.add(link);
-                    if(tab==1){resultdata_All.add(tmp);}
-                    resultdata_CC.add(tmp);
+                    
+                    result.add(tmp);
                 }
-//                contestlisttest.setText(String.valueOf(resultdata));
-                setToAdapter();
-//                Log.d("cc future", String.valueOf(result));
+
+
             }catch(Exception e){
                 e.printStackTrace();
             }
@@ -320,8 +200,8 @@ public class a_contests extends Fragment implements LifecycleOwner {
                     Instant instant = Instant.ofEpochSecond(Integer.parseInt(c.getString("startTimeSeconds")));
 
                     DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime( FormatStyle.SHORT )
-                                                .withLocale( Locale.US )
-                                                .withZone( ZoneId.systemDefault() );
+                            .withLocale( Locale.US )
+                            .withZone( ZoneId.systemDefault() );
                     String tmp_start = formatter.format( instant );
                     String[] ts1 = (tmp_start.split(",")[0]).split("/");
                     if(Integer.parseInt(ts1[1])<10){
@@ -349,12 +229,10 @@ public class a_contests extends Fragment implements LifecycleOwner {
                     tmp.add(start);
                     tmp.add(duration);
                     tmp.add(link);
-                    if(tab==1){resultdata_All.add(tmp);}
-                        resultdata_CF.add(tmp);
+                    result.add(tmp);
                 }
-//                contestlisttest.setText(String.valueOf(resultdata));
-                setToAdapter();
-//                Log.d("cf future", String.valueOf(result));
+
+
             }catch(Exception e){
                 e.printStackTrace();
             }
@@ -415,50 +293,24 @@ public class a_contests extends Fragment implements LifecycleOwner {
                 tmp.add(start);
                 tmp.add(tmp_dur);
                 tmp.add(link);
+                result.add(tmp);
 
-//                Log.i("tmptest",String.valueOf(tmp));
-                if(tab==1){resultdata_All.add(tmp);}
-                    resultdata_AC.add(tmp);
+//                contestArrayList.add(new contestModel(tmp.get(2), tmp.get(3), tmp.get(4),tmp.get(5),tmp.get(1)));
+
             }
-//            contestlisttest.setText(String.valueOf(resultdata));
-            setToAdapter();
+            addTOFinalList();
         }
     }
-
-    void setToAdapter(){
-        Vector<Vector<String>> resultdata = new Vector<Vector<String>>();
-        switch(tab){
-            case 1:
-                resultdata = (Vector<Vector<String>>) resultdata_All.clone();
-                break;
-            case 2:
-                resultdata = (Vector<Vector<String>>) resultdata_CC.clone();
-                break;
-            case 3:
-                resultdata = (Vector<Vector<String>>) resultdata_CF.clone();
-                break;
-            case 4:
-                resultdata = (Vector<Vector<String>>) resultdata_AC.clone();
-                break;
-        }
-        Collections.sort(resultdata, new Comparator<Vector<String>>(){
+    
+    void addTOFinalList(){
+        Collections.sort(result, new Comparator<Vector<String>>(){
             @Override  public int compare(Vector<String> v1, Vector<String> v2) {
                 return v1.get(0).compareTo(v2.get(0)); //If you order by 2nd element in row
             }});
 
-
-        contestModelArrayList = new ArrayList<>();
-
-        for(int i=0;i<resultdata.size();i++){
-            contestModelArrayList.add(new contestModel(resultdata.get(i).get(2), resultdata.get(i).get(3), resultdata.get(i).get(4),resultdata.get(i).get(5),resultdata.get(i).get(1)));
+        for(int i=0;i<result.size();i++){
+            contestArrayList.add(new contestModel(result.get(i).get(2), result.get(i).get(3), result.get(i).get(4),result.get(i).get(5),result.get(i).get(1)));
         }
-        ContestAdapter contestAdapter = new ContestAdapter(getActivity(), contestModelArrayList);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        contestRV.setLayoutManager(linearLayoutManager);
-        contestRV.setAdapter(contestAdapter);
-        progressBar.setVisibility(View.GONE);
+
     }
-
-
-
 }

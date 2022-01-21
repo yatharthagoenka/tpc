@@ -70,11 +70,14 @@ public class MainActivity extends AppCompatActivity {
                     User userProfile2 = snapshot.getValue(User.class);
                     if(userProfile2 != null){
                         String check = userProfile2.isAdmin;
-                        if(check.equals("YES")){
-                            startActivity(new Intent(MainActivity.this,adminindex.class));
-                        }else{
-                            startActivity(new Intent(MainActivity.this,index.class));
-                        }
+                        Intent i = new Intent(MainActivity.this,adminindex.class);
+                        i.putExtra("isAdmin",check);
+                        startActivity(i);
+//                        if(check.equals("YES")){
+//                            startActivity(new Intent(MainActivity.this,adminindex.class));
+//                        }else{
+//                            startActivity(new Intent(MainActivity.this,index.class));
+//                        }
                     }
                 }
 

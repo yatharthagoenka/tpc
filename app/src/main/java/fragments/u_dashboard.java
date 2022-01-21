@@ -207,6 +207,7 @@ public class u_dashboard extends Fragment {
                                 Uri personPhoto = acct.getPhotoUrl();
                                 new ImageLoadTask(personPhoto.toString(), dash_profilepic).execute();
 
+//                                userRef.update("isAdmin", isAdmin);
                                 userRef.update("userDP", personPhoto.toString())
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
