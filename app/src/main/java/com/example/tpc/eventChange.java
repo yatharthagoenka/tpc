@@ -4,27 +4,19 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
+import com.example.tpc.fragments.a_dashboard;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import fragments.u_contests;
 
 public class eventChange extends Service {
     public eventChange() {
@@ -110,7 +102,7 @@ public class eventChange extends Service {
                 .setContentTitle(title) // title for notification
                 .setContentText("Open the dashboard to know more!")// message for notification
                 .setAutoCancel(true); // clear notification after click
-        Intent intent = new Intent(getApplicationContext(), u_contests.class);
+        Intent intent = new Intent(getApplicationContext(), a_dashboard.class);
         PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pi);
         mNotificationManager.notify(0, mBuilder.build());

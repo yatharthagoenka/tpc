@@ -1,6 +1,6 @@
-package fragments;
+package com.example.tpc.fragments;
 
-import android.app.ActivityManager;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -12,21 +12,18 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.tpc.Adapters.EventAdapter;
 import com.example.tpc.R;
-import com.example.tpc.User;
+import com.example.tpc.Models.User;
+import com.example.tpc.eventChange;
 import com.example.tpc.Models.eventModel;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -56,42 +53,42 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Vector;
 
-public class u_dashboard extends Fragment {
-    View view;
-    private TextView dash_username,filterbutton;
-    private ImageView dash_profilepic;
-    private EditText searchbox;
+public class a_dashboard extends Fragment {
 
-    private String userID,isAdmin,rollno,username;
+    View view;
+    private TextView dash_username, newEventButton,eventtexts,filterbutton;
+    private ImageView dash_profilepic;
+    private LinearLayout all_chipdash,cp_chipdash,web_chipdash,app_chipdash,ai_chipdash;
+
+    private String userID,isAdmin,rollno,username,fetchAdminCheck;
     private FirebaseUser user;
     private DatabaseReference reference;
     private GoogleSignInClient mGoogleSignInClient;
 
-    private LinearLayout all_chipdash,cp_chipdash,web_chipdash,app_chipdash,ai_chipdash;
-
-
     private RecyclerView eventRV;
     private ArrayList<eventModel> eventModelArrayList;
     private Vector<Vector<String>> eventData;
-    int f;
-
-    EventAdapter EventAdapter;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_u_dashboard, container, false);
-        dash_profilepic = view.findViewById(R.id.dash_profilepic);
+        view = inflater.inflate(R.layout.fragment_a_dashboard, container, false);
         dash_username = view.findViewById(R.id.dash_username);
         filterbutton = view.findViewById(R.id.filterbutton);
-        searchbox = view.findViewById(R.id.searchbox);
+        dash_profilepic = view.findViewById(R.id.dash_profilepic);
 
-//        getActivity().stopService(new Intent(getActivity(), eventChange.class));
+        fetchAdminCheck = getArguments().getString("adminCheck");
 
-//        Intent startIntent = new Intent(getActivity(), eventChange.class);
-//        startIntent.setAction("te");
-//        getActivity().startService(startIntent);
+        Intent startIntent = new Intent(getActivity(), eventChange.class);
+        startIntent.setAction("te");
+        getActivity().startService(startIntent);
+
+        all_chipdash = view.findViewById(R.id.all_chipdash);
+        cp_chipdash = view.findViewById(R.id.cp_chipdash);
+        web_chipdash = view.findViewById(R.id.web_chipdash);
+        app_chipdash = view.findViewById(R.id.app_chipdash);
+        ai_chipdash = view.findViewById(R.id.ai_chipdash);
+//        getActivity().startService(new Intent(getActivity(), EventListener.class));
+
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -122,64 +119,28 @@ public class u_dashboard extends Fragment {
             }
         });
 
-        eventRV = view.findViewById(R.id.eventRV_user);
+        eventRV = view.findViewById(R.id.eventRV);
         eventData = new Vector<Vector<String>>();
         readEventData();
 
+        newEventButton = view.findViewById(R.id.newEventButton);
 
+        if(fetchAdminCheck.equals("NO")){
+            newEventButton.setVisibility(View.GONE);
+            newEventButton.setClickable(false);
+        }
 
-        searchbox.addTextChangedListener(new TextWatcher() {
+        newEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                ArrayList<eventModel> filteredlist = new ArrayList<>();
-
-                // running a for loop to compare elements.
-                for (eventModel item : eventModelArrayList) {
-                    // checking if the entered string matched with any item of our recycler view.
-                    String t1=item.getEventName().toLowerCase();
-                    String t2=searchbox.getText().toString().toLowerCase();
-                    if (t1.contains(t2)) {
-                        filteredlist.add(item);
-                    }else{
-
-                        Log.d("testing", String.valueOf(t1.contains(t2)));
-//                        Log.d("testing",item.getEventName().toLowerCase()+" | "+searchbox.getText().toString().toLowerCase());
-                    }
-                }
-                if (filteredlist.isEmpty()) {
-                    Toast.makeText(getContext(), "No related events found", Toast.LENGTH_SHORT).show();
-                } else {
-                    // at last we are passing that filtered
-                    // list to our adapter class.
-                    EventAdapter = new EventAdapter(getActivity(), filteredlist);
-                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-                    eventRV.setLayoutManager(linearLayoutManager);
-                    eventRV.setAdapter(EventAdapter);
-                }
-            }
-
-            public void afterTextChanged(Editable s) {
-
+            public void onClick(View view) {
+                newEventSheet neweventsheet = new newEventSheet();
+                neweventsheet.show(getActivity().getSupportFragmentManager(), neweventsheet.getTag());
             }
         });
 
         return view;
     }
 
-    private boolean isServiceActive(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) getActivity().getSystemService(getActivity().ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     void setUserDP(){
         final String[] userDP = {""};
@@ -204,7 +165,6 @@ public class u_dashboard extends Fragment {
                                 Uri personPhoto = acct.getPhotoUrl();
                                 new ImageLoadTask(personPhoto.toString(), dash_profilepic).execute();
 
-//                                userRef.update("isAdmin", isAdmin);
                                 userRef.update("userDP", personPhoto.toString())
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
@@ -266,55 +226,50 @@ public class u_dashboard extends Fragment {
     }
 
     private void readEventData() {
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("events")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                f+=1;
+            .get()
+            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
 //                            Log.d("event", document.getId() + " => " + document.getData());
-                                Map<String,Object> data = document.getData();
+                              Map<String,Object> data = document.getData();
 //                            Log.d("eventtest2",data.get("name").toString());
 
 //                                String[] full_date = data.get("eventDate").toString().split(" ");
 //                                String day = full_date[0];
 //                                String month = full_date[1];
-                                String date = data.get("eventDate").toString();
-                                String name = data.get("name").toString();
-                                String domain = data.get("domain").toString();
-                                String regCount = data.get("regCount").toString()+" Joined";
-                                String duration = data.get("duration").toString();
-                                String desc = data.get("Desc").toString();
+                            String date = data.get("eventDate").toString();
+                            String name = data.get("name").toString();
+                            String domain = data.get("domain").toString();
+                            String regCount = data.get("regCount").toString()+" Joined";
+                            String duration = data.get("duration").toString();
+                            String desc = data.get("Desc").toString();
 
-                                Vector<String> tmp = new Vector<String>();
-                                tmp.add(date);
+                            Vector<String> tmp = new Vector<String>();
+                            tmp.add(date);
 //                                tmp.add(day);
 //                                tmp.add(month);
-                                tmp.add(name);
-                                tmp.add(domain);
-                                tmp.add(regCount);
-                                tmp.add(document.getId());
-                                tmp.add(duration);
-                                tmp.add(desc);
+                            tmp.add(name);
+                            tmp.add(domain);
+                            tmp.add(regCount);
+                            tmp.add(document.getId());
+                            tmp.add(duration);
+                            tmp.add(desc);
 
-                                eventData.add(tmp);
+                            eventData.add(tmp);
 
-                            }
-                        } else {
-                            Log.w("event", "Error getting documents.", task.getException());
                         }
-//                    Log.d("eventadapter",eventData.toString());
-                        setToEventAdapter();
+                    } else {
+                        Log.w("event", "Error getting documents.", task.getException());
                     }
-                });
-    }
-
-    public int getVar() {
-        Log.d("testf",String.valueOf(f));
-        return this.f;
+//                    Log.d("eventadapter",eventData.toString());
+                    setToEventAdapter();
+                }
+            });
     }
 
     private void setToEventAdapter() {
@@ -328,10 +283,11 @@ public class u_dashboard extends Fragment {
 
 //        Log.d("eventadapter",eventData.toString());
 
-        EventAdapter = new EventAdapter(getActivity(), eventModelArrayList);
+        EventAdapter EventAdapter = new EventAdapter(getActivity(), eventModelArrayList);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         eventRV.setLayoutManager(linearLayoutManager);
         eventRV.setAdapter(EventAdapter);
-
+        
     }
 }
+

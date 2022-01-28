@@ -20,6 +20,7 @@
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/ic_baseline_access_time_24.xml" value="0.196875" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml" value="0.17847222222222223" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/ic_baseline_arrow_forward_24.xml" value="0.21837606837606838" />
+        <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/ic_baseline_edit_note_24.xml" value="0.22412280701754386" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/ic_baseline_event_note_24.xml" value="0.22412280701754386" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.199609375" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/ic_launcher.xml" value="0.187109375" />
@@ -42,6 +43,7 @@
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/activity_main.xml" value="0.176" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/activity_register.xml" value="0.16" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/contest_card.xml" value="0.4" />
+        <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/edit_profile.xml" value="0.19736842105263158" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/ep_users_card.xml" value="0.264" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/ep_userswindow.xml" value="0.21052631578947367" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/layout/event_card.xml" value="0.264" />
@@ -73,7 +75,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.264" />
+        <option name="scale" value="0.21052631578947367" />
       </ProjectState>
     </option>
   </component>

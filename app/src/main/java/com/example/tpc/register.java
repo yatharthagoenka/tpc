@@ -2,7 +2,6 @@ package com.example.tpc;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,13 +12,14 @@ import android.util.Patterns;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tpc.Models.Profile;
+import com.example.tpc.Models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -28,7 +28,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class register extends AppCompatActivity implements View.OnClickListener {
@@ -239,9 +238,12 @@ public class register extends AppCompatActivity implements View.OnClickListener 
     }
 
     void addUserToFirestore(User user){
+
+        Profile user_profile = new Profile(user.name, user.roll, user.email, user.isAdmin, "-","-","-");
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("users").document(user.roll)
-            .set(user)
+            .set(user_profile)
             .addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {

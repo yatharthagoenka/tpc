@@ -24,14 +24,12 @@
 
         <activity android:name=".adminindex"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
-        <activity android:name=".index"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
         <activity android:name=".register"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
         <activity android:name=".login"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
         <activity
-            android:name=".MainActivity"
+            android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

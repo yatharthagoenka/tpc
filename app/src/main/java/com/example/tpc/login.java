@@ -2,36 +2,28 @@ package com.example.tpc;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewAnimationUtils;
-import android.view.animation.Animation;
-import android.view.animation.ScaleAnimation;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tpc.Models.User;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -299,11 +291,14 @@ public class login extends AppCompatActivity implements View.OnClickListener {
                                 User userProfile = snapshot.getValue(User.class);
                                 if(userProfile != null){
                                     String check = userProfile.isAdmin;
-                                    if(check.equals("YES")){
-                                        startActivity(new Intent(login.this,adminindex.class));
-                                    }else{
-                                        startActivity(new Intent(login.this,index.class));
-                                    }
+                                    Intent i = new Intent(login.this,adminindex.class);
+                                    i.putExtra("isAdmin",check);
+                                    startActivity(i);
+//                                    if(check.equals("YES")){
+//                                        startActivity(new Intent(login.this,adminindex.class));
+//                                    }else{
+//                                        startActivity(new Intent(login.this,index.class));
+//                                    }
                                 }
                             }
 

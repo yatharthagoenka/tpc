@@ -1,6 +1,9 @@
-package fragments;
+package com.example.tpc.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,14 +22,16 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.tpc.Adapters.ContestAdapter;
 import com.example.tpc.R;
 import com.example.tpc.Models.contestModel;
+import com.example.tpc.SplashActivity;
 import com.example.tpc.ViewModels.contestViewModel;
+import com.example.tpc.login;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Vector;
 
 
-public class a_contests extends Fragment implements LifecycleOwner {
+public class contests extends Fragment implements LifecycleOwner {
 
     View view;
 //    private TextView contestlisttest;
@@ -42,6 +47,8 @@ public class a_contests extends Fragment implements LifecycleOwner {
 
     private RecyclerView contestRV;
     private ArrayList<contestModel> contestModelArrayList;
+
+    boolean f=true;
 
 
     @Override
@@ -77,9 +84,8 @@ public class a_contests extends Fragment implements LifecycleOwner {
         contestViewModel = new ViewModelProvider(getActivity()).get(contestViewModel.class);
         contestViewModel.getContestMutableLiveData().observe(getViewLifecycleOwner(), contestListUpdateObserver);
 
+
     }
-
-
 
 //        tab = 1;
 

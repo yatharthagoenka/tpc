@@ -4,9 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -14,6 +12,7 @@ import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 
+import com.example.tpc.Models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -22,7 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class MainActivity extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity {
 
     private String userID;
     private DatabaseReference reference;
@@ -70,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                     User userProfile2 = snapshot.getValue(User.class);
                     if(userProfile2 != null){
                         String check = userProfile2.isAdmin;
-                        Intent i = new Intent(MainActivity.this,adminindex.class);
+                        Intent i = new Intent(SplashActivity.this,adminindex.class);
                         i.putExtra("isAdmin",check);
                         startActivity(i);
 //                        if(check.equals("YES")){
@@ -90,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Intent i = new Intent(MainActivity.this,login.class);
+                    Intent i = new Intent(SplashActivity.this,login.class);
                     startActivity(i);
                     finish();
                 }

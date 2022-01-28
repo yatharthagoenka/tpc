@@ -1,25 +1,67 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#dedede"
-    tools:context="fragments.profile">
+    android:background="#edf2f2"
+    tools:context=".fragments.profile">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="150dp"
         android:background="@drawable/round_corner_layout"
         android:backgroundTint="#7a6acc"
+        android:layout_marginTop="-55dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profTopSheet"
         >
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="20dp"
+            >
+
+            <ImageView
+                android:id="@+id/gitButton"
+                android:clickable="true"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:src="@drawable/github_icon"
+                android:layout_marginRight="80dp"
+                />
+
+            <ImageView
+                android:id="@+id/linkedinButton"
+                android:clickable="true"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:src="@drawable/linkedin_icon"
+                android:layout_marginRight="80dp"
+                />
+
+            <ImageView
+                android:id="@+id/instaButton"
+                android:clickable="true"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:src="@drawable/insta_icon"
+                />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/profTopSheet"
         android:layout_width="match_parent"
         android:layout_height="320dp"
         android:background="@drawable/round_corner_layout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         >
 
         <ImageView
@@ -33,6 +75,8 @@
             android:src="@drawable/ic_baseline_arrow_back_ios_24"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+
 
         <androidx.cardview.widget.CardView
             android:id="@+id/profDPCard"
@@ -83,4 +127,14 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</FrameLayout>
+    <ImageView
+        android:id="@+id/editProfileButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:layout_margin="40dp"
+        android:src="@drawable/ic_baseline_edit_24"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -25,7 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import fragments.profile;
+import com.example.tpc.fragments.profile;
 
 public class epRSVPAdapter extends RecyclerView.Adapter<epRSVPAdapter.Viewholder> {
 

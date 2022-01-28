@@ -57,7 +57,7 @@ public class contestViewModel extends ViewModel {
 
     private void populateList(){
         CC_list cclist2 = new CC_list();
-        cclist2.execute("https://www.codechef.com/api/list/contests/all?sort_by=START&sorting_order=asc&offset=0&mode=premium");
+        cclist2.execute("https://www.codechef.com/api/list/contests/future?sort_by=START&sorting_order=asc&offset=0&mode=premium    ");
         CF_list cflist2 = new CF_list();
         cflist2.execute("https://codeforces.com/api/contest.list?gym=false");
         AC_list aclist2 = new AC_list();

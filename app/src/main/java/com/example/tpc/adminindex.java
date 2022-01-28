@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.example.tpc.Models.User;
 import com.example.tpc.ViewModels.contestViewModel;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -30,9 +31,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
-import fragments.a_contests;
-import fragments.a_dashboard;
-import fragments.profile;
+import com.example.tpc.fragments.contests;
+import com.example.tpc.fragments.a_dashboard;
+import com.example.tpc.fragments.profile;
 
 public class adminindex extends AppCompatActivity {
 
@@ -74,7 +75,6 @@ public class adminindex extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,a_dash).commit();
 
         contestViewModel = new ViewModelProvider(this).get(contestViewModel.class);
-//        contestViewModel.init();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -119,7 +119,7 @@ public class adminindex extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 slidingRootNav.closeMenu();
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new a_contests()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new contests()).commit();
             }
         });
         bn_profile = findViewById(R.id.bn_profile);
