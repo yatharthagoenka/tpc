@@ -2,14 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f0f5f4"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#edf2f2"
-    tools:context=".fragments.profile">
+    tools:context=".fragments.profile">-
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/profLinkTray"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:background="@drawable/round_corner_layout"
+        android:background="@drawable/bottom_corner_round"
         android:backgroundTint="#7a6acc"
         android:layout_marginTop="-55dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -28,8 +29,8 @@
             <ImageView
                 android:id="@+id/gitButton"
                 android:clickable="true"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:src="@drawable/github_icon"
                 android:layout_marginRight="80dp"
                 />
@@ -37,18 +38,18 @@
             <ImageView
                 android:id="@+id/linkedinButton"
                 android:clickable="true"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:src="@drawable/linkedin_icon"
                 android:layout_marginRight="80dp"
                 />
 
             <ImageView
-                android:id="@+id/instaButton"
+                android:id="@+id/cfButton"
                 android:clickable="true"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:src="@drawable/insta_icon"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:src="@drawable/cf_icon"
                 />
 
         </LinearLayout>
@@ -59,7 +60,7 @@
         android:id="@+id/profTopSheet"
         android:layout_width="match_parent"
         android:layout_height="320dp"
-        android:background="@drawable/round_corner_layout"
+        android:background="@drawable/bottom_corner_round"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         >
@@ -75,6 +76,7 @@
             android:src="@drawable/ic_baseline_arrow_back_ios_24"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
 
 
 
@@ -123,18 +125,48 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/profName" />
 
-
+        <ImageView
+            android:id="@+id/editProfileButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:padding="20dp"
+            android:layout_margin="20dp"
+            android:src="@drawable/ic_baseline_edit_24"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ImageView
-        android:id="@+id/editProfileButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:layout_margin="40dp"
-        android:src="@drawable/ic_baseline_edit_24"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profLinkTray"
+        android:layout_marginTop="30dp"
+        android:elevation="10dp"
+        android:layout_height="320dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/all_round_corner"
+        >
+
+        <com.jjoe64.graphview.GraphView
+            android:id="@+id/cfRatingGraph"
+            android:layout_width="match_parent"
+            android:alpha="0"
+            android:layout_height="290dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_alignParentTop="true" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

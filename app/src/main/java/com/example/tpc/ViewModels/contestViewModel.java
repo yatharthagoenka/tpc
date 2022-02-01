@@ -57,7 +57,7 @@ public class contestViewModel extends ViewModel {
 
     private void populateList(){
         CC_list cclist2 = new CC_list();
-        cclist2.execute("https://www.codechef.com/api/list/contests/future?sort_by=START&sorting_order=asc&offset=0&mode=premium    ");
+        cclist2.execute("https://www.codechef.com/api/list/contests/future?sort_by=START&sorting_order=asc&offset=0&mode=premium");
         CF_list cflist2 = new CF_list();
         cflist2.execute("https://codeforces.com/api/contest.list?gym=false");
         AC_list aclist2 = new AC_list();
@@ -281,8 +281,9 @@ public class contestViewModel extends ViewModel {
                 String[] arrDuration = td.split("-");
                 String tmp_dur = arrDuration[0];
                 arrDuration = tmp_dur.split(":");
-                tmp_dur = arrDuration[0].split("0")[1]+" H "+arrDuration[1]+"M";
 
+//                tmp_dur = arrDuration[0].split("0")[1]+" H "+arrDuration[1]+"M";
+                tmp_dur = "2 H";
                 Vector<String> tmp = new Vector<String>();
                 tmp.add(date_compare);
                 tmp.add(platform);
@@ -300,7 +301,7 @@ public class contestViewModel extends ViewModel {
     void addTOFinalList(){
         Collections.sort(result_vector, new Comparator<Vector<String>>(){
             @Override  public int compare(Vector<String> v1, Vector<String> v2) {
-                return v1.get(0).compareTo(v2.get(0)); //If you order by 2nd element in row
+                return v1.get(0).compareTo(v2.get(0));
             }});
 
         for(int i=0;i<result_vector.size();i++){

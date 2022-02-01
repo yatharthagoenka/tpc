@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="yellow">#80ede8bb</color>
     <color name="green">#80b5c7bf</color>
+    <color name="dashselected">#ffd4d4</color>
+    <color name="dashunselected">#f7fafa</color>
 </resources>

@@ -8,17 +8,22 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tpc.Adapters.EventAdapter;
 import com.example.tpc.R;
@@ -50,6 +55,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Vector;
 
@@ -57,6 +63,7 @@ public class a_dashboard extends Fragment {
 
     View view;
     private TextView dash_username, newEventButton,eventtexts,filterbutton;
+    private EditText dash_searchbox;
     private ImageView dash_profilepic;
     private LinearLayout all_chipdash,cp_chipdash,web_chipdash,app_chipdash,ai_chipdash;
 
@@ -69,26 +76,34 @@ public class a_dashboard extends Fragment {
     private ArrayList<eventModel> eventModelArrayList;
     private Vector<Vector<String>> eventData;
 
+    class domainButtonClass{
+        LinearLayout l;
+        int f;
+    }
+
+//    private Vector<domainButtonClass> domainButtons;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_a_dashboard, container, false);
         dash_username = view.findViewById(R.id.dash_username);
         filterbutton = view.findViewById(R.id.filterbutton);
         dash_profilepic = view.findViewById(R.id.dash_profilepic);
+        dash_searchbox = view.findViewById(R.id.dash_searchbox);
 
         fetchAdminCheck = getArguments().getString("adminCheck");
 
-        Intent startIntent = new Intent(getActivity(), eventChange.class);
-        startIntent.setAction("te");
-        getActivity().startService(startIntent);
+//        Intent startIntent = new Intent(getActivity(), eventChange.class);
+//        startIntent.setAction("te");
+//        getActivity().startService(startIntent);
 
         all_chipdash = view.findViewById(R.id.all_chipdash);
         cp_chipdash = view.findViewById(R.id.cp_chipdash);
         web_chipdash = view.findViewById(R.id.web_chipdash);
         app_chipdash = view.findViewById(R.id.app_chipdash);
         ai_chipdash = view.findViewById(R.id.ai_chipdash);
-//        getActivity().startService(new Intent(getActivity(), EventListener.class));
 
+//        domainButtons = new Vector<>(new domainButtonClass(), cp_chipdash, web_chipdash, app_chipdash, ai_chipdash);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -130,6 +145,46 @@ public class a_dashboard extends Fragment {
             newEventButton.setClickable(false);
         }
 
+        dash_searchbox.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                ArrayList<eventModel> filteredlist = new ArrayList<>();
+
+                // running a for loop to compare elements.
+                for (eventModel item : eventModelArrayList) {
+                    // checking if the entered string matched with any item of our recycler view.
+                    String t1=item.getEventName().toLowerCase();
+                    String t2=dash_searchbox.getText().toString().toLowerCase();
+                    if (t1.contains(t2)) {
+                        filteredlist.add(item);
+                    }else{
+
+                        Log.d("testing", String.valueOf(t1.contains(t2)));
+//                        Log.d("testing",item.getEventName().toLowerCase()+" | "+searchbox.getText().toString().toLowerCase());
+                    }
+                }
+                if (filteredlist.isEmpty()) {
+                    Toast.makeText(getContext(), "No related events found", Toast.LENGTH_SHORT).show();
+                } else {
+                    // at last we are passing that filtered
+                    // list to our adapter class.
+                    EventAdapter eventAdapter= new EventAdapter(getActivity(), filteredlist);
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+                    eventRV.setLayoutManager(linearLayoutManager);
+                    eventRV.setAdapter(eventAdapter);
+                }
+            }
+
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         newEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -138,7 +193,81 @@ public class a_dashboard extends Fragment {
             }
         });
 
+        all_chipdash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectDomain(0);
+//                all_chipdash.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.dashselected));
+//                cp_chipdash.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.dashunselected));
+//                web_chipdash.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.dashunselected));
+//                app_chipdash.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.dashunselected));
+//                cp_chipdash.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.dashunselected));
+//                ai_chipdash.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.dashunselected));
+            }
+        });
+
+        cp_chipdash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectDomain(1);
+//                all_chipdash.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.dashunselected));
+//                cp_chipdash.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.dashselected));
+//                web_chipdash.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.dashunselected));
+//                app_chipdash.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.dashunselected));
+//                cp_chipdash.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.dashunselected));
+//                ai_chipdash.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.dashunselected));
+            }
+        });
+
+        web_chipdash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectDomain(2);
+//                all_chipdash.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.dashunselected));
+//                cp_chipdash.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.dashunselected));
+//                web_chipdash.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.dashselected));
+//                app_chipdash.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.dashunselected));
+//                cp_chipdash.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.dashunselected));
+//                ai_chipdash.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.dashunselected));
+            }
+        });
+
+        app_chipdash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectDomain(3);
+//                all_chipdash.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.dashunselected));
+//                cp_chipdash.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.dashunselected));
+//                web_chipdash.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.dashunselected));
+//                app_chipdash.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.dashselected));
+//                cp_chipdash.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.dashunselected));
+//                ai_chipdash.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.dashunselected));
+            }
+        });
+
+        ai_chipdash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectDomain(4);
+//                all_chipdash.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.dashunselected));
+//                cp_chipdash.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.dashunselected));
+//                web_chipdash.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.dashunselected));
+//                app_chipdash.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.dashunselected));
+//                cp_chipdash.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.dashunselected));
+//                ai_chipdash.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.dashselected));
+            }
+        });
+
         return view;
+    }
+
+    void selectDomain(int k){
+//        for(int i=0; i<5;i++){
+//            if(i==k) domainButtons.get(i).setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.dashselected));
+//            else{
+//                domainButtons.get(i).setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.dashunselected));
+//            }
+//        }ee
     }
 
 

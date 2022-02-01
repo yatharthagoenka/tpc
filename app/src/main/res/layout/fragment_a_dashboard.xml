@@ -56,7 +56,7 @@
         </androidx.cardview.widget.CardView>
 
         <EditText
-            android:id="@+id/searchbox"
+            android:id="@+id/dash_searchbox"
             android:layout_width="280dp"
             android:layout_height="50dp"
             android:clickable="true"
@@ -87,7 +87,7 @@
             android:background="@drawable/ripple_button"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="104dp"
-            app:layout_constraintLeft_toRightOf="@id/searchbox"
+            app:layout_constraintLeft_toRightOf="@id/dash_searchbox"
             app:layout_constraintTop_toTopOf="parent"
             />
 
@@ -102,7 +102,7 @@
             android:orientation="horizontal"
             android:paddingLeft="15dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/searchbox">
+            app:layout_constraintTop_toBottomOf="@id/dash_searchbox">
 
             <GridLayout
                 android:layout_width="match_parent"
@@ -303,68 +303,3 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
-
-
-<!--<com.google.android.material.chip.ChipGroup-->
-<!--android:layout_width="wrap_content"-->
-<!--android:layout_height="wrap_content"-->
-<!--app:singleLine="true"-->
-<!--app:singleSelection="true"-->
-<!--app:chipSpacingHorizontal="-9dp"-->
-<!--    >-->
-
-
-<!--<com.google.android.material.chip.Chip-->
-<!--    android:id="@+id/tag1"-->
-<!--    android:layout_width="110dp"-->
-<!--    android:layout_height="130dp"-->
-<!--    android:text="All"-->
-<!--    android:backgroundTint="#f2f2f2"-->
-<!--    />-->
-
-<!--<com.google.android.material.chip.Chip-->
-<!--    android:id="@+id/tag2"-->
-<!--    android:layout_width="110dp"-->
-<!--    android:layout_height="130dp"-->
-<!--    android:text="Web Dev"-->
-<!--    android:layout_marginLeft="20dp"-->
-<!--    android:layout_marginTop="16dp"-->
-<!--    android:backgroundTint="#f2f2f2"-->
-<!--    app:layout_constraintLeft_toRightOf="@id/tag1"-->
-<!--    app:layout_constraintTop_toBottomOf="@id/searchbox" />-->
-
-<!--<com.google.android.material.chip.Chip-->
-<!--    android:id="@+id/tag3"-->
-<!--    android:layout_width="110dp"-->
-<!--    android:layout_height="130dp"-->
-<!--    android:text="App Dev"-->
-<!--    android:layout_marginLeft="20dp"-->
-<!--    android:layout_marginTop="16dp"-->
-<!--    android:backgroundTint="#f2f2f2"-->
-<!--    app:layout_constraintLeft_toRightOf="@id/tag2"-->
-<!--    app:layout_constraintTop_toBottomOf="@id/searchbox" />-->
-
-<!--<com.google.android.material.chip.Chip-->
-<!--    android:id="@+id/tag4"-->
-<!--    android:layout_width="110dp"-->
-<!--    android:layout_height="130dp"-->
-<!--    android:text="CP"-->
-<!--    android:layout_marginLeft="20dp"-->
-<!--    android:layout_marginTop="16dp"-->
-<!--    android:backgroundTint="#f2f2f2"-->
-<!--    app:layout_constraintLeft_toRightOf="@id/tag3"-->
-<!--    app:layout_constraintTop_toBottomOf="@id/searchbox" />-->
-
-<!--<com.google.android.material.chip.Chip-->
-<!--    android:id="@+id/tag5"-->
-<!--    android:layout_width="70dp"-->
-<!--    android:layout_height="190dp"-->
-<!--    android:text="AI/ML"-->
-<!--    android:layout_marginLeft="20dp"-->
-<!--    android:layout_marginTop="16dp"-->
-<!--    android:backgroundTint="#f2f2f2"-->
-<!--    app:layout_constraintLeft_toRightOf="@id/tag4"-->
-<!--    app:layout_constraintTop_toBottomOf="@id/searchbox" />-->
-
-
-<!--</com.google.android.material.chip.ChipGroup>-->

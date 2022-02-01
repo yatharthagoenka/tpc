@@ -1,9 +1,6 @@
 package com.example.tpc.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +19,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.tpc.Adapters.ContestAdapter;
 import com.example.tpc.R;
 import com.example.tpc.Models.contestModel;
-import com.example.tpc.SplashActivity;
 import com.example.tpc.ViewModels.contestViewModel;
-import com.example.tpc.login;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -53,7 +48,7 @@ public class contests extends Fragment implements LifecycleOwner {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_a_contests, container, false);
+        view = inflater.inflate(R.layout.fragment_contests, container, false);
 //        chipNavigationBar = view.findViewById(R.id.contest_menubar);
 //        chipNavigationBar.setItemSelected(R.id.contestmenu_all,true);
         contestRV = view.findViewById(R.id.contestRV);

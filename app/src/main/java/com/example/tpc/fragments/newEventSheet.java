@@ -52,7 +52,7 @@ public class newEventSheet extends BottomSheetDialogFragment implements AdapterV
     private ScrollView tagscrollview;
     private DatePicker eventDate;
 
-    private String userID,rollno;
+    private String userID,rollno,username;
     private FirebaseUser user;
     private DatabaseReference reference;
 
@@ -124,6 +124,7 @@ public class newEventSheet extends BottomSheetDialogFragment implements AdapterV
                 User userProfile = snapshot.getValue(User.class);
                 if(userProfile != null){
                     rollno = userProfile.roll;
+                    username = userProfile.name;
                 }
             }
 
@@ -138,7 +139,7 @@ public class newEventSheet extends BottomSheetDialogFragment implements AdapterV
         event = new HashMap<>();
         ArrayList<String> attendees = new ArrayList<>();
         ArrayList<String> hosts = new ArrayList<>();
-        attendees.add("000");
+        attendees.add(username + " | "+rollno);
         hosts.add(rollno);
         event.put("rsvp", attendees);
         event.put("hosts", hosts);

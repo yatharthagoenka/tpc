@@ -10,10 +10,12 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,6 +32,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tpc.Adapters.epRSVPAdapter;
+import com.example.tpc.Client.RatingClient;
+import com.example.tpc.Models.cfUserRating;
+import com.example.tpc.Models.cfUserRatingResult;
 import com.example.tpc.R;
 import com.example.tpc.Models.User;
 import com.example.tpc.adminindex;
@@ -49,19 +54,36 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
+
+import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Vector;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class profile extends Fragment {
 
     private TextView profName,profRollNo;
-    private ImageView profBackButton,profDP,gitButton,linkedinButton,instaButton,editProfileButton;
-
+    private ImageView profBackButton,profDP,gitButton,linkedinButton,cfButton,editProfileButton;
+    private GraphView cfRatingGraph;
 
     private String userID,isAdmin,rollno,username,fetchedRoll;
     private FirebaseUser user;
@@ -79,7 +101,8 @@ public class profile extends Fragment {
         editProfileButton = view.findViewById(R.id.editProfileButton);
         gitButton = view.findViewById(R.id.gitButton);
         linkedinButton = view.findViewById(R.id.linkedinButton);
-        instaButton = view.findViewById(R.id.instaButton);
+        cfButton = view.findViewById(R.id.cfButton);
+        cfRatingGraph = view.findViewById(R.id.cfRatingGraph);
 
         if(getArguments().getString("callingAct").equals("index") || getArguments().getString("callingAct").equals("adminindex")){
             profBackButton.setVisibility(View.GONE);
@@ -170,15 +193,102 @@ public class profile extends Fragment {
             }
         });
 
-        instaButton.setOnLongClickListener(new View.OnLongClickListener() {
+        cfButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
                 if(fetchedRoll.trim().equals(rollno.trim())){
-                    Toast.makeText(getActivity(), "Edit Instagram", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), sh.getString("codeforces", "/"), Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(getActivity(), "Unauthorized access", Toast.LENGTH_SHORT).show();
                 }
                 return true;
+            }
+        });
+
+        cfButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try{
+                getCFRating(sh.getString("codeforces", "aaa"));
+
+                }catch (Exception e){
+                    Log.d("URHE",e.toString());
+                }
+            }
+        });
+    }
+
+    void getCFRating(String userID){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://codeforces.com/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RatingClient ratingClient = retrofit.create(RatingClient.class);
+
+        Call<cfUserRating> call = ratingClient.getUserRating(userID);
+        call.enqueue(new Callback<cfUserRating>() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onResponse(Call<cfUserRating> call, Response<cfUserRating> response) {
+                if(!response.isSuccessful()){
+//                    Toast.makeText(getActivity(), "Failed with code: "+response.code(), Toast.LENGTH_SHORT).show();
+                    Log.d("onFailureRetro","Failed with code: "+response.code());
+                }
+                cfUserRating cfUserRatings = response.body();
+                List<cfUserRatingResult> cfUserRatingResults = cfUserRatings.getResult();
+                if(cfUserRatingResults.size()<1){
+                    Toast.makeText(getActivity(), "No data found", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+//                ArrayList<Integer> ratingHistory = new ArrayList<>();
+                try{
+                DataPoint[] dataPoints = new DataPoint[cfUserRatingResults.size()];
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime( FormatStyle.SHORT )
+                        .withLocale( Locale.US )
+                        .withZone( ZoneId.systemDefault() );
+                int i = 0,currRating=0;
+                double de=0.0,ds=0.0;
+                for(cfUserRatingResult result: cfUserRatingResults){
+//                    ratingHistory.add(result.getNewRating());
+
+                    Instant instant = Instant.ofEpochSecond(result.getRatingUpdateTimeSeconds());
+
+                    String tmp_start = formatter.format( instant );
+                    String[] ts1 = (tmp_start.split(",")[0]).split("/");
+                    if(Integer.parseInt(ts1[1])<10){
+                        ts1[1]="0"+ts1[1];
+                    }
+                    if(Integer.parseInt(ts1[0])<10){
+                        ts1[0]="0"+ts1[0];
+                    }
+                    String start = ts1[2]+ts1[0]+ts1[1];
+
+                    dataPoints[i] = new DataPoint(i, (double)result.getNewRating());
+                    if(i==cfUserRatingResults.size()-1) {
+                        de = Double.parseDouble(start);
+                        currRating = result.getNewRating();
+                    }
+                    if(i==0) ds=Double.parseDouble(start);
+                    i+=1;
+                }
+                    LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(dataPoints);
+                    cfRatingGraph.setAlpha(1);
+                    cfRatingGraph.setTitle(userID + " Rating History ("+ String.valueOf(currRating) +")");
+                    cfRatingGraph.setTitleColor(R.color.purple_200);
+                    cfRatingGraph.setTitleTextSize(28);
+                    cfRatingGraph.addSeries(series);
+                }catch (Exception e){
+                    Log.d("usergraph",e.toString());
+                }
+
+//                Log.d("historyRat",ratingHistory.toString());
+            }
+
+            @Override
+            public void onFailure(Call<cfUserRating> call, Throwable t) {
+                Log.d("onFailureRetro",t.getMessage());
             }
         });
     }
@@ -253,7 +363,7 @@ public class profile extends Fragment {
                             Log.i("userSPF","Setting socials");
                             updateSP("github",data.get("github").toString());
                             updateSP("linkedin",data.get("linkedin").toString());
-                            updateSP("instagram",data.get("instagram").toString());
+                            updateSP("codeforces",data.get("codeforces").toString());
                         }
                     } else {
                         Log.d("fetchedUser", "No such document");

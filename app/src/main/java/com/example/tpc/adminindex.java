@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 
 import com.example.tpc.Models.User;
 import com.example.tpc.ViewModels.contestViewModel;
+import com.example.tpc.fragments.members;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -38,7 +39,7 @@ import com.example.tpc.fragments.profile;
 public class adminindex extends AppCompatActivity {
 
     private Button logoutbutton;
-    private LinearLayout bn_dashboard,bn_contests,bn_profile,bn_logout;
+    private LinearLayout bn_dashboard,bn_contests,bn_members,bn_profile,bn_logout;
     private SlidingRootNav slidingRootNav;
 
     private com.example.tpc.ViewModels.contestViewModel contestViewModel;
@@ -122,6 +123,16 @@ public class adminindex extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new contests()).commit();
             }
         });
+
+        bn_members = findViewById(R.id.bn_members);
+        bn_members.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                slidingRootNav.closeMenu();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new members()).commit();
+            }
+        });
+
         bn_profile = findViewById(R.id.bn_profile);
         bn_profile.setOnClickListener(new View.OnClickListener() {
             @Override

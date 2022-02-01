@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:id="@+id/member_cardview"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="#faf5f5f5"
+    app:cardElevation="3dp"
+    app:cardCornerRadius="14dp"
+    app:cardMaxElevation="2dp"
+    android:layout_marginBottom="2dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true">
+
+
+        <RelativeLayout
+            android:id="@+id/memberCardlayout"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="85dp"
+            >
+
+            <TextView
+                android:id="@+id/members_tag"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/capsule_rsvpbutton"
+                android:backgroundTint="#80b5c7bf"
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center"
+                android:text="A N"
+                android:textColor="#363636"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/members_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="85dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="30dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Attendee Name"
+                android:textColor="@color/black"
+                android:textFontWeight="100"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/members_rollno"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="85dp"
+                android:layout_marginTop="45dp"
+                android:fontFamily="@font/work_sans_extralight"
+                android:text="20BCS240"
+                android:textColor="#000"
+                android:textFontWeight="100"
+                android:textSize="13sp" />
+
+        </RelativeLayout>
+</androidx.cardview.widget.CardView>
