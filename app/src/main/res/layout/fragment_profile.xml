@@ -151,6 +151,34 @@
         android:background="@drawable/all_round_corner"
         >
 
+        <Button
+            android:id="@+id/profileUpdateButton"
+            android:text="UPDATE PROFILE"
+            android:textColor="#07b8a9"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+            app:strokeColor="#07b8a9"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="15dp"
+            app:layout_constraintBottom_toTopOf="@id/profileDeleteButton"
+        />
+
+        <Button
+            android:id="@+id/profileDeleteButton"
+            android:text="DELETE ACCOUNT"
+            android:textColor="#ff5b42"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+            app:strokeColor="#ff5b42"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+        />
+
         <com.jjoe64.graphview.GraphView
             android:id="@+id/cfRatingGraph"
             android:layout_width="match_parent"

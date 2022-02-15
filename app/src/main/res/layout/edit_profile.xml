@@ -7,21 +7,25 @@
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="320dp"
-        android:background="@drawable/capsule_shape"
-        android:backgroundTint="#faf5f5f5"
-        android:layout_height="600dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/editprofile_background"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
+        >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:text="EDIT PROFILE"
+            android:text="Profile"
             android:textSize="25dp"
             android:layout_margin="30dp"
-            android:fontFamily="@font/work_sans_extralight"
-            android:textColor="@color/black"
+            android:fontFamily="@font/work_sans"
+            android:textColor="@color/white"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

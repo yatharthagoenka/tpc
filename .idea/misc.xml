@@ -15,6 +15,7 @@
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/circular_shadow.xml" value="0.2100877192982456" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/contest_menubar.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/down_arrow.xml" value="0.199609375" />
+        <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/editprofile_background.xml" value="0.22412280701754386" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/edittext_border.xml" value="0.199609375" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/eventcard_overlay.xml" value="0.199609375" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/eventdomain_bg.xml" value="0.199609375" />
@@ -22,6 +23,7 @@
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/ic_baseline_access_time_24.xml" value="0.196875" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml" value="0.17847222222222223" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/ic_baseline_arrow_forward_24.xml" value="0.21837606837606838" />
+        <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/ic_baseline_delete_outline_24.xml" value="0.22412280701754386" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/ic_baseline_edit_note_24.xml" value="0.22412280701754386" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/ic_baseline_event_note_24.xml" value="0.22412280701754386" />
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.199609375" />
@@ -70,6 +72,9 @@
         <entry key="..\:/Users/Yathartha Goenka/Desktop/tpc/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.187109375" />
       </map>
     </option>
+  </component>
+  <component name="ProjectPlainTextFileTypeManager">
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_baseline_delete_outline_24.xml" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />

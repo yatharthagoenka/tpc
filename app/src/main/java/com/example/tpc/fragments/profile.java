@@ -25,6 +25,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -84,6 +85,7 @@ public class profile extends Fragment {
     private TextView profName,profRollNo;
     private ImageView profBackButton,profDP,gitButton,linkedinButton,cfButton,editProfileButton;
     private GraphView cfRatingGraph;
+    private Button profileUpdateButton,profileDeleteButton;
 
     private String userID,isAdmin,rollno,username,fetchedRoll;
     private FirebaseUser user;
@@ -103,6 +105,10 @@ public class profile extends Fragment {
         linkedinButton = view.findViewById(R.id.linkedinButton);
         cfButton = view.findViewById(R.id.cfButton);
         cfRatingGraph = view.findViewById(R.id.cfRatingGraph);
+        profileUpdateButton = view.findViewById(R.id.profileUpdateButton);
+        profileDeleteButton = view.findViewById(R.id.profileDeleteButton);
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
         if(getArguments().getString("callingAct").equals("index") || getArguments().getString("callingAct").equals("adminindex")){
             profBackButton.setVisibility(View.GONE);
@@ -152,7 +158,7 @@ public class profile extends Fragment {
             editProfileButton.setVisibility(View.GONE);
         }
 
-        editProfileButton.setOnClickListener(new View.OnClickListener() {
+        profileUpdateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 View editProfView = LayoutInflater.from(getActivity()).inflate(R.layout.edit_profile, null);
@@ -165,6 +171,28 @@ public class profile extends Fragment {
                 PopupWindow popupProfile = new PopupWindow(editProfView, width, height, true);
                 popupProfile.setAnimationStyle(R.style.popUpAnimation);
                 popupProfile.showAtLocation(view, Gravity.CENTER, 0, 0);
+            }
+        });
+
+        profileDeleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(view.getContext())
+                        .setTitle("Delete Account")
+                        .setMessage("\nThis action is irreversible. Are you sure you want to delete the account?")
+                        .setIcon(R.drawable.app_icon)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Log.d("userDelete", "User account deleted.");
+                                        }
+                                    }
+                                });
+                            }})
+                        .setNegativeButton(android.R.string.no, null).show();
             }
         });
 
@@ -300,7 +328,7 @@ public class profile extends Fragment {
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(getActivity(),gso);
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
+
         reference = FirebaseDatabase.getInstance().getReference("Users");
         userID = user.getUid();
 

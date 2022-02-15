@@ -19,8 +19,6 @@ The app features a `dual interface architecture`, exposing the users to various 
 
 > Click on the icon beside the title to download APK.
 
-</br>
-
 ## Features
 
  - Handles user authentication (Login / Verification / Registration) through `Google Realtime Database`. Users can login through their registered credentials or using Google Auth.
